@@ -1825,8 +1825,8 @@
      *
      * @memberof BOOMR.plugins.RT
      */
-    updateCookie: function() {
-      impl.updateCookie();
+    updateCookie: function(params, timer) {
+      impl.updateCookie(params, timer);
     },
 
     /**
