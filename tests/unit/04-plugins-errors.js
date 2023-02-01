@@ -609,19 +609,19 @@ describe("BOOMR.plugins.Errors", function() {
         // first 4 matches are all okFunctionN at okFileN:N:n
         for (var i = 1; i <= 4; i++) {
           assert.equal(parsed.frames[i - 1].functionName, "okFunction" + i);
-          assert.equal(parsed.frames[i - 1].fileName, "okFile" + i);
+          assert.include(parsed.frames[i - 1].fileName, "okFile" + i);
           assert.equal(parsed.frames[i - 1].lineNumber, i);
           assert.equal(parsed.frames[i - 1].columnNumber, i);
         }
 
         // then Object.send and wrap match
         assert.equal(parsed.frames[4].functionName, "Object.send");
-        assert.equal(parsed.frames[4].fileName, "/a/noboomr/b/");
+        assert.include(parsed.frames[4].fileName, "/a/noboomr/b/");
         assert.equal(parsed.frames[4].lineNumber, 1);
         assert.equal(parsed.frames[4].columnNumber, 2);
 
         assert.equal(parsed.frames[5].functionName, "wrap/<");
-        assert.equal(parsed.frames[5].fileName, "/a/noboomr/b/");
+        assert.include(parsed.frames[5].fileName, "/a/noboomr/b/");
         assert.equal(parsed.frames[5].lineNumber, 1);
         assert.equal(parsed.frames[5].columnNumber, 2);
       });

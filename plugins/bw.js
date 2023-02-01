@@ -748,17 +748,15 @@
      * @memberof BOOMR.plugins.BW
      */
     run: function() {
-      var a;
-
       if (impl.running || impl.complete) {
         return this;
       }
 
       // Turn image url into an absolute url if it isn't already
-      a = BOOMR.window.document.createElement("a");
-      a.href = impl.base_url;
+      BOOMR.anchorElement.href = impl.base_url;
+      impl.base_url = BOOMR.anchorElement.href;
 
-      if (!impl.test_https && a.protocol === "https:") {
+      if (!impl.test_https && BOOMR.anchorElement.protocol === "https:") {
         // we don't run the test for https because SSL stuff will mess up b/w
         // calculations we could run the test itself over HTTP, but then IE
         // will complain about insecure resources, so the best is to just bail
@@ -773,7 +771,6 @@
         return this;
       }
 
-      impl.base_url = a.href;
       impl.running = true;
 
       setTimeout(this.abort, impl.timeout);

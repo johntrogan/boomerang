@@ -195,8 +195,7 @@
       errorWrap(true,
         function() {
           var res,
-              doms = {},
-              a;
+              doms = {};
 
           if (!p || typeof p.getEntriesByType !== "function") {
             return;
@@ -210,11 +209,9 @@
 
           BOOMR.addVar("dom.res", res.length, true);
 
-          a = BOOMR.window.document.createElement("a");
-
           [].forEach.call(res, function(r) {
-            a.href = r.name;
-            doms[a.hostname] = true;
+            BOOMR.anchorElement.href = r.name;
+            doms[BOOMR.anchorElement.hostname] = true;
           });
 
           BOOMR.addVar("dom.doms", Object.keys(doms).length, true);

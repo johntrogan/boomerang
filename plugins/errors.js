@@ -864,6 +864,11 @@
       return null;
     }
 
+    // clean the file name
+    if (error.fileName) {
+      error.fileName = BOOMR.utils.cleanupURL(error.fileName);
+    }
+
     // parse the stack
     if (error.stack) {
       if (error.stack.length > MAX_STACK_SIZE) {
@@ -952,6 +957,11 @@
                 }
               }
             }
+          }
+
+          // clean the file name
+          if (thisFrame.fileName) {
+            thisFrame.fileName = BOOMR.utils.cleanupURL(thisFrame.fileName);
           }
         }
 

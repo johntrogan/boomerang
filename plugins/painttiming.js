@@ -231,7 +231,7 @@
       BOOMR.addVar("pt.lcp", BOOMR.getPrerenderedOffset(impl.lcp.time), true);
 
       if (impl.lcp.src) {
-        BOOMR.addVar("pt.lcp.src", impl.lcp.src, true);
+        BOOMR.addVar("pt.lcp.src", BOOMR.utils.cleanupURL(impl.lcp.src), true);
       }
 
       if (impl.lcp.el) {
@@ -247,7 +247,7 @@
       }
 
       if (impl.lcp.srcset) {
-        BOOMR.addVar("pt.lcp.srcset", impl.lcp.srcset, true);
+        BOOMR.addVar("pt.lcp.srcset", impl.cleanedSrcSet(impl.lcp.srcset), true);
       }
 
       if (impl.lcp.sizes) {
@@ -261,6 +261,30 @@
       if (!data.early) {
         impl.lcpDataSent = true;
       }
+    },
+
+    /**
+     * Cleans the srcset by removing any embedded credentials
+     *
+     * @param {string} srcset The srcset string
+     *
+     * @returns {string} The cleaned srcset
+     */
+    cleanedSrcSet: function(srcset) {
+      // srcset is split by comma
+      var srcSets = srcset.split(",");
+
+      for (var i = 0; i < srcSets.length; i++) {
+        // the URL comes before the width or pixel-density descriptor
+        var parts = srcSets[i].trim().split(" ");
+
+        parts[0] = BOOMR.utils.cleanupURL(parts[0]);
+
+        // rejoin the parts
+        srcSets[i] = parts.join(" ");
+      }
+
+      return srcSets.join(",");
     },
 
     /**
@@ -558,7 +582,7 @@
         return impl.lcp.e;
       },
       lcpSrcset: function() {
-        return impl.lcp.srcset;
+        return impl.cleanedSrcSet(impl.lcp.srcset);
       },
       lcpSizes: function() {
         return impl.lcp.sizes;

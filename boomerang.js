@@ -467,6 +467,9 @@ BOOMR_check_doc_domain();
     // Whether or not to strip the Query String
     strip_query_string: false,
 
+    // Whether or not to strip HTTP Basic Auth in URLs
+    strip_basic_auth: true,
+
     // Whether or not the page's 'onload' event has fired
     onloadFired: false,
 
@@ -1865,8 +1868,10 @@ BOOMR_check_doc_domain();
       },
 
       /**
-       * Cleans up a URL by removing the query string (if configured), and
-       * limits the URL to the specified size.
+       * Cleans up a URL by removing the query string (if configured),
+       * converting relative URLs into absolute,
+       * removing HTTP Basic Auth (if configured),
+       * and limits the URL to the specified size.
        *
        * @param {string} url URL to clean
        * @param {number} urlLimit Maximum size, in characters, of the URL
@@ -1882,6 +1887,16 @@ BOOMR_check_doc_domain();
 
         if (impl.strip_query_string) {
           url = url.replace(/\?.*/, "?qs-redacted");
+        }
+
+        // strip HTTP Basic Auth (credentials)
+        if (impl.strip_basic_auth) {
+          BOOMR.anchorElement.href = url;
+
+          BOOMR.anchorElement.username = "";
+          BOOMR.anchorElement.password = "";
+
+          url = BOOMR.anchorElement.href;
         }
 
         if (typeof urlLimit !== "undefined" && url && url.length > urlLimit) {
@@ -2327,7 +2342,7 @@ BOOMR_check_doc_domain();
         }
 
         if (typeof url === "string") {
-          l = BOOMR.window.document.createElement("a");
+          l = BOOMR.anchorElement;
           l.href = url;
         }
         else if (typeof url === "object" && typeof url.search === "string") {
@@ -3045,6 +3060,7 @@ BOOMR_check_doc_domain();
      * If not set, no beacon will be sent.
      * @param {boolean} [config.beacon_url_force_https=true] Forces protocol-relative Beacon URLs to HTTPS
      * @param {string} [config.beacon_type="AUTO"] `GET`, `POST` or `AUTO`
+     * @param {boolean} [config.strip_basic_auth=true] Whether or not to strip authentication data from all URLs
      * @param {string} [config.site_domain=(auto detected)] The domain that all cookies should be set on
      * Boomerang will try to auto-detect this, but unless your site is of the
      * `foo.com` format, it will probably get it wrong. It's a good idea
@@ -3084,6 +3100,7 @@ BOOMR_check_doc_domain();
             "beacon_type",
             "site_domain",
             "strip_query_string",
+            "strip_basic_auth",
             "user_ip",
             "same_site_cookie",
             "secure_cookie",
@@ -5029,16 +5046,17 @@ BOOMR_check_doc_domain();
     /* END_DEBUG */
   };
 
+  // Cache an <a> element for use in cleaning up URLs
+  BOOMR.anchorElement = BOOMR.window.document.createElement("a");
+
   // if not already set already on BOOMR, determine the URL
   if (!BOOMR.url) {
     boomr.url = boomr.utils.getMyURL();
   }
   else {
     // canonical-ize the URL
-    var a = BOOMR.window.document.createElement("a");
-
-    a.href = BOOMR.url;
-    boomr.url = a.href;
+    BOOMR.anchorElement.href = BOOMR.url;
+    boomr.url = BOOMR.anchorElement.href;
   }
 
   delete BOOMR_start;

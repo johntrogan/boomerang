@@ -59,8 +59,6 @@
     routeChangeWaitFilterHardNavs: false,
     // whether or not to hook history.replaceState
     monitorReplaceState: true,
-    // helper anchor object used to cleanup urls
-    a: undefined,
     // browser onload happened before our setup
     browserOnloadBeforeSetup: false,
 
@@ -133,8 +131,8 @@
           debugLog("routeChange triggered, sending route_change() event");
 
           if (event.toUrl) {
-            impl.a.href = event.toUrl;
-            event.toUrl = impl.a.href;
+            BOOMR.anchorElement.href = event.toUrl;
+            event.toUrl = BOOMR.anchorElement.href;
           }
 
           BOOMR.plugins.SPA.route_change(null, [event.type, event.fromUrl, event.toUrl]);
@@ -163,8 +161,6 @@
 
   // register as a SPA plugin
   BOOMR.plugins.SPA.register("History");
-
-  impl.a = BOOMR.window.document.createElement("A");
 
   /* BEGIN_DEBUG */
   /**
@@ -223,8 +219,8 @@
           // url is an optional param
           if (arguments.length >= 3 && typeof url !== "undefined" && url !== null) {
             // normalize url
-            impl.a.href = url;
-            toUrl = impl.a.href;
+            BOOMR.anchorElement.href = url;
+            toUrl = BOOMR.anchorElement.href;
           }
 
           // only issue route change if a nav is not in progress or the URL is changing
