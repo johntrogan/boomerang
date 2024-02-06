@@ -484,7 +484,7 @@ function getConfig() {
       "doc-source-code": {
         files: [
           {
-            "./": "build/doc/boomerangjs/**/*.html"
+            "./": "build/doc/**/*.html"
           }
         ],
         options: {
