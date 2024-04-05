@@ -280,22 +280,21 @@
      */
     notRestoredReasons: function() {
       if (!impl.notRestoredReasons ||
-          !impl.notRestoredReasons.blocked) {
+          !impl.notRestoredReasons.reasons ||
+          impl.notRestoredReasons.reasons.length === 0) {
         return;
       }
 
       // get top-level frame reasons
-      var reasons = [];
-
-      if (impl.notRestoredReasons.reasons.length) {
-        reasons = [].concat(impl.notRestoredReasons.reasons);
-      }
+      var reasons = [].concat(impl.notRestoredReasons.reasons.map(function(r) {
+        return r.reason;
+      }));
 
       // get any children frame ids or names
       if (impl.notRestoredReasons.children) {
         reasons = reasons.concat(impl.notRestoredReasons.children
           .filter(function(c) {
-            return c.blocked;
+            return c.reasons && c.reasons.length;
           })
           .map(function(c) {
             if (c.id) {

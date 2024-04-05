@@ -6,36 +6,38 @@ window.performance.getEntriesByType = function(type) {
   if (type === "navigation") {
     return [{
       notRestoredReasons: {
-        blocked: true,
-        reasons: ["Unload handler", "Unknown"],
+        reasons: [{
+          reason: "Unload handler"
+        },
+        {
+          reason: "Unknown"
+        }],
         children: [
           {
-            blocked: false,
-            reasons: ["not-a-reason1"],
+            reasons: [],
             id: "id1",
             name: "name1"
           },
           {
-            blocked: null,
-            reasons: ["not-a-reason2"],
+            reasons: [],
             id: "id2",
             name: "name2"
           },
           {
             blocked: true,
-            reasons: ["a-reason3"],
+            reasons: [{ reason: "a-reason3" }],
             id: "id3",
             name: null
           },
           {
             blocked: true,
-            reasons: ["a-reason4"],
+            reasons: [{ reason: "a-reason4" }],
             id: null,
             name: "name4"
           },
           {
             blocked: true,
-            reasons: ["a-reason5"],
+            reasons: [{ reason: "a-reason5" }],
             id: null,
             name: null
           }
