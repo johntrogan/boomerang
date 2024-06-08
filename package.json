@@ -76,7 +76,7 @@
     "karma-safari-launcher": "^1.0.0",
     "karma-tap-reporter": "0.0.6",
     "karma-webdriver-launcher": "^1.0.8",
-    "mocha": "^8.3.2",
+    "mocha": "^10.4.0",
     "performance-now": "^2.1.0",
     "protractor": "^7.0.0",
     "react": "^0.14.10",
