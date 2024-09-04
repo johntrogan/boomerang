@@ -2,7 +2,7 @@
 /* global BOOMR_test,assert */
 
 // globals from this test
-Array.prototype.push.apply(BOOMR_test.addedGlobals, ["BOOMR_script_delay"]);
+Array.prototype.push.apply(BOOMR_test.addedGlobals, ["BOOMR_script_delay", "BOOMR_loader_timeout"]);
 
 describe("e2e/27-loader-snippet/06-preloader-mode-delayed", function() {
   var tf = BOOMR.plugins.TestFramework;
@@ -152,5 +152,25 @@ describe("e2e/27-loader-snippet/06-preloader-mode-delayed", function() {
     var iframe = t.findBoomerangLoaderFrame();
 
     assert.equal(iframe.style.display, "none");
+  });
+
+  it("Should have added a IFRAME with id 'boomr-if' (if Preload is supported)", function() {
+    if (!t.isPreloadSupported()) {
+      return this.skip();
+    }
+
+    var iframe = t.findBoomerangLoaderFrame();
+
+    assert.equal(iframe.id, "boomr-if");
+  });
+
+  it("Should have added a IFRAME with to the BODY (if Preload is supported)", function() {
+    if (!t.isPreloadSupported()) {
+      return this.skip();
+    }
+
+    var iframe = t.findBoomerangLoaderFrame();
+
+    assert.equal(iframe.parentNode, document.body);
   });
 });

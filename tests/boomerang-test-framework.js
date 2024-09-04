@@ -1950,11 +1950,15 @@
 
   /**
    * Globals added by this specific test
+   *
+   * Example code:
+   *
+   * Array.prototype.push.apply(BOOMR_test.addedGlobals, ["myvar"]);
    */
   t.addedGlobals = [];
 
   /**
-   * Find globals that have leaked since startup, mins any exclusions.
+   * Find globals that have leaked since startup, minus any exclusions.
    *
    * @param {Object} global Global object
    * @param {string[]} ok List of Globals that are excluded

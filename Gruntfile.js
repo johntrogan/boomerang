@@ -1210,6 +1210,7 @@ function getConfig() {
           "tests/page-templates/**/*",
           "tests/unit/**/*",
           "tests/test-templates/**/*.js",
+          "snippets/*.js",
           "!tests/page-templates/12-react/support/*.jsx",
           "!*.#*",
           "!*~",
