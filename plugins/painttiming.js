@@ -289,17 +289,28 @@
       // size
       impl.lcp.s = lcp.size ? lcp.size : 0;
 
+      // reset src as it may not be available from the event/element
+      impl.lcp.src = "";
+
       // prioritize getting the source URL directly from the event
       if (lcp.url) {
         impl.lcp.src = lcp.url;
       }
 
-      if (lcp.element) {
+      if (!lcp.element) {
+        // reset properties we'd get from the element directly
+        impl.lcp.el = "";
+        impl.lcp.id = "";
+        impl.lcp.e = "";
+        impl.lcp.srcset = "";
+        impl.lcp.sizes = "";
+      }
+      else {
         // tag name
         impl.lcp.el = lcp.element.tagName;
 
-        // src / href
-        if (!impl.lcp.src) {
+        // src / href if the url wasn't set directly
+        if (!lcp.url) {
           impl.lcp.src = (lcp.element.href || lcp.element.src) || "";
         }
 
@@ -327,8 +338,8 @@
 
       /* BEGIN_DEBUG */
       /**
-			 * History of timings
-			 */
+       * History of timings
+       */
       impl.timingHistory[lcp.entryType] = impl.timingHistory[lcp.entryType] || [];
       impl.timingHistory[lcp.entryType].push({
         time: impl.lcp.time,
