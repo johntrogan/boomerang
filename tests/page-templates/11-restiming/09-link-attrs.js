@@ -116,4 +116,28 @@ describe("e2e/11-restiming/09-link-attrs", function() {
       this.skip();
     }
   });
+
+  it("Should find unknown `rel` for link elements", function() {
+    if (!t.isResourceTimingSupported()) {
+      this.skip();
+
+      return;
+    }
+
+    var interesting = getInteresting();
+
+    var a = document.createElement("a");
+
+    a.href = "./support/unknown-hack.css";
+    var resource = t.findFirstResource(a.href);
+
+    if (resource.initiatorType === "link") {
+      // Chrome sets initiatorType to link
+      assertLinkRel(interesting["unknown-hack.css"], 0);
+    }
+    else {
+      // FF, Edge and Safari set initiatorType to img
+      this.skip();
+    }
+  });
 });

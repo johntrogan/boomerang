@@ -60,6 +60,11 @@
  * * `nt_enc_size`: NavigationTiming2 `encodedBodySize`
  * * `nt_dec_size`: NavigationTiming2 `decodedBodySize`
  * * `nt_trn_size`: NavigationTiming2 `transferSize`
+ * * `nt_ctype`: NavigationTiming2 `contentType` Content-Type (if not `text/html`)
+ * * `nt_dtype`: NavigationTiming2 `deliveryType` Delivery Type
+ * * `nt_cchr`: NavigationTiming2 `criticalCHRestart` Critical-CH Restart timestamp
+ * * `nt_fir_st`: NavigationTiming2 `firstInterimResponseStart` First Interim Response Start timestamp
+ * * `nt_st`: NavigationTiming2 `responseStatus` HTTP Status Code (if not 200)
  *
  * For XHR beacons, the following parameters are added (via ResourceTiming):
  *
@@ -121,6 +126,19 @@
 
   // A private object to encapsulate all your implementation details
   var impl = {
+    //
+    // Constants
+    //
+
+    /**
+     * Default Content-Type.  Only included on the beacon as nt_ctype if different
+     * from this.
+     */
+    DEFAULT_CONTENT_TYPE: "text/html",
+
+    //
+    // Members
+    //
     /**
      * Whether or not the plugin is complete (beacon has been sent)
      */
@@ -295,6 +313,7 @@
             nt_nav_st: p.timing ? p.timing.navigationStart : 0,
 
             // all other entries have the same name on .timing vs timeline entry
+            nt_cchr: calcNavTimingTimestamp(offset, pt.criticalCHRestart),
             nt_red_st: calcNavTimingTimestamp(offset, pt.redirectStart),
             nt_red_end: calcNavTimingTimestamp(offset, pt.redirectEnd),
             nt_fet_st: calcNavTimingTimestamp(offset, pt.fetchStart, true),
@@ -303,6 +322,7 @@
             nt_con_st: calcNavTimingTimestamp(offset, pt.connectStart, true),
             nt_con_end: calcNavTimingTimestamp(offset, pt.connectEnd, true),
             nt_req_st: calcNavTimingTimestamp(offset, pt.requestStart),
+            nt_fir_st: calcNavTimingTimestamp(offset, pt.firstInterimResponseStart),
             nt_res_st: calcNavTimingTimestamp(offset, pt.responseStart),
             nt_res_end: calcNavTimingTimestamp(offset, pt.responseEnd),
             nt_domloading: calcNavTimingTimestamp(offset, pt.domLoading),
@@ -349,8 +369,24 @@
             data.nt_trn_size = pt.transferSize;
           }
 
+          // nextHopProtocol
           if (pt.nextHopProtocol) {
             data.nt_protocol = pt.nextHopProtocol;
+          }
+
+          // contentType
+          if (pt.contentType && pt.contentType !== this.DEFAULT_CONTENT_TYPE) {
+            data.nt_ctype = pt.contentType;
+          }
+
+          // deliveryType
+          if (pt.deliveryType) {
+            data.nt_dtype = pt.deliveryType;
+          }
+
+          // responseStatus
+          if (pt.responseStatus) {
+            data.nt_st = pt.responseStatus;
           }
         }
 

@@ -9,13 +9,17 @@
  * This plugin adds the following parameters to the beacon for Page Loads:
  *
  * * `restiming`: Compressed ResourceTiming data
+ * * `servertiming`: Compressed ServerTiming data
+ * * `restiming.ct`: contentType map
+ * * `restiming.dt`: deliveryType map
+ * * `restiming.nhp`: nextHopProtocol map
  *
  * The ResourceTiming plugin adds an object named `restiming` to the beacon data.
  *
- *  `restiming` is an optimized [Trie]{@link http://en.wikipedia.org/wiki/Trie} structure,
+ * `restiming` is an optimized [Trie]{@link http://en.wikipedia.org/wiki/Trie} structure,
  * where the keys are the ResourceTiming URLs, and the values correspond to those URLs'
  * [PerformanceResourceTiming]{@link http://www.w3.org/TR/resource-timing/#performanceresourcetiming}
- * timestamps:
+ * timestamps (and additional details):
  *
  *     { "[url]": "[data]"}
  *
@@ -54,7 +58,7 @@
  *
  * The value of each key is a string, which contains the following components:
  *
- *     data = "[initiatorType][timings]"
+ *     data = "[initiatorType][timings]*[special1]*[special2]"
  *
  * `initiatorType` is a simple map from the PerformanceResourceTiming
  * `initiatorType` (which is a string) to an integer, according to the
@@ -104,6 +108,12 @@
  *     * `d`: `startTime` = `d` (13ms)
  *     * `a`: `responseEnd` = `a` (10ms from startTime, or at 23ms)
  *
+ * Additional special data may be appended to the end of the timings data, depending on browser
+ * support and whether it was same- or cross-origin.
+ *
+ * See https://github.com/nicjansma/resourcetiming-compression.js for more details on each special
+ * data type.
+ *
  * @see {@link http://www.w3.org/TR/resource-timing/}
  * @class BOOMR.plugins.ResourceTiming
  */
@@ -122,7 +132,11 @@
   //
 
   /**
-   * @enum {number}
+   * Initiator type mapping.
+   *
+   * If no match, the initiatorType 'other' will be chosen
+   *
+   * @enum {string}
    * @memberof BOOMR.plugins.ResourceTiming
    */
   var INITIATOR_TYPES = {
@@ -221,6 +235,11 @@
     "stylesheet": 4
   };
 
+  /**
+   * ResourceTiming timestamp fields, in order.
+   *
+   * @memberof BOOMR.plugins.ResourceTiming
+   */
   var RT_FIELDS_TIMESTAMPS = [
     "startTime",
     "redirectStart",
@@ -251,14 +270,18 @@
   // Maximum number of characters in a URL
   var DEFAULT_URL_LIMIT = 500;
 
+  //
+  // Special data types
+  //
+
   // Any ResourceTiming data time that starts with this character is not a time,
   // but something else (like dimension data)
   var SPECIAL_DATA_PREFIX = "*";
 
-  // Dimension data special type
+  // Dimension data
   var SPECIAL_DATA_DIMENSION_TYPE = "0";
 
-  // Dimension data special type
+  // Size data
   var SPECIAL_DATA_SIZE_TYPE = "1";
 
   // Script attributes
@@ -269,7 +292,7 @@
   // 0 => HEAD, 1 => BODY
   var LOCAT_ATTR = 0x4;
 
-  // Dimension data special type
+  // ServerTiming data: .serverTiming field
   var SPECIAL_DATA_SERVERTIMING_TYPE = "3";
 
   // Link attributes
@@ -278,11 +301,27 @@
   // Namespaced data
   var SPECIAL_DATA_NAMESPACED_TYPE = "5";
 
-  // Service worker type
+  // Service worker type: .workerStart field
   var SPECIAL_DATA_SERVICE_WORKER_TYPE = "6";
 
-  // Next Hop Protocol
+  // Next Hop Protocol: .nextHopProtocol field
   var SPECIAL_DATA_PROTOCOL = "7";
+
+  // Content-Type .contentType field
+  var SPECIAL_DATA_CONTENT_TYPE = "8";
+
+  // Delivery Type: .deliveryType field
+  var SPECIAL_DATA_DELIVERY_TYPE = "9";
+
+  // Render Blocking Status: .renderBlockingStatus field
+  var SPECIAL_DATA_RENDER_BLOCKING_STATUS = "a";
+
+  // Response Status: .responseStatus field
+  var SPECIAL_DATA_RESPONSE_STATUS = "b";
+
+  //
+  // Private Functions
+  //
 
   /**
    * Converts entries to a Trie (`splitAtPath=true`) or Radix
@@ -689,7 +728,10 @@
             decodedBodySize: navEntry.decodedBodySize,
             transferSize: navEntry.transferSize,
             serverTiming: readServerTiming(navEntry),
-            nextHopProtocol: navEntry.nextHopProtocol
+            nextHopProtocol: navEntry.nextHopProtocol,
+            contentType: navEntry.contentType,
+            deliveryType: navEntry.deliveryType,
+            responseStatus: navEntry.responseStatus
           });
         }
         else if (frame.performance.timing) {
@@ -744,7 +786,11 @@
           transferSize: t.transferSize,
           serverTiming: readServerTiming(t),
           visibleDimensions: visibleEntries[t.name],
-          nextHopProtocol: t.nextHopProtocol
+          nextHopProtocol: t.nextHopProtocol,
+          contentType: t.contentType,
+          deliveryType: t.deliveryType,
+          renderBlockingStatus: t.renderBlockingStatus,
+          responseStatus: t.responseStatus
         };
 
         for (var field = 0; field < RT_FIELDS_TIMESTAMPS.length; field++) {
@@ -780,12 +826,10 @@
             // `rel`s are case insensitive
             rel = rel.toLowerCase();
 
-            // only report the `rel` if it's from the known list
-            if (REL_TYPES[rel]) {
-              rtEntry.linkAttrs = REL_TYPES[rel];
+            // update the link rel= type, setting to '0' if the type isn't known
+            rtEntry.linkAttrs = REL_TYPES[rel] ? REL_TYPES[rel] : 0;
 
-              return true;
-            }
+            return true;
           });
         }
 
@@ -1181,6 +1225,8 @@
   /**
    * Guesses whether or a not a resource is a cache hit.
    *
+   * We know this definitively if the browser has .deliveryType and it's === 'cache'.
+   *
    * We can get this directly from the beacon if it has ResourceTiming2 sizing
    * data, and the resource is same-origin or has TAO.
    *
@@ -1191,6 +1237,11 @@
    * @returns {boolean} True if we estimate it was a cache hit.
    */
   function isCacheHit(entry) {
+    // direct signal from the browser
+    if (entry.deliveryType === "cache") {
+      return true;
+    }
+
     // if we transferred bytes, it must not be a cache hit
     // (will return false for 304 Not Modified)
     if (entry.transferSize > 0) {
@@ -1206,6 +1257,49 @@
 
     // fall back to duration checking (non-RT2 or cross-origin)
     return entry.duration < 30;
+  }
+
+  /**
+   * Gets a string value mapped to a number/character.  Builds a map
+   * of seen values to numbers/characters over time.
+   *
+   * @param {object} map Values map
+   * @param {string} value Value to check
+   *
+   * @returns {string} Mapped value character
+   */
+  function getValueMapFor(map, value) {
+    if (typeof map.vals[value] === "undefined") {
+      map.vals[value] = map.next;
+
+      return (map.next++).toString(36);
+    }
+
+    return map.vals[value] === 0 ? "" : map.vals[value].toString(36);
+  }
+
+  /**
+   * Gets a values map suitable for a beacon.
+   *
+   * All values are converted to a string array.
+   *
+   * @param {object} map Values map
+   */
+  function getValuesMapForBeacon(map) {
+    var ary = [map.pre.toString(36)];
+
+    var skip = map.pre;
+
+    for (var value in map.vals) {
+      // skip any well-known
+      if (skip-- > 0) {
+        continue;
+      }
+
+      ary.push(value);
+    }
+
+    return ary;
   }
 
   /**
@@ -1257,6 +1351,7 @@
         initiatorType = 0;
       }
 
+      // add the initiatorType then append all timings
       data = initiatorType + [
         trimTiming(e.startTime, 0),
         trimTiming(e.responseEnd, e.startTime),
@@ -1279,10 +1374,12 @@
         data += SPECIAL_DATA_PREFIX + SPECIAL_DATA_SIZE_TYPE + compSize;
       }
 
+      // script attributes
       if (e.hasOwnProperty("scriptAttrs")) {
         data += SPECIAL_DATA_PREFIX + SPECIAL_DATA_SCRIPT_ATTR_TYPE + e.scriptAttrs;
       }
 
+      // server timing
       if (e.serverTiming && e.serverTiming.length) {
         data += SPECIAL_DATA_PREFIX + SPECIAL_DATA_SERVERTIMING_TYPE +
           e.serverTiming.reduce(function(stData, entry, entryIndex) {
@@ -1305,10 +1402,12 @@
           }, "");
       }
 
+      // link attributes
       if (e.hasOwnProperty("linkAttrs")) {
         data += SPECIAL_DATA_PREFIX + SPECIAL_DATA_LINK_ATTR_TYPE + e.linkAttrs;
       }
 
+      // service worker data
       if (e.workerStart && typeof e.workerStart === "number" && e.workerStart !== 0) {
         // Has Service worker timing data that's non zero. Resource request not intercepted
         // by Service worker always return 0 as per MDN
@@ -1327,15 +1426,43 @@
       }
 
       // nextHopProtocol handling
-      if (e.hasOwnProperty("nextHopProtocol") &&
+      if (Object.prototype.hasOwnProperty.call(e, "nextHopProtocol") &&
           e.nextHopProtocol &&
           !isCacheHit(e)) {
         // change http/1.1 to h1.1 to be consistent with h2 & h3.
-        data += SPECIAL_DATA_PREFIX + SPECIAL_DATA_PROTOCOL + e.nextHopProtocol.replace("http/", "h");
+        data += SPECIAL_DATA_PREFIX + SPECIAL_DATA_PROTOCOL +
+          getValueMapFor(impl.nextHopProtocolMap, e.nextHopProtocol.replace("http/", "h"));
+      }
+
+      // content-type
+      if (Object.prototype.hasOwnProperty.call(e, "contentType") &&
+        typeof e.contentType !== "undefined" &&
+        e.contentType) {
+        data += SPECIAL_DATA_PREFIX + SPECIAL_DATA_CONTENT_TYPE + getValueMapFor(impl.contentTypeMap, e.contentType);
+      }
+
+      // delivery type
+      if (Object.prototype.hasOwnProperty.call(e, "deliveryType") &&
+        typeof e.deliveryType !== "undefined" &&
+        e.deliveryType) {
+        data += SPECIAL_DATA_PREFIX + SPECIAL_DATA_DELIVERY_TYPE + getValueMapFor(impl.deliveryTypeMap, e.deliveryType);
+      }
+
+      // render blocking status - only add if blocking
+      if (Object.prototype.hasOwnProperty.call(e, "renderBlockingStatus") &&
+        e.renderBlockingStatus === "blocking") {
+        data += SPECIAL_DATA_PREFIX + SPECIAL_DATA_RENDER_BLOCKING_STATUS;
+      }
+
+      // response status code (except for 200)
+      if (e.hasOwnProperty("responseStatus") &&
+        e.responseStatus !== 200) {
+        data += SPECIAL_DATA_PREFIX + SPECIAL_DATA_RESPONSE_STATUS + toBase36(e.responseStatus);
       }
 
       url = trimUrl(e.name, impl.trimUrls);
 
+      // user-added (namespaced) data
       if (!e.hasOwnProperty("_data")) {
         // if this entry already exists, add a pipe as a separator
         if (results[url] !== undefined) {
@@ -1380,7 +1507,10 @@
 
     return {
       restiming: optimizeTrie(convertToTrie(results, impl.splitAtPath), true),
-      servertiming: serverTiming.lookup
+      servertiming: serverTiming.lookup,
+      contentTypeMap: impl.contentTypeMap,
+      deliveryTypeMap: impl.deliveryTypeMap,
+      nextHopProtocolMap: impl.nextHopProtocolMap
     };
   }
 
@@ -1700,10 +1830,25 @@
    *  lookup
    */
   function addToBeacon(r) {
-    BOOMR.addVar("restiming", JSON.stringify(r.restiming), true);
+    BOOMR.addVar(
+      "restiming",
+      impl.jsUrl ? BOOMR.utils.serializeForUrl(r.restiming) : JSON.stringify(r.restiming),
+      true);
 
     if (r.servertiming.length) {
       BOOMR.addVar("servertiming", BOOMR.utils.serializeForUrl(r.servertiming), true);
+    }
+
+    if (r.contentTypeMap.next !== r.contentTypeMap.pre) {
+      BOOMR.addVar("restiming.ct", getValuesMapForBeacon(r.contentTypeMap), true);
+    }
+
+    if (r.deliveryTypeMap.next !== r.deliveryTypeMap.pre) {
+      BOOMR.addVar("restiming.dt", getValuesMapForBeacon(r.deliveryTypeMap), true);
+    }
+
+    if (r.nextHopProtocolMap.next !== r.nextHopProtocolMap.pre) {
+      BOOMR.addVar("restiming.nhp", getValuesMapForBeacon(r.nextHopProtocolMap), true);
     }
   }
 
@@ -1760,11 +1905,173 @@
   }
   /* END_DEBUG */
 
+  //
+  // ResourceTiming Implementation
+  //
   impl = {
+    /**
+     * Whether or not the plugin is complete.
+     *
+     * The Page Load beacon will only send its data once.
+     *
+     * XHR/SPA beacons will call this plugin directly to get the filtered
+     * list of restiming entries they care about.
+     */
     complete: false,
+
+    /**
+     * Whether or not we've sent the Navigation Beacon.
+     *
+     * Useful in Prerendered scenarios.
+     */
     sentNavBeacon: false,
+
+    /**
+     * Whether or not the plugin is initialized.
+     */
     initialized: false,
+
+    /**
+     * Whether or not ResourceTiming is supported by the browser.
+     *
+     * null = not yet known
+     */
     supported: null,
+
+    /**
+     * Map of .contentType strings to values
+     */
+    contentTypeMap: {
+      // next value to assign
+      next: 15,
+      // pre-set value count
+      pre: 15,
+      // pre-fill with some common ones
+      vals: {
+        "application/json": 0,
+        "application/xml": 1,
+        "font/woff": 2,
+        "font/woff2": 3,
+        "image/avif": 4,
+        "image/gif": 5,
+        "image/jpeg": 6,
+        "image/png": 7,
+        "image/svg+xml": 8,
+        "image/webp": 9,
+        "image/x-icon": 10,
+        "text/css": 11,
+        "text/html": 12,
+        "text/javascript": 13,
+        "text/plain": 14
+      }
+    },
+
+    /**
+     * Map of .deliveryType strings to values
+     */
+    deliveryTypeMap: {
+      // next value to assign
+      next: 2,
+      // pre-set value count
+      pre: 2,
+      // pre-fill with some common ones
+      // https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming/deliveryType
+      vals: {
+        "cache": 0,
+        "navigational-prefetch": 1
+      }
+    },
+
+    /**
+     * Map of .nextHopProtocol strings to values
+     */
+    nextHopProtocolMap: {
+      // next value to assign
+      next: 6,
+      // pre-set value count
+      pre: 6,
+      // pre-fill with some common ones
+      // https://developer.mozilla.org/en-US/docs/Web/API/PerformanceResourceTiming/nextHopProtocol
+      vals: {
+        "h2": 0,
+        "h0.9": 1,
+        "h1.0": 2,
+        "h1.1": 3,
+        "h2c": 4,
+        "h3": 5
+      }
+    },
+
+    //
+    // Overridable
+    //
+
+    /**
+     * XSS break words.
+     */
+    xssBreakWords: DEFAULT_XSS_BREAK_WORDS,
+
+    /**
+     * Whether or not to clear the ResourceTiming buffer on beacon.
+     */
+    clearOnBeacon: false,
+
+    /**
+     * URL limit
+     */
+    urlLimit: DEFAULT_URL_LIMIT,
+
+    /**
+     * List of strings of regular expressions to trim from URLs
+     */
+    trimUrls: [],
+
+    /**
+     * Array of resource types to track, or "*" for all.
+     *  @type {string[]|string}
+     */
+    trackedResourceTypes: "*",
+
+    /**
+     * Whether or not to gather ServerTiming
+     */
+    serverTiming: true,
+
+    /**
+     * Whether or not to instrument `performance.clearResourceTimings` (and gather resources
+     * at that point)
+     */
+    monitorClearResourceTimings: false,
+
+    /**
+     * Whether or not to split the ResourceTiming compressed Trie at the path separator
+     * (faster processing, but larger result).
+     */
+    splitAtPath: false,
+
+    /**
+     * Whether or not to collect physical dimensions of srcset images. Setting this will
+     * cause un-cacheable images to be re-downloaded.
+     */
+    getSrcsetDimensions: false,
+
+    /**
+     * Whether or not to encode ResourceTiming data as JSURL.
+     */
+    jsUrl: false,
+
+    //
+    // End: Overridable
+    //
+
+    //
+    // Implementation functions
+    //
+    /**
+     * Callback for 'xhr_load'
+     *
+     * Adds ResourceTiming data to the XHR beacon.
+     */
     xhr_load: function(data) {
       if (data && data.restiming) {
         // put RT data on beacon
@@ -1780,23 +2087,10 @@
       this.complete = true;
       BOOMR.sendBeacon();
     },
-    xssBreakWords: DEFAULT_XSS_BREAK_WORDS,
-    urlLimit: DEFAULT_URL_LIMIT,
-
-    // overridable
-    clearOnBeacon: false,
-    trimUrls: [],
-    serverTiming: true,
-    monitorClearResourceTimings: false,
-    splitAtPath: false,
-    getSrcsetDimensions: false,
-    // overridable
 
     /**
-     * Array of resource types to track, or "*" for all.
-     *  @type {string[]|string}
+     * Called at 'page_ready' and 'before_unload'
      */
-    trackedResourceTypes: "*",
     done: function() {
       // Stop if we've already sent a nav beacon (both xhr and spa* beacons
       // add restiming manually).
@@ -1812,6 +2106,9 @@
       BOOMR.sendBeacon();
     },
 
+    /**
+     * Called on every beacon
+     */
     onBeacon: function(vars) {
       var p = BOOMR.getPerformance();
 
@@ -1824,6 +2121,9 @@
       }
     },
 
+    /**
+     * Called on 'prerender_to_visible'
+     */
     prerenderToVisible: function() {
       // ensure we add our data to the beacon even if we had added it
       // during prerender (in case another beacon went out in between)
@@ -1839,22 +2139,26 @@
      * Initializes the plugin.
      *
      * @param {object} config Configuration
-     * @param {string[]} [config.ResourceTiming.xssBreakWorks] Words that will be broken (by
+     * @param {string[]} [config.ResourceTiming.xssBreakWords] Words that will be broken (by
      * ensuring the optimized trie doesn't contain the whole string) in URLs,
      * to ensure NoScript doesn't think this is an XSS attack.
      *
      * Defaults to `DEFAULT_XSS_BREAK_WORDS`.
      * @param {boolean} [config.ResourceTiming.clearOnBeacon] Whether or not to clear ResourceTiming
      * data on each beacon.
-     * @param {number} [config.ResourceTiming.urlLimit] URL length limit, after which `...` will be used
+     * @param {number} [config.ResourceTiming.urlLimit] URL length limit, after which `...` will be used.
      * @param {string[]|RegExp[]} [config.ResourceTiming.trimUrls] List of strings of RegExps
      * to trim from URLs.
+     * @param {string[]|string} [config.ResourceTiming.trackedResourceTypes] Array of resource types to track,
+     * or '*' for all.
+     * @param {boolean} [config.ResourceTiming.serverTiming] Whether or not to gather ServerTiming.
      * @param {boolean} [config.ResourceTiming.monitorClearResourceTimings] Whether or not to instrument
      * `performance.clearResourceTimings`.
      * @param {boolean} [config.ResourceTiming.splitAtPath] Whether or not to split the ResourceTiming
      * compressed Trie at the path separator (faster processing, but larger result).
      * @param {boolean} [config.ResourceTiming.getSrcsetDimensions] Whether or not to collect physical
      * dimensions of srcset images. Setting this will cause uncacheable images to be re-downloaded.
+     * @param {boolean} [config.ResourceTiming.jsUrl] Whether or not to encode as JSURL
      *
      * @returns {@link BOOMR.plugins.ResourceTiming} The ResourceTiming plugin for chaining
      * @memberof BOOMR.plugins.ResourceTiming
@@ -1862,7 +2166,7 @@
     init: function(config) {
       BOOMR.utils.pluginConfig(impl, config, "ResourceTiming",
         ["xssBreakWords", "clearOnBeacon", "urlLimit", "trimUrls", "trackedResourceTypes", "serverTiming",
-          "monitorClearResourceTimings", "splitAtPath", "getSrcsetDimensions"]);
+          "monitorClearResourceTimings", "splitAtPath", "getSrcsetDimensions", "jsUrl"]);
 
       if (impl.initialized) {
         return this;

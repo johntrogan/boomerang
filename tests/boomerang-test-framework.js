@@ -1148,15 +1148,22 @@
   };
 
   /**
+   * Fake ActivationStart
+   */
+  t.fakeActivationStart = function(time) {
+    t.fakeNavigationEntryProperty("activationStart", time);
+  };
+
+  /**
    * Fake ActivationStart offset
    */
-  t.fakeActivationStartOffset = undefined;
+  t.fakeNavigationEntryPropertyOffsets = {};
 
   /**
    * Fake ActivationStart
    */
-  t.fakeActivationStart = function(time) {
-    t.fakeActivationStartOffset = time;
+  t.fakeNavigationEntryProperty = function(propName, time) {
+    t.fakeNavigationEntryPropertyOffsets[propName] = time;
 
     if (BOOMR_test.isNavigationTiming2Supported()) {
       // Replace any queries for 'navigation' with our updated entry
@@ -1174,7 +1181,7 @@
             result[0] = BOOMR_test.getObjectCopy(result[0]);
 
             // add our activation time
-            result[0].activationStart = t.fakeActivationStartOffset;
+            result[0][propName] = t.fakeNavigationEntryPropertyOffsets[propName];
           }
 
           return result;

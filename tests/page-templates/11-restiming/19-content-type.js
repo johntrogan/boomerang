@@ -23,13 +23,22 @@ before(function(done) {
 
     // get the decoded ResourceTiming data
     ResourceTimingDecompression.HOSTNAMES_REVERSED = false;
+
+    // add any additions
+    var contentTypeAdditions = b["restiming.ct"];
+    var startIdx = parseInt(contentTypeAdditions[0], 36);
+
+    for (var newIdx = 1; newIdx < contentTypeAdditions.length; newIdx++) {
+      ResourceTimingDecompression.REV_CONTENT_TYPES[startIdx + newIdx - 1] = contentTypeAdditions[newIdx];
+    }
+
     var resources = ResourceTimingDecompression.decompressResources(JSON.parse(b.restiming));
 
-    describe("e2e/11-restiming/18-nexthopprotocol", function() {
+    describe("e2e/11-restiming/19-content-type", function() {
       // build a test for each URL
       for (var i = 0; i < resources.length; i++) {
         (function(res) {
-          it("Should have captured nextHopProtocol for " + res.name, function() {
+          it("Should have captured contentType for " + res.name, function() {
             if (!t.isResourceTimingSupported()) {
               return this.skip();
             }
@@ -43,21 +52,16 @@ before(function(done) {
 
             assert.isNotNull(resourceTimingResource);
 
-            if (!resourceTimingResource.nextHopProtocol) {
+            if (!resourceTimingResource.contentType) {
               return this.skip();
             }
 
-            if (resourceTimingResource.deliveryType === "cache") {
-              // don't save for cache hits
-              return this.skip();
-            }
-
-            var protocol = resourceTimingResource.nextHopProtocol.replace("http/", "h");
+            var contentType = resourceTimingResource.contentType;
 
             assert.equal(
-              protocol,
-              res.nextHopProtocol,
-              res.name + " should have protocol " + protocol + " but was " + res.nextHopProtocol);
+              contentType,
+              res.contentType,
+              res.name + " should have contentType " + contentType + " but was " + res.contentType);
           });
         }(resources[i]));
       }

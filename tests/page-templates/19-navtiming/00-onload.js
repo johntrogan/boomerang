@@ -249,4 +249,54 @@ describe("e2e/19-navtiming/00-onload", function() {
     assert.isUndefined(tf.lastBeacon().nt_red_st, "nt_red_st");
     assert.isUndefined(tf.lastBeacon().nt_red_end, "nt_red_end");
   });
+
+  it("Should not have set contentType (if NavigationTiming2 is supported)", function() {
+    if (!t.isNavigationTiming2Supported()) {
+      return this.skip();
+    }
+
+    // no contentType because it should be text/html which isn't set
+    assert.isUndefined(tf.lastBeacon().nt_ctype, "nt_ctype");
+  });
+
+  it("Should not have set deliveryType (if NavigationTiming2 is supported)", function() {
+    if (!t.isNavigationTiming2Supported()) {
+      return this.skip();
+    }
+
+    if (performance.getEntriesByType("navigation")[0].deliveryType === "cache") {
+      // in case page was refreshed for testing
+      assert.equal("cache", tf.lastBeacon().nt_dtype);
+    }
+    else {
+      // no deliveryType because it should not be cached
+      assert.isUndefined(tf.lastBeacon().nt_dtype, "deliveryType");
+    }
+  });
+
+  it("Should not have set criticalCHRestart (if NavigationTiming2 is supported)", function() {
+    if (!t.isNavigationTiming2Supported()) {
+      return this.skip();
+    }
+
+    // no restart
+    assert.isUndefined(tf.lastBeacon().nt_cchr, "nt_cchr");
+  });
+
+  it("Should not have set firstInterimResponseStart (if NavigationTiming2 is supported)", function() {
+    if (!t.isNavigationTiming2Supported()) {
+      return this.skip();
+    }
+
+    // no firstInterimResponseStart since no Early Hints
+    assert.isUndefined(tf.lastBeacon().nt_fir_st, "firstInterimResponseStart");
+  });
+
+  it("Should have set responseStatus (if NavigationTiming2 is supported)", function() {
+    if (!t.isNavigationTiming2Supported()) {
+      return this.skip();
+    }
+
+    assert.equal(200, tf.lastBeacon().nt_st);
+  });
 });

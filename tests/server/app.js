@@ -132,6 +132,10 @@ app.post("/json", require("./route-json"));
 app.get("/drop", dropRequest);
 app.post("/drop", dropRequest);
 
+// /ct Content-Type requests
+app.get("/ct", require("./route-content-type"));
+app.post("/ct", require("./route-content-type"));
+
 app.get("/pages/34-bw/support/images/*", function(req, res, next) {
   // Values copied from plugins/bw.js
   images = [

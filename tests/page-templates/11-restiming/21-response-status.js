@@ -25,11 +25,11 @@ before(function(done) {
     ResourceTimingDecompression.HOSTNAMES_REVERSED = false;
     var resources = ResourceTimingDecompression.decompressResources(JSON.parse(b.restiming));
 
-    describe("e2e/11-restiming/18-nexthopprotocol", function() {
+    describe("e2e/11-restiming/21-response-status", function() {
       // build a test for each URL
       for (var i = 0; i < resources.length; i++) {
         (function(res) {
-          it("Should have captured nextHopProtocol for " + res.name, function() {
+          it("Should have captured responseStatus for " + res.name, function() {
             if (!t.isResourceTimingSupported()) {
               return this.skip();
             }
@@ -43,21 +43,14 @@ before(function(done) {
 
             assert.isNotNull(resourceTimingResource);
 
-            if (!resourceTimingResource.nextHopProtocol) {
+            if (!resourceTimingResource.responseStatus || resourceTimingResource.responseStatus === 200) {
               return this.skip();
             }
-
-            if (resourceTimingResource.deliveryType === "cache") {
-              // don't save for cache hits
-              return this.skip();
-            }
-
-            var protocol = resourceTimingResource.nextHopProtocol.replace("http/", "h");
 
             assert.equal(
-              protocol,
-              res.nextHopProtocol,
-              res.name + " should have protocol " + protocol + " but was " + res.nextHopProtocol);
+              resourceTimingResource.responseStatus,
+              res.responseStatus,
+              res.name + " should have responseStatus " + resourceTimingResource.responseStatus + " but was " + res.responseStatus);
           });
         }(resources[i]));
       }
