@@ -1839,15 +1839,15 @@
       BOOMR.addVar("servertiming", BOOMR.utils.serializeForUrl(r.servertiming), true);
     }
 
-    if (r.contentTypeMap.next !== r.contentTypeMap.pre) {
+    if (r.contentTypeMap && r.contentTypeMap.next !== r.contentTypeMap.pre) {
       BOOMR.addVar("restiming.ct", getValuesMapForBeacon(r.contentTypeMap), true);
     }
 
-    if (r.deliveryTypeMap.next !== r.deliveryTypeMap.pre) {
+    if (r.deliveryTypeMap && r.deliveryTypeMap.next !== r.deliveryTypeMap.pre) {
       BOOMR.addVar("restiming.dt", getValuesMapForBeacon(r.deliveryTypeMap), true);
     }
 
-    if (r.nextHopProtocolMap.next !== r.nextHopProtocolMap.pre) {
+    if (r.nextHopProtocolMap && r.nextHopProtocolMap.next !== r.nextHopProtocolMap.pre) {
       BOOMR.addVar("restiming.nhp", getValuesMapForBeacon(r.nextHopProtocolMap), true);
     }
   }

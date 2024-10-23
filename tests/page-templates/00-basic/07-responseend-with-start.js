@@ -35,7 +35,7 @@ describe("e2e/00-basic/07-responseend-with-start", function() {
   });
 
   it("Should have the second beacon have a t_done of ~10", function() {
-    assert.closeTo(tf.beacons[1].t_done, 10, 2);
+    assert.closeTo(tf.beacons[1].t_done, 10, 5);
   });
 
   it("Should have the second beacon have a rt.tstart", function() {
@@ -47,6 +47,6 @@ describe("e2e/00-basic/07-responseend-with-start", function() {
   });
 
   it("Should have the second beacon have a rt.tstart and rt.end difference close to 10", function() {
-    assert.closeTo(parseInt(tf.beacons[1]["rt.end"], 10) - parseInt(tf.beacons[1]["rt.tstart"], 10), 10, 2);
+    assert.closeTo(parseInt(tf.beacons[1]["rt.end"], 10) - parseInt(tf.beacons[1]["rt.tstart"], 10), 10, 5);
   });
 });

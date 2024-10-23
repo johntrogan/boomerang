@@ -1,6 +1,6 @@
 /* eslint-disable no-script-url */
 (function() {
-  // Boomerang Loader Snippet version 15
+  // Boomerang Loader Snippet version 16
   if (window.BOOMR && (window.BOOMR.version || window.BOOMR.snippetExecuted)) {
     return;
   }
@@ -8,7 +8,7 @@
   window.BOOMR = window.BOOMR || {};
   window.BOOMR.snippetStart = new Date().getTime();
   window.BOOMR.snippetExecuted = true;
-  window.BOOMR.snippetVersion = 15;
+  window.BOOMR.snippetVersion = 16;
 
   // NOTE: Set Boomerang URL here
   window.BOOMR.url = "";
@@ -20,7 +20,7 @@
       // Whether or not Preload method has worked
       promoted = false,
       // How long to wait for Preload to work before falling back to iframe method
-      LOADER_TIMEOUT = 3000;
+      LOADER_TIMEOUT = window.BOOMR_loader_timeout || 3000;
 
   // Tells the browser to execute the Preloaded script by adding it to the DOM
   function promote() {
@@ -63,7 +63,9 @@
 
       BOOMR_lstart = new Date().getTime();
 
-      parent = parent || doc.body;
+      // For fallback cases, prefer the document body to avoid potential SEO
+      // issues with adding an IFRAME to the head.  The body should be available at that time.
+      parent = wasFallback ? (doc.body || parent) : (parent || doc.body);
       parent.appendChild(script);
     };
 
@@ -91,6 +93,9 @@
 
     // Ensure we're not loaded lazily
     iframe.loading = "eager";
+
+    // Add an ID to be clear
+    iframe.id = "boomr-if";
 
     // Hide the iframe
     iframeStyle = (iframe.frameElement || iframe).style;

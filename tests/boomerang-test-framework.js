@@ -476,6 +476,18 @@
         window.performance.getEntriesByType("navigation")[0].nextHopProtocol;
   };
 
+  t.isNavigationTiming2WithResponseStatusSupported = function() {
+    // check for NavTiming1 first
+    if (!t.isNavigationTimingSupported()) {
+      return false;
+    }
+
+    return window.performance &&
+        typeof window.performance.getEntriesByType === "function" &&
+        window.performance.getEntriesByType("navigation").length > 0 &&
+        typeof window.performance.getEntriesByType("navigation")[0].responseStatus !== "undefined";
+  };
+
   t.isChromeLoadTimesSupported = function() {
     var pt;
 
@@ -1152,6 +1164,7 @@
    */
   t.fakeActivationStart = function(time) {
     t.fakeNavigationEntryProperty("activationStart", time);
+    t.fakeActivationStartOffset = time;
   };
 
   /**

@@ -293,7 +293,7 @@ describe("e2e/19-navtiming/00-onload", function() {
   });
 
   it("Should have set responseStatus (if NavigationTiming2 is supported)", function() {
-    if (!t.isNavigationTiming2Supported()) {
+    if (!t.isNavigationTiming2WithResponseStatusSupported()) {
       return this.skip();
     }
 

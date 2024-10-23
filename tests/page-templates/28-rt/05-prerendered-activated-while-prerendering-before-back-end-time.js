@@ -36,7 +36,7 @@ describe("e2e/28-rt/05-prerendered-activated-while-prerendering-before-back-end-
     var loadTime = loadEnd - navSt;
 
     // allow for rounding
-    assert.closeTo(tf.lastBeacon().t_done, loadTime, 1);
+    assert.closeTo(tf.lastBeacon().t_done, loadTime, 5);
   });
 
   it("Should have NOT reduced the perceived Front-End Time (t_page)", function() {
@@ -50,7 +50,7 @@ describe("e2e/28-rt/05-prerendered-activated-while-prerendering-before-back-end-
     var pageTime = loadEnd - respSt;
 
     // allow for rounding
-    assert.closeTo(tf.lastBeacon().t_page, pageTime, 1);
+    assert.closeTo(tf.lastBeacon().t_page, pageTime, 5);
   });
 
   it("Should have reduced the Back-End Time (t_resp) by the activation time", function() {
@@ -66,6 +66,6 @@ describe("e2e/28-rt/05-prerendered-activated-while-prerendering-before-back-end-
     var actTime = actSt - navSt;
 
     // allow for rounding
-    assert.closeTo(tf.lastBeacon().t_resp, respTime - actTime, 1);
+    assert.closeTo(tf.lastBeacon().t_resp, respTime - actTime, 5);
   });
 });

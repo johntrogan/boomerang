@@ -1,6 +1,6 @@
 /* eslint-disable no-script-url */
 (function() {
-  // Boomerang Loader Snippet version 15
+  // Boomerang Loader Snippet version 16
   if (window.BOOMR && (window.BOOMR.version || window.BOOMR.snippetExecuted)) {
     return;
   }
@@ -73,7 +73,6 @@
         bootstrap, iframe, iframeStyle,
         win = window;
 
-    // TODO: See how often if vs i
     window.BOOMR.snippetMethod = wasFallback ? "if" : "i";
 
     // Adds Boomerang within the iframe
