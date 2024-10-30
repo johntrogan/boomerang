@@ -21,6 +21,10 @@
   * Page Load Time `t_done`
   * There are more timers that will need to be offset, and work will continue in future versions.
 
+### Bug Fixes
+
+* Issue 1195: RT: Ensure delta for t_done doesn't wipe out rt.end
+
 ## 1.803.0 (March 7, 2024)
 
 ### Bug Fixes

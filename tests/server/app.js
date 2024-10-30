@@ -136,7 +136,7 @@ app.post("/drop", dropRequest);
 app.get("/ct", require("./route-content-type"));
 app.post("/ct", require("./route-content-type"));
 
-app.get("/pages/34-bw/support/images/*", function(req, res, next) {
+app.get("/pages/36-bw/support/images/*", function(req, res, next) {
   // Values copied from plugins/bw.js
   images = [
     { name: "image-0.png", size: 11773, timeout: 1400 },

@@ -719,7 +719,7 @@
     }
   };
 
-  t.setCookie = function(data) {
+  t.setCookie = function(data, cookieName) {
     var cookieValue = "";
 
     // add all components
@@ -734,7 +734,11 @@
     }
 
     // format for setting the cookie
-    var nameval = "RT" + "=\"" + cookieValue + "\"";
+    if (typeof cookieName === "undefined") {
+      cookieName = "RT";
+    }
+
+    var nameval = cookieName + "=\"" + cookieValue + "\"";
 
     // cookie components
     var c = [nameval, "path=/", "domain=" + document.domain];

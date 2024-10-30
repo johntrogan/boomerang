@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 /* global BOOMR_test,assert */
 
-describe("e2e/34-bw/00-bw.js", function() {
+describe("e2e/36-bw/00-bw.js", function() {
   var t = BOOMR_test;
 
   var tf = BOOMR.plugins.TestFramework;
