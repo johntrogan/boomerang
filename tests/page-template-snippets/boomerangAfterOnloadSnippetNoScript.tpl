@@ -63,9 +63,7 @@
 
       BOOMR_lstart = new Date().getTime();
 
-      // For fallback cases, prefer the document body to avoid potential SEO
-      // issues with adding an IFRAME to the head.  The body should be available at that time.
-      parent = wasFallback ? (doc.body || parent) : (parent || doc.body);
+      parent = parent || doc.body;
       parent.appendChild(script);
     };
 
@@ -104,8 +102,9 @@
     iframeStyle.border = 0;
     iframeStyle.display = "none";
 
-    // Append to the end of the current block
-    parentNode.appendChild(iframe);
+    // Append to the end of the current block, preferring the document body to avoid potential SEO
+    // issues with adding an IFRAME to the head.
+    (doc.body || parentNode).appendChild(iframe);
 
     // Try to get the iframe's document object
     try {
