@@ -9,14 +9,14 @@ describe("e2e/21-continuity/05-longtasks", function() {
   function findMyLongTasks(b, type) {
     return BOOMR.utils.Compression.jsUrlDecompress(b["c.lt"]).filter(function(o) {
       return parseInt(o.d, 36) >= 1000 && o.n === type;
-    })[0];
+    });
   }
 
   it("Should have sent a single beacon validation", function(done) {
     t.validateBeaconWasSent(done);
   });
 
-  it("Should have set the LongTask count (c.lt.n) of at least 2 (if LongTasks are supported)", function() {
+  it("Should have set the LongTask count (c.lt.n) of at least 3 (if LongTasks are supported)", function() {
     if (!t.isLongTasksSupported()) {
       return this.skip();
     }
@@ -26,7 +26,7 @@ describe("e2e/21-continuity/05-longtasks", function() {
     assert.isDefined(b["c.lt.n"]);
 
     // we caused at least 2
-    assert.operator(parseInt(b["c.lt.n"], 10), ">=", 2);
+    assert.operator(parseInt(b["c.lt.n"], 10), ">=", 3);
   });
 
   it("Should have set the LongTask time (c.lt.tt) (if LongTasks are supported)", function() {
@@ -38,14 +38,14 @@ describe("e2e/21-continuity/05-longtasks", function() {
 
     assert.isDefined(b["c.lt.tt"]);
 
-    // we caused 3000ms
-    assert.operator(parseInt(b["c.lt.tt"], 10), ">=", 2900);
+    // we caused 4000ms
+    assert.operator(parseInt(b["c.lt.tt"], 10), ">=", 3900);
 
     // should be less less than 10 seconds
     assert.operator(parseInt(b["c.lt.tt"], 10), "<=", 10000);
   });
 
-  it("Should have set the LongTask data (c.lt) start time for the 'self' task (if LongTasks are supported)", function() {
+  it("Should have two 'self' tasks (if LongTasks are supported)", function() {
     if (!t.isLongTasksSupported()) {
       return this.skip();
     }
@@ -53,32 +53,82 @@ describe("e2e/21-continuity/05-longtasks", function() {
     var b = tf.lastBeacon();
 
     var ltData = findMyLongTasks(b, 1);
+
+    assert.equal(ltData.length, 2);
+  });
+
+  it("Should have set the LongTask data (c.lt) start time for the #1 'self' task (if LongTasks are supported)", function() {
+    if (!t.isLongTasksSupported()) {
+      return this.skip();
+    }
+
+    var b = tf.lastBeacon();
+
+    var ltData = findMyLongTasks(b, 1)[0];
 
     assert.operator(parseInt(ltData.s, 36), ">", 0);
     assert.operator(parseInt(ltData.s, 36), "<=", 5000);
   });
 
-  it("Should have set the LongTask data (c.lt) duration for the 'self' task (if LongTasks are supported)", function() {
+  it("Should have set the LongTask data (c.lt) duration for the #1 'self' task (if LongTasks are supported)", function() {
     if (!t.isLongTasksSupported()) {
       return this.skip();
     }
 
     var b = tf.lastBeacon();
 
-    var ltData = findMyLongTasks(b, 1);
+    var ltData = findMyLongTasks(b, 1)[0];
+
+    assert.operator(parseInt(ltData.d, 36), ">=", 900);
+    assert.operator(parseInt(ltData.d, 36), "<=", 2000);
+  });
+
+  it("Should have set the LongTask data (c.lt) type for the #1 'self' task (if LongTasks are supported)", function() {
+    if (!t.isLongTasksSupported()) {
+      return this.skip();
+    }
+
+    var b = tf.lastBeacon();
+
+    var ltData = findMyLongTasks(b, 1)[0];
+
+    assert.equal(ltData.n, "1");
+  });
+
+  it("Should have set the LongTask data (c.lt) start time for the #2 'self' task (if LongTasks are supported)", function() {
+    if (!t.isLongTasksSupported()) {
+      return this.skip();
+    }
+
+    var b = tf.lastBeacon();
+
+    var ltData = findMyLongTasks(b, 1)[1];
+
+    assert.operator(parseInt(ltData.s, 36), ">", 0);
+    assert.operator(parseInt(ltData.s, 36), "<=", 5000);
+  });
+
+  it("Should have set the LongTask data (c.lt) duration for the #2 'self' task (if LongTasks are supported)", function() {
+    if (!t.isLongTasksSupported()) {
+      return this.skip();
+    }
+
+    var b = tf.lastBeacon();
+
+    var ltData = findMyLongTasks(b, 1)[1];
 
     assert.operator(parseInt(ltData.d, 36), ">=", 1400);
     assert.operator(parseInt(ltData.d, 36), "<=", 3000);
   });
 
-  it("Should have set the LongTask data (c.lt) type for the 'self' task (if LongTasks are supported)", function() {
+  it("Should have set the LongTask data (c.lt) type for the #2 'self' task (if LongTasks are supported)", function() {
     if (!t.isLongTasksSupported()) {
       return this.skip();
     }
 
     var b = tf.lastBeacon();
 
-    var ltData = findMyLongTasks(b, 1);
+    var ltData = findMyLongTasks(b, 1)[1];
 
     assert.equal(ltData.n, "1");
   });
@@ -90,7 +140,7 @@ describe("e2e/21-continuity/05-longtasks", function() {
 
     var b = tf.lastBeacon();
 
-    var ltData = findMyLongTasks(b, 3);
+    var ltData = findMyLongTasks(b, 3)[0];
 
     assert.operator(parseInt(ltData.s, 36), ">", 0);
     assert.operator(parseInt(ltData.s, 36), "<=", 10000);
@@ -103,7 +153,7 @@ describe("e2e/21-continuity/05-longtasks", function() {
 
     var b = tf.lastBeacon();
 
-    var ltData = findMyLongTasks(b, 3);
+    var ltData = findMyLongTasks(b, 3)[0];
 
     assert.operator(parseInt(ltData.d, 36), ">=", 1400);
     assert.operator(parseInt(ltData.d, 36), "<=", 3000);
@@ -116,7 +166,7 @@ describe("e2e/21-continuity/05-longtasks", function() {
 
     var b = tf.lastBeacon();
 
-    var ltData = findMyLongTasks(b, 3);
+    var ltData = findMyLongTasks(b, 3)[0];
 
     assert.equal(ltData.n, "3");
   });
@@ -128,7 +178,7 @@ describe("e2e/21-continuity/05-longtasks", function() {
 
     var b = tf.lastBeacon();
 
-    var ltData = findMyLongTasks(b, 3);
+    var ltData = findMyLongTasks(b, 3)[0];
 
     // "script" or "unknown" (depending on the Chrome version)
     assert.isTrue(ltData.a[0].a === 1 || ltData.a[0].a === 0);
@@ -141,7 +191,7 @@ describe("e2e/21-continuity/05-longtasks", function() {
 
     var b = tf.lastBeacon();
 
-    var ltData = findMyLongTasks(b, 3);
+    var ltData = findMyLongTasks(b, 3)[0];
 
     assert.equal(ltData.a[0].t, "1");
   });
@@ -153,7 +203,7 @@ describe("e2e/21-continuity/05-longtasks", function() {
 
     var b = tf.lastBeacon();
 
-    var ltData = findMyLongTasks(b, 3);
+    var ltData = findMyLongTasks(b, 3)[0];
 
     assert.equal(ltData.a[0].i, "longtaskframeid");
   });
@@ -165,7 +215,7 @@ describe("e2e/21-continuity/05-longtasks", function() {
 
     var b = tf.lastBeacon();
 
-    var ltData = findMyLongTasks(b, 3);
+    var ltData = findMyLongTasks(b, 3)[0];
 
     assert.equal(ltData.a[0].n, "longtaskframename");
   });

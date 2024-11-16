@@ -1,4 +1,10 @@
 <%= header %>
+<script>
+//
+// Loop for 1000ms to trigger a long task prior to boomerang loading
+//
+BOOMR_test.busy(1000);
+</script>  
 <%= boomerangScript %>
 <script>
 BOOMR_test.init({

@@ -2411,7 +2411,7 @@
     var perfObserver = new w.PerformanceObserver(onPerformanceObserver);
 
     try {
-      perfObserver.observe({ entryTypes: ["longtask"] });
+      perfObserver.observe({ type: "longtask", buffered: impl.bufferedLongTasks });
     }
     catch (e) {
       // longtask not supported
@@ -4438,6 +4438,11 @@
     sendTimeline: true,
 
     /**
+     * Whether or not to inspect buffered Long Tasks (those prior to Boomerang loading)
+     */
+    bufferedLongTasks: true,
+
+    /**
      * Maximum number of long entries to keep
      */
     logMaxEntries: 100,
@@ -4817,6 +4822,8 @@
      * entries to keep.
      * @param {boolean} [config.Continuity.sendTimeline=true] Whether or not to
      * send the timeline with each beacon.
+     * @param {boolean} [config.Continuity.bufferedLongTasks=true] Whether or not to
+     * inspect buffered Long Tasks (those prior to Boomerang loading)
      *
      * @returns {@link BOOMR.plugins.Continuity} The Continuity plugin for chaining
      * @memberof BOOMR.plugins.Continuity
@@ -4826,7 +4833,8 @@
         ["monitorLongTasks", "monitorPageBusy", "monitorFrameRate", "monitorInteractions",
           "monitorStats", "afterOnload", "afterOnloadMaxLength", "afterOnloadMinWait",
           "waitAfterOnload", "ttiWaitForFrameworkReady", "ttiWaitForHeroImages",
-          "sendLog", "logMaxEntries", "sendTimeline", "monitorLayoutShifts"]);
+          "sendLog", "logMaxEntries", "sendTimeline", "monitorLayoutShifts",
+          "bufferedLongTasks"]);
 
       if (impl.initialized) {
         return this;
