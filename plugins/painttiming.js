@@ -399,7 +399,10 @@
       if (!impl.complete && BOOMR.visibilityState() === "hidden") {
         BOOMR.addVar("pt.hid", 1, true);
 
-        impl.complete = true;
+        // if prerendering, allow the done handlers to run once activated
+        if (!BOOMR.window.document.prerendering) {
+          impl.complete = true;
+        }
       }
 
       if (!impl.initialized) {

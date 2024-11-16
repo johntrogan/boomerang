@@ -719,7 +719,10 @@
  * `activationStart` time (if any):
  *
  * * `c.tti` (Time to Interactive)
+ * * `c.tti.vr` (Time to Visually Ready)
  * * `c.ttfi` (Time to First Interaction)
+ * * `c.lt.tt` (Total duration of Long Tasks - excludes any LongTasks that ended prior to activationStart)
+ * * `c.lt.n` (Number of Long Tasks - excludes any LongTasks that ended prior to activationStart)
  *
  * ## Beacon Parameters
  *
@@ -1860,6 +1863,8 @@
 
     /**
      * Time to Interactive
+     *
+     * (excludes time prior to Prerendered activation)
      */
     externalMetrics.timeToInteractive = function() {
       if (tti) {
@@ -1873,11 +1878,13 @@
 
     /**
      * Time to Visually Ready
+     *
+     * (excludes time prior to Prerendered activation)
      */
     externalMetrics.timeToVisuallyReady = function() {
       if (visuallyReady) {
         // milliseconds since nav start
-        return visuallyReady - epoch;
+        return BOOMR.getPrerenderedOffset(visuallyReady - epoch);
       }
 
       // no data
@@ -2427,8 +2434,11 @@
     // whether or not we're enabled
     var enabled = true;
 
-    // total time of long tasks
+    // total time of Long Tasks (not during prerendering)
     var longTasksTime = 0;
+
+    // number of Long Tasks (not during prerendering)
+    var longTasksCount = 0;
 
     /**
      * Callback for the PerformanceObserver
@@ -2446,7 +2456,29 @@
 
       // add total time and count of long tasks
       for (i = 0; i < entries.length; i++) {
-        longTasksTime += entries[i].duration;
+        // don't add if we're currently prerendering and haven't been activated
+        if (w.document.prerendering) {
+          continue;
+        }
+
+        var dur = entries[i].duration;
+
+        var actSt = BOOMR.getActivationStart();
+
+        if (actSt) {
+          // exclude the LongTask entirely if it ended prior to activationStart
+          if (actSt >= (entries[i].startTime + entries[i].duration)) {
+            continue;
+          }
+
+          // reduce any duration prior to activationStart
+          if (actSt >= entries[i].startTime) {
+            dur -= (actSt - entries[i].startTime);
+          }
+        }
+
+        longTasksTime += dur;
+        longTasksCount++;
       }
 
       // add to the timeline
@@ -2469,6 +2501,7 @@
       longTasks = [];
 
       longTasksTime = 0;
+      longTasksCount = 0;
     }
 
     /**
@@ -2565,6 +2598,8 @@
 
     /**
      * Total time of LongTasks (ms)
+     *
+     * (excludes Long Tasks prior to Prerendered activation)
      */
     externalMetrics.longTasksTime = function() {
       return longTasksTime;
@@ -2572,9 +2607,11 @@
 
     /**
      * Number of LongTasks
+     *
+     * (excludes Long Tasks prior to Prerendered activation)
      */
     externalMetrics.longTasksCount = function() {
-      return longTasks.length;
+      return longTasksCount;
     };
 
     return {

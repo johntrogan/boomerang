@@ -1031,6 +1031,9 @@ BOOMR_check_doc_domain();
         }
         catch (err) {
           BOOMR.addError(err, "fireEvent." + e_name + "<" + i + ">");
+
+          // debug log the stack too
+          BOOMR.debug(err ? err.stack : "unknown stack");
         }
       }
 
@@ -4965,7 +4968,7 @@ BOOMR_check_doc_domain();
         var newTs = ts - actSt;
 
         // return the offset (at least 1ms)
-        return newTs >= 0 ? Math.max(1, newTs) : ts;
+        return Math.max(1, newTs);
       }
     },
 

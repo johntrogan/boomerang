@@ -447,7 +447,7 @@
   };
 
   t.isNavigationTimingSupported = function() {
-    return typeof BOOMR.plugins.RT.navigationStart() !== "undefined";
+    return window && window.performance && window.performance.timing;
   };
 
   t.isCLSSupported = function() {
@@ -1169,6 +1169,20 @@
    * Fake ActivationStart
    */
   t.fakeActivationStart = function(time) {
+    try {
+      if (Object.defineProperty) {
+        Object.defineProperty(document, "prerendering", {
+          get: function() {
+            return false;
+          }
+        });
+      }
+    }
+    catch (e) {
+      console.log("Warning: document.prerendering was already defined");
+    }
+
+    // fake the start time
     t.fakeNavigationEntryProperty("activationStart", time);
     t.fakeActivationStartOffset = time;
   };
@@ -2060,20 +2074,24 @@
       return {
         entryTypes: undefined,
         observe: function(config) {
-          this.type = config.type;
+          this.entryTypes = config.entryTypes || [config.type];
 
-          t.mockPO[config.type] = t.mockPO[config.type] || [];
-          t.mockPO[config.type].push(callback);
+          this.entryTypes.forEach(function(type) {
+            t.mockPO[type] = t.mockPO[type] || [];
+            t.mockPO[type].push(callback);
+          });
         },
         disconnect: function() {
-          // find and slice out callback
-          for (var i = 0; i < t.mockPO[this.type].length; i++) {
-            if (t.mockPO[this.type][i] === callback) {
-              t.mockPO[this.type].splice(i, 1);
+          this.entryTypes.forEach(function(type) {
+            // find and slice out callbacks
+            for (var i = 0; i < t.mockPO[type].length; i++) {
+              if (t.mockPO[type][i] === callback) {
+                t.mockPO[type].splice(i, 1);
 
-              return;
+                return;
+              }
             }
-          }
+          });
         }
       };
     };
