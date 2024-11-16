@@ -25,6 +25,14 @@ describe("e2e/31-eventtiming/02-inp", function() {
       assert.isUndefined(tf.beacons[0]["et.inp.t"]);
     });
 
+    it("Should not have included Interaction to Next Paint Input Delay (et.inp.id) on the Page Load beacon", function() {
+      assert.isUndefined(tf.beacons[0]["et.inp.id"]);
+    });
+
+    it("Should not have included Interaction to Next Paint Processing Time (et.inp.pt) on the Page Load beacon", function() {
+      assert.isUndefined(tf.beacons[0]["et.inp.pt"]);
+    });
+
     it("Should have included Incremental Interaction to Next Paint (et.inp.inc) on the Page Load beacon", function() {
       assert.equal(parseInt(tf.beacons[0]["et.inp.inc"], 10), 100);
     });
@@ -39,6 +47,14 @@ describe("e2e/31-eventtiming/02-inp", function() {
 
     it("Should have included Incremental Interaction to Next Paint timestamp (et.inp.inc.t) and it should be rounded on the Page Load beacon", function() {
       assert.equal(parseFloat(tf.beacons[0]["et.inp.inc.t"]), parseInt(tf.beacons[0]["et.inp.inc.t"], 10));
+    });
+
+    it("Should have included Incremental Interaction to Next Paint Input Delay (et.inp.inc.id) on the Page Load beacon", function() {
+      assert.equal(parseInt(tf.beacons[0]["et.inp.inc.id"], 10), 10);
+    });
+
+    it("Should have included Incremental Interaction to Next Paint Processing Time (et.inp.inc.pt) on the Page Load beacon", function() {
+      assert.equal(parseInt(tf.beacons[0]["et.inp.inc.pt"], 10), 100);
     });
   });
 
@@ -59,6 +75,14 @@ describe("e2e/31-eventtiming/02-inp", function() {
       assert.equal(parseFloat(tf.beacons[1]["et.inp.t"]), parseInt(tf.beacons[1]["et.inp.t"], 10));
     });
 
+    it("Should have included Interaction to Next Paint Input Delay (et.inp.id) on the Unload beacon", function() {
+      assert.equal(parseInt(tf.beacons[1]["et.inp.id"], 10), 10);
+    });
+
+    it("Should have included Interaction to Next Paint Processing Time (et.inp.pt) on the Unload beacon", function() {
+      assert.equal(parseInt(tf.beacons[1]["et.inp.pt"], 10), 100);
+    });
+
     it("Should not have included Incremental Interaction to Next Paint (et.inp.inc) on the Unload beacon", function() {
       assert.isUndefined(tf.beacons[1]["et.inc.inp"]);
     });
@@ -69,6 +93,14 @@ describe("e2e/31-eventtiming/02-inp", function() {
 
     it("Should not have included Incremental Interaction to Next Paint timestamp (et.inp.inc.t) on the Unload beacon", function() {
       assert.isUndefined(tf.beacons[1]["et.inp.inc.t"]);
+    });
+
+    it("Should not have included Incremental Interaction to Next Paint Input Delay (et.inp.inc.id) on the Unload beacon", function() {
+      assert.isUndefined(tf.beacons[1]["et.inp.inc.id"]);
+    });
+
+    it("Should not have included Incremental Interaction to Next Paint Processing Time (et.inp.inc.pt) on the Unload beacon", function() {
+      assert.isUndefined(tf.beacons[1]["et.inp.inc.pt"]);
     });
   });
 });

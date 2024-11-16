@@ -11,21 +11,21 @@
  *
  * Each interaction on the page can be broken down into three phases:
  *
- * * **Input Latency**: How long it took for the browser to trigger event handlers for the physical interaction
- * * **Processing Latency**: How long it takes for all event handlers to execute
- * * **Presentation Latency**: How long it takes to draw the next frame (visual update)
+ * * **Input Delay**: How long it took for the browser to trigger event handlers for the physical interaction
+ * * **Processing Time**: How long it takes for all event handlers to execute
+ * * **Presentation Delay**: How long it takes to draw the next frame (visual update)
  *
  * FID and INP/IINP measure different phases of interactions.
  *
  * ## First Input Delay
  *
  * If the user interacts with the page, the EventTiming plugin will measure how
- * long it took for the JavaScript event handler to fire (Input Latency).
+ * long it took for the JavaScript event handler to fire (Input Delay).
  *
  * This can give you an indication of the page being otherwise busy and unresponsive
  * to the user if the callback is delayed.
  *
- * Processing Latency and Presentation Latency are not included in the First Input Delay calculation.
+ * Processing Time and Presentation Delay are not included in the First Input Delay calculation.
  *
  * This time (measured in milliseconds) is added to the beacon as `et.fid`.
  *
@@ -33,7 +33,7 @@
  *
  * After every interaction on the page, the total interaction duration is measured.
  *
- * The sum of the input, processing and presentation latency for each interaction is
+ * The sum of the input, processing and presentation delays for each interaction is
  * calculated as that interactions' _Interaction to Next Paint_.
  *
  * For every page load, Boomerang will report on (one of) the longest interactions
@@ -70,9 +70,13 @@
  * * `et.inp`: Interaction to Next Paint (full page, on Unload beacon)
  * * `et.inp.e`: INP target element
  * * `et.inp.t`: INP timestamp that the interaction occurred
+ * * `et.inp.id`: INP Input Delay
+ * * `et.inp.pt`: INP Processing Time
  * * `et.inp.inc`: Incremental Interaction to Next Paint (for the Page Load and each SPA Soft nav)
  * * `et.inp.inc.e`: Incremental INP target element
  * * `et.inp.inc.t`: Incremental INP timestamp that the interaction occurred
+ * * `et.inp.inc.id`: Incremental INP Input Delay
+ * * `et.inp.inc.pt`: Incremental INP Processing Time
  *
  * @see {@link https://github.com/w3c/event-timing/}
  * @class BOOMR.plugins.EventTiming
@@ -261,6 +265,8 @@
 
       if (iinp) {
         BOOMR.addVar("et.inp.inc", iinp.duration, true);
+        BOOMR.addVar("et.inp.inc.id", Math.ceil(iinp.processingStart - iinp.startTime), true);
+        BOOMR.addVar("et.inp.inc.pt", Math.ceil(iinp.processingEnd - iinp.processingStart), true);
         BOOMR.addVar("et.inp.inc.e", iinp.target, true);
         BOOMR.addVar("et.inp.inc.t", iinp.startTime, true);
       }
@@ -288,6 +294,8 @@
 
       if (inp) {
         BOOMR.addVar("et.inp", inp.duration, true);
+        BOOMR.addVar("et.inp.id", Math.ceil(inp.processingStart - inp.startTime), true);
+        BOOMR.addVar("et.inp.pt", Math.ceil(inp.processingEnd - inp.processingStart), true);
         BOOMR.addVar("et.inp.e", inp.target, true);
         BOOMR.addVar("et.inp.t", inp.startTime, true);
       }
@@ -303,7 +311,9 @@
 
       // look for the max INP
       for (var i = 0; i < entries.length; i++) {
-        if (!entries[i].interactionId) {
+        var entry = entries[i];
+
+        if (!entry.interactionId) {
           //
           // If interactionId is missing or 0, it means it's not a real
           // user interaction (e.g. !isTrusted or not a specific interaction event).
@@ -315,19 +325,29 @@
           continue;
         }
 
-        var interactionId = entries[i].interactionId;
+        var interactionId = entry.interactionId;
 
         // save the max duration for this interaction
         impl.interactionsSinceLastBeacon[interactionId] = impl.interactionsSinceLastBeacon[interactionId] || {};
 
         // update the latest duration
         if (!impl.interactionsSinceLastBeacon[interactionId].duration ||
-          entries[i].duration > impl.interactionsSinceLastBeacon[interactionId].duration) {
+          entry.duration > impl.interactionsSinceLastBeacon[interactionId].duration) {
           // this duration is higher than what we saw for this ID before
           impl.interactionsSinceLastBeacon[interactionId] = {
-            duration: Math.ceil(entries[i].duration),
-            target: BOOMR.utils.makeSelector(entries[i].target),
-            startTime: Math.floor(entries[i].startTime)
+            duration: Math.ceil(entry.duration),
+            target: BOOMR.utils.makeSelector(entry.target),
+            startTime: Math.floor(entry.startTime),
+
+            // processingStart -- take min of all
+            processingStart: impl.interactionsSinceLastBeacon[interactionId].processingStart ?
+              Math.floor(Math.min(impl.interactionsSinceLastBeacon[interactionId], entry.processingStart)) :
+              Math.floor(entry.processingStart),
+
+            // processingEnd -- take max of all
+            processingEnd: impl.interactionsSinceLastBeacon[interactionId].processingEnd ?
+              Math.floor(Math.max(impl.interactionsSinceLastBeacon[interactionId], entry.processingEnd)) :
+              Math.floor(entry.processingEnd)
           };
         }
       }

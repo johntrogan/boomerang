@@ -25,7 +25,7 @@ BOOMR_test.init({
 
 var curStartTime = Math.random() * 1000;
 
-function generateEvent(processing, duration, interactionId) {
+function generateEvent(inputDelay, processing, duration, interactionId) {
   curStartTime += Math.random() * 10;
 
   return {
@@ -33,8 +33,8 @@ function generateEvent(processing, duration, interactionId) {
     entryType: "event",
     startTime: curStartTime,
     duration: duration,
-    processingStart: curStartTime,
-    processingEnd: curStartTime + processing,
+    processingStart: inputDelay + curStartTime,
+    processingEnd: inputDelay + curStartTime + processing,
     cancelable: false,
     interactionId: interactionId,
     target: document.getElementById("interaction-target")
@@ -44,17 +44,17 @@ function generateEvent(processing, duration, interactionId) {
 // trigger some events
 BOOMR_test.fireMockPerformanceObserverEvent("event", [
   // a few non-interactions
-  generateEvent(10, 50, 0),
-  generateEvent(100, 100, 0),
-  generateEvent(10, 10, 0),
+  generateEvent(0, 10, 50, 0),
+  generateEvent(0, 100, 100, 0),
+  generateEvent(0, 10, 10, 0),
 
   // an interaction
-  generateEvent(100, 99.1, 1),
-  generateEvent(10, 10.1, 1),
-  generateEvent(20, 20.3, 1),
+  generateEvent(10, 100, 99.1, 1),
+  generateEvent(10, 10, 10.1, 1),
+  generateEvent(10, 20, 20.3, 1),
 
   // another interaction
-  generateEvent(50, 49.5, 2)
+  generateEvent(10, 50, 49.5, 2)
 ]);
 </script>
 <%= footer %>
