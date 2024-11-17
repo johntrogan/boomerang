@@ -144,8 +144,8 @@
      * Initializes the plugin.
      *
      * @param {object} config Configuration
-     * @param {string} config.Clicks.click_url The URL the click events will be beaconed to.
-     * @param {boolean} [config.Clicks.onbeforeunload] A boolean value for when to send click events.
+     * @param {string} [config.Clicks.click_url=""] The URL the click events will be beaconed to.
+     * @param {boolean} [config.Clicks.onbeforeunload=false] A boolean value for when to send click events.
      *   If this is `true`, clicks will be sent when the page is unloaded.
      *   Otherwise, click events are sent immediately as they occur.
      *

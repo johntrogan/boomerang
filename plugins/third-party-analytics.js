@@ -439,9 +439,9 @@
      * Initializes the plugin.
      *
      * @param {object} config Configuration
-     * @param {boolean} config.TPAnalytics.clientids Whether or not to include
+     * @param {boolean} [config.TPAnalytics.clientids=false] Whether or not to include
      * client IDs.
-     * @param {string[]} config.TPAnalytics.dropParams Parameters to not include
+     * @param {string[]} [config.TPAnalytics.dropParams=[]] Parameters to not include
      * on the beacon.
      *
      * @returns {@link BOOMR.plugins.TPAnalytics} The TPAnalytics plugin for chaining

@@ -428,19 +428,16 @@
      * Initializes the plugin.
      *
      * @param {object} config Configuration
-     * @param {boolean} [config.History.auto] Whether or not to automatically
-     * instrument the `window.history` object.
-     * If set to `false`, the React snippet should be used.
-     * @param {boolean} [config.History.disableHardNav] Whether or not to disable SPA hard beacons
-     * @param {function} [config.History.routeFilter] Route change filter callback function
-     * @param {function} [config.History.routeChangeWaitFilter] Route change wait filter callback function.
+     * @param {boolean} [config.History.disableHardNav=false] Whether or not to disable SPA hard beacons
+     * @param {function} [config.History.routeFilter=null] Route change filter callback function
+     * @param {function} [config.History.routeChangeWaitFilter=null] Route change wait filter callback function.
      * This is called on each route change, and if returns true, Boomerang will wait for
      * a `BOOMR.plugins.SPA.wait_complete()` call before marking a navigation complete. By default, this only
      * applies to SPA Soft navigations.
-     * @param {boolean} [config.History.routeChangeWaitFilterHardNavs] Whether to apply wait filter on hard navs.
+     * @param {boolean} [config.History.routeChangeWaitFilterHardNavs=false] Whether to apply wait filter on hard navs.
      * If set to `true`, the `routeChangeWaitFilter` function will apply to SPA hard
      * navigations in addition to soft navigations.
-     * @param {boolean} [config.History.monitorReplaceState] Whether or not to hook History.replaceState
+     * @param {boolean} [config.History.monitorReplaceState=true] Whether or not to hook History.replaceState
      *
      * @returns {@link BOOMR.plugins.History} The History plugin for chaining
      * @example <caption>Basic</caption>

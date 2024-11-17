@@ -220,7 +220,7 @@
      * Initializes the plugin.
      *
      * @param {object} config Configuration
-     * @param {number} config.minimumDwellTime Minimum dwell time before a beacon is sent
+     * @param {number} [config.minimumDwellTime=500] Minimum dwell time before a beacon is sent (ms)
      *
      * @returns {@link BOOMR.plugins.BFCache} The BFCache plugin for chaining
      * @memberof BOOMR.plugins.BFCache

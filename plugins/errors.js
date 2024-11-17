@@ -1997,29 +1997,29 @@
      * Initializes the plugin.
      *
      * @param {object} config Configuration
-     * @param {function} [config.Errors.onError] Callback to fire when
+     * @param {function} [config.Errors.onError=null] Callback to fire when
      * an error occurs
-     *
-     * @param {boolean} [config.Errors.monitorGlobal] Monitor `window.onerror`
-     * @param {boolean} [config.Errors.monitorNetwork] Monitor XHR errors
-     * @param {boolean} [config.Errors.monitorConsole] Monitor `console.error`
-     * @param {boolean} [config.Errors.monitorEvents] Monitor event callbacks
+     * @param {boolean} [config.Errors.monitorGlobal=true] Monitor `window.onerror`
+     * @param {boolean} [config.Errors.monitorNetwork=true] Monitor XHR errors
+     * @param {boolean} [config.Errors.monitorConsole=true] Monitor `console.error`
+     * @param {boolean} [config.Errors.monitorEvents=false] Monitor event callbacks
      * (from `addEventListener`). NOTE: Enabling this may cause compatibility issues with certain sites.
      * Verifications should be run before enabling in production.
-     * @param {boolean} [config.Errors.monitorTimeout] Monitor `setTimeout`
+     * @param {boolean} [config.Errors.monitorTimeout=false] Monitor `setTimeout`
      * and `setInterval`. NOTE: Enabling this may cause compatibility issues with certain sites.
      * Verifications should be run before enabling in production.
-     * @param {boolean} [config.Errors.monitorRejections] Monitor unhandled
+     * @param {boolean} [config.Errors.monitorRejections=false] Monitor unhandled
      * promise rejections.
-     * @param {boolean} [config.Errors.monitorReporting] Monitor Reporting API
+     * @param {boolean} [config.Errors.monitorReporting=false] Monitor Reporting API
      * warnings.
-     * @param {boolean} [config.Errors.sendAfterOnload] Whether or not to
+     * @param {boolean} [config.Errors.sendAfterOnload=false] Whether or not to
      * send errors after the page load beacon.  If set to false, only errors
      * that happened up to the page load beacon will be captured.
-     * @param {number} [config.Errors.sendInterval] If `sendAfterOnload` is
+     * @param {number} [config.Errors.sendInterval=1000] If `sendAfterOnload` is
      * true, how often to send the latest batch of errors.
-     * @param {number} [config.Errors.sendIntervalDuringLoad] How often to send a beacon during onload if autorun=false
-     * @param {number} [config.Errors.maxErrors] Maximum number of errors
+     * @param {number} [config.Errors.sendIntervalDuringLoad=2500] How often to send a beacon during
+     * onload if autorun=false
+     * @param {number} [config.Errors.maxErrors=10] Maximum number of errors
      * to track per page.
      *
      * @returns {@link BOOMR.plugins.Errors} The Errors plugin for chaining

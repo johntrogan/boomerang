@@ -297,7 +297,8 @@
      * Called to initialize the plugin via BOOMR.init()
      *
      * @param {object} [config] Configuration
-     * @param {boolean} [config.useSoftNavStart] Use the Soft Navigation Heuristics' Start Time for SPA Soft Navigations
+     * @param {boolean} [config.useSoftNavStart=false] Use the Soft Navigation Heuristics' Start
+     * Time for SPA Soft Navigations
      *
      * @memberof BOOMR.plugins.SPA
      */

@@ -637,7 +637,7 @@
      * Initializes the plugin.
      *
      * @param {object} config Configuration
-     * @param {string} [config.BW.base_url] By default, this is set to the empty string,
+     * @param {string} [config.BW.base_url=""] By default, this is set to the empty string,
      * which has the effect of disabling the bandwidth plugin. Set the
      * `base_url` parameter to the HTTP path of the directory that contains
      * the bandwidth images to enable this test.
@@ -648,11 +648,11 @@
      * in and not to the javascript file.
      *
      * The trailing / is required.
-     * @param {boolean} [config.BW.cookie] The name of the cookie in which to store
+     * @param {string} [config.BW.cookie="BA"] The name of the cookie in which to store
      * the measured bandwidth and latency of the user's network connection.
      *
      * The default name is `BA`.
-     * @param {boolean} [config.BW.cookie_exp] The lifetime in seconds of the bandwidth cookie.
+     * @param {number} [config.BW.cookie_exp=604800] The lifetime (in seconds) of the bandwidth cookie.
      *
      * The default is set to 7 days. This specifies how long it will be before
      * we run the bandwidth test again for a user, assuming their IP address
@@ -665,9 +665,7 @@
      * Note that if you're doing some kind of real-time streaming, then
      * chances are that this bandwidth test isn't right for you, so
      * setting this cookie to a shorter value isn't the right solution.
-     * @param {number} [config.BW.timeout] The timeout in seconds for the entire bandwidth test.
-     *
-     * The default is set to 15 seconds.
+     * @param {number} [config.BW.timeout=15000] The timeout (in milliseconds )for the entire bandwidth test.
      *
      * The bandwidth test can run for a long time, and sometimes, due to
      * network errors, it might never complete. The timeout forces the test
@@ -679,30 +677,28 @@
      * Increasing the timeout can get you more data and increase the accuracy
      * of the test, but at the same time increases the risk of the test not
      * completing before the user leaves the page.
-     * @param {number} [config.BW.nruns] The number of times the bandwidth test should run.
-     *
-     * The default is set to 5.
+     * @param {number} [config.BW.nruns=5] The number of times the bandwidth test should run.
      *
      * The first test is always a pilot to figure out the best way to proceed
      * with the remaining tests. Increasing this number will increase the
      * tests accuracy, but at the same time increases the risk that the test will timeout.
      *
      * It should take about 2-4 seconds per run, so consider this value along with the timeout value above.
-     * @param {boolean} [config.BW.test_https] By default, boomerang will skip the bandwidth
+     * @param {boolean} [config.BW.test_https=true] By default, boomerang will test bandwidth
      * test over an HTTPS connection.
      *
      * Establishing an SSL connection takes time, which could skew the
      * bandwidth results. If all your traffic is sent over SSL, then running
      * the test over SSL probably gets you what you want.
      *
-     * If you set `test_https` to `true`, boomerang will run the test instead of skipping.
-     * @param {boolean} [config.BW.block_beacon] By default, the bandwidth plugin
+     * If you set `test_https` to `false`, boomerang will not test on HTTPS.
+     * @param {boolean} [config.BW.block_beacon=false] By default, the bandwidth plugin
      * will not block boomerang from sending a beacon, so the results will
      * not be included in the broadcast with default settings.
      *
      * If you set `block_beacon` to true, boomerang will wait for the
      * results of the test before sending the beacon.
-     * @param {string} [config.BW.user_ip] The user's IP address, for detecting
+     * @param {string} [config.BW.user_ip=""] The user's IP address, for detecting
      * if networks change.
      *
      * @returns {@link BOOMR.plugins.BW} The BW plugin for chaining

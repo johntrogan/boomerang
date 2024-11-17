@@ -479,8 +479,8 @@ BOOMR_check_doc_domain();
     // All Boomerang cookies will be created with SameSite=Lax by default
     same_site_cookie: "Lax",
 
-    // All Boomerang cookies will be without Secure attribute by default
-    secure_cookie: false,
+    // All Boomerang cookies will be with Secure attribute by default
+    secure_cookie: true,
 
     // Sometimes we would like to be able to set the SameSite=None from a Boomerang plugin
     forced_same_site_cookie_none: false,
@@ -3021,40 +3021,39 @@ BOOMR_check_doc_domain();
      * All plugins' `init()` functions will be called with the same config as well.
      *
      * @param {object} config Configuration object
-     * @param {boolean} [config.autorun] By default, boomerang runs automatically
+     * @param {boolean} [config.autorun=true] By default, boomerang runs automatically
      * and attaches its `page_ready` handler to the `window.onload` event.
      * If you set `autorun` to `false`, this will not happen and you will
      * need to call {@link BOOMR.page_ready} yourself.
-     * @param {string} config.beacon_auth_key Beacon authorization key value
-     * @param {string} config.beacon_auth_token Beacon authorization token.
-     * @param {boolean} config.beacon_with_credentials Sends beacon with credentials
-     * @param {boolean} config.beacon_disable_sendbeacon Disables `navigator.sendBeacon()` support
-     * @param {string} config.beacon_url The URL to beacon results back to.
+     * @param {string} [config.beacon_auth_key="Authorization"] Beacon authorization key value
+     * @param {string} [config.beacon_auth_token=""] Beacon authorization token.
+     * @param {boolean} [config.beacon_with_credentials=false] Sends beacon with credentials
+     * @param {boolean} [config.beacon_disable_sendbeacon=false] Disables `navigator.sendBeacon()` support
+     * @param {string} [config.beacon_url=""] The URL to beacon results back to.
      * If not set, no beacon will be sent.
-     * @param {boolean} config.beacon_url_force_https Forces protocol-relative Beacon URLs to HTTPS
-     * @param {string} config.beacon_type `GET`, `POST` or `AUTO`
-     * @param {string} [config.site_domain] The domain that all cookies should be set on
+     * @param {boolean} [config.beacon_url_force_https=true] Forces protocol-relative Beacon URLs to HTTPS
+     * @param {string} [config.beacon_type="AUTO"] `GET`, `POST` or `AUTO`
+     * @param {string} [config.site_domain=(auto detected)] The domain that all cookies should be set on
      * Boomerang will try to auto-detect this, but unless your site is of the
      * `foo.com` format, it will probably get it wrong. It's a good idea
      * to set this to whatever part of your domain you'd like to share
      * bandwidth and performance measurements across.
      * Set this to a falsy value to disable all cookies.
-     * @param {boolean} [config.strip_query_string] Whether or not to strip query strings from all URLs
+     * @param {boolean} [config.strip_query_string=false] Whether or not to strip query strings from all URLs
      *   (e.g. `u`, `pgu`, etc.)
-     * @param {string} [config.user_ip] Despite its name, this is really a free-form
+     * @param {string} [config.user_ip=""] Despite its name, this is really a free-form
      * string used to uniquely identify the user's current internet
      * connection. It's used primarily by the bandwidth test to determine
      * whether it should re-measure the user's bandwidth or just use the
      * value stored in the cookie. You may use IPv4, IPv6 or anything else
      * that you think can be used to identify the user's network connection.
-     * @param {string} [config.same_site_cookie] Used for creating cookies with `SameSite` with one
+     * @param {string} [config.same_site_cookie="Lax"] Used for creating cookies with `SameSite` with one
      *   of the following values: `None`, `Lax` or `Strict`.
-     * @param {boolean} [config.secure_cookie] When `true` all cookies will be created with `Secure` flag.
-     * @param {boolean} [config.request_client_hints] When `true`, gather high entropy values for Architecture,
+     * @param {boolean} [config.secure_cookie=true] When `true` all cookies will be created with `Secure` flag.
+     * @param {boolean} [config.request_client_hints=false] When `true`, gather high entropy values for Architecture,
      * Model and Platform data from navigator.userAgentData.
-     * @param {boolean} [config.no_unload] Disables all unload handlers and the Unload beacons
+     * @param {boolean} [config.no_unload=false] Disables all unload handlers and the Unload beacons
      * @param {function} [config.log] Logger to use. Set to `null` to disable logging.
-     * @param {function} [<plugins>] Each plugin has its own section
      *
      * @returns {BOOMR} Boomerang object
      *

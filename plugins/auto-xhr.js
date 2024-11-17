@@ -2658,7 +2658,7 @@
      * Whether or not to measure SPA start time's from the most recent click.
      * @type {boolean}
      */
-    spaStartFromClick: false,
+    spaStartFromClick: true,
 
     /**
      * Whether or not to measuring XHRs is enabled.
@@ -2670,7 +2670,7 @@
      * Whether or not to measure the Fetch API
      * @type {boolean}
      */
-    monitorFetch: false,
+    monitorFetch: true,
 
     /**
      * If the fetch response's bodyUsed flag is false,
@@ -2928,23 +2928,23 @@
      * Initializes the plugin.
      *
      * @param {object} config Configuration
-     * @param {boolean} [config.instrument_xhr] Whether or not to instrument XHR
-     * @param {string[]} [config.AutoXHR.spaBackEndResources] Default resources to count as
-     * Back-End during a SPA nav
-     * @param {boolean} [config.AutoXHR.monitorFetch] Whether or not to instrument fetch()
-     * @param {number} [config.AutoXHR.fetchBodyUsedWait] If the fetch response's bodyUsed flag is false,
+     * @param {boolean} [config.instrument_xhr=false] Whether or not to instrument XHR
+     * @param {string[]} [config.AutoXHR.spaBackEndResources=["xmlhttprequest", "script", "fetch"]]
+     * Default resources to count as Back-End during a SPA nav
+     * @param {boolean} [config.AutoXHR.monitorFetch=true] Whether or not to instrument fetch()
+     * @param {number} [config.AutoXHR.fetchBodyUsedWait=200] If the fetch response's bodyUsed flag is false,
      * we'll wait this amount of ms before checking RT for an entry. Setting to 0 will disable this feature
-     * @param {boolean|string[]|RegExp[]|function[]} [config.AutoXHR.alwaysSendXhr] Whether or not to send XHR
+     * @param {boolean|string[]|RegExp[]|function[]} [config.AutoXHR.alwaysSendXhr=false] Whether or not to send XHR
      * beacons for every XHR.
-     * @param {boolean} [config.captureXhrRequestResponse] Whether or not to capture an XHR's
+     * @param {boolean} [config.captureXhrRequestResponse=false] Whether or not to capture an XHR's
      * request and response bodies on for the {@link event:BOOMR#xhr_load xhr_load} event.
      * @param {number} [config.AutoXHR.spaIdleTimeout=1000] Timeout for Single Page Applications after the final
-     * resource fetch has completed before calling the SPA navigation complete. Default is 1000ms.
+     * resource fetch has completed before calling the SPA navigation complete (ms).
      * @param {number} [config.AutoXHR.xhrIdleTimeout=50] Timeout for XHRs after final resource fetch has completed
-     * before calling the XHR complete.  Default is 50ms.
+     * before calling the XHR complete (ms).
      * @param {boolean} [config.AutoXHR.xhrRequireChanges=true] Whether or not a XHR beacon will only be triggered
      * if there were DOM changes.
-     * @param {boolean} [config.AutoXHR.spaStartFromClick=false] In Single Page Apps, start tracking
+     * @param {boolean} [config.AutoXHR.spaStartFromClick=true] In Single Page Apps, start tracking
      * the SPA Soft Navigation from any preceding clicks.  If false, will start from the most recent pushState.
      *
      * @returns {@link BOOMR.plugins.AutoXHR} The AutoXHR plugin for chaining

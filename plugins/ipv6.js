@@ -163,20 +163,18 @@
      * Initializes the plugin.
      *
      * @param {object} config Configuration
-     * @param {string} config.IPv6.ipv6_url An image URL referenced by its IPv6 address,
+     * @param {string} [config.IPv6.ipv6_url=""] An image URL referenced by its IPv6 address,
      * eg, http://fe80::1/image-i.png.
      *
      * If not specified, the test will abort.
-     * @param {string} [config.IPv6.host_url] An image URL on an IPv6 only host referenced
+     * @param {string} [config.IPv6.host_url=""] An image URL on an IPv6 only host referenced
      * by its DNS hostname.
      *
      * The hostname should not resolve to an IPv4 address.
      *
      * If not specified, the host test will be skipped.
-     * @param {string} [config.IPv6.timeout] The time, in milliseconds, that boomerang should
+     * @param {string} [config.IPv6.timeout=1200] The time, in milliseconds, that boomerang should
      * wait for a network response before giving up and assuming that the request failed.
-     *
-     * The default is 1200ms.
      *
      * @returns {@link BOOMR.plugins.IPv6} The IPv6 plugin for chaining
      * @memberof BOOMR.plugins.IPv6

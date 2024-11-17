@@ -2139,26 +2139,26 @@
      * Initializes the plugin.
      *
      * @param {object} config Configuration
-     * @param {string[]} [config.ResourceTiming.xssBreakWords] Words that will be broken (by
+     * @param {string[]} [config.ResourceTiming.xssBreakWords=["href", "src", "action"]] Words that will be broken (by
      * ensuring the optimized trie doesn't contain the whole string) in URLs,
      * to ensure NoScript doesn't think this is an XSS attack.
      *
      * Defaults to `DEFAULT_XSS_BREAK_WORDS`.
-     * @param {boolean} [config.ResourceTiming.clearOnBeacon] Whether or not to clear ResourceTiming
+     * @param {boolean} [config.ResourceTiming.clearOnBeacon=false] Whether or not to clear ResourceTiming
      * data on each beacon.
-     * @param {number} [config.ResourceTiming.urlLimit] URL length limit, after which `...` will be used.
-     * @param {string[]|RegExp[]} [config.ResourceTiming.trimUrls] List of strings of RegExps
+     * @param {number} [config.ResourceTiming.urlLimit=500] URL length limit, after which `...` will be used.
+     * @param {string[]|RegExp[]} [config.ResourceTiming.trimUrls=[]] List of strings of RegExps
      * to trim from URLs.
-     * @param {string[]|string} [config.ResourceTiming.trackedResourceTypes] Array of resource types to track,
+     * @param {string[]|string} [config.ResourceTiming.trackedResourceTypes=*] Array of resource types to track,
      * or '*' for all.
-     * @param {boolean} [config.ResourceTiming.serverTiming] Whether or not to gather ServerTiming.
-     * @param {boolean} [config.ResourceTiming.monitorClearResourceTimings] Whether or not to instrument
+     * @param {boolean} [config.ResourceTiming.serverTiming=true] Whether or not to gather ServerTiming.
+     * @param {boolean} [config.ResourceTiming.monitorClearResourceTimings=false] Whether or not to instrument
      * `performance.clearResourceTimings`.
-     * @param {boolean} [config.ResourceTiming.splitAtPath] Whether or not to split the ResourceTiming
+     * @param {boolean} [config.ResourceTiming.splitAtPath=false] Whether or not to split the ResourceTiming
      * compressed Trie at the path separator (faster processing, but larger result).
-     * @param {boolean} [config.ResourceTiming.getSrcsetDimensions] Whether or not to collect physical
+     * @param {boolean} [config.ResourceTiming.getSrcsetDimensions=false] Whether or not to collect physical
      * dimensions of srcset images. Setting this will cause un-cacheable images to be re-downloaded.
-     * @param {boolean} [config.ResourceTiming.jsUrl] Whether or not to encode as JSURL
+     * @param {boolean} [config.ResourceTiming.jsUrl=false] Whether or not to encode as JSURL
      *
      * @returns {@link BOOMR.plugins.ResourceTiming} The ResourceTiming plugin for chaining
      * @memberof BOOMR.plugins.ResourceTiming

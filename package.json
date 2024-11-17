@@ -94,6 +94,7 @@
     "postinstall-dev": "npm run bower-install && npm run webdriver-manager-update",
     "build": "./node_modules/.bin/grunt clean build",
     "lint": "./node_modules/.bin/grunt lint",
+    "doc": "node_modules/.bin/grunt doc",
     "unit-test": "./node_modules/.bin/grunt test:unit",
     "e2e-test": "./node_modules/.bin/grunt test:e2e --webdriver-versions=\"--versions.chrome $(google-chrome --product-version)\"",
     "bower-install": "./node_modules/.bin/bower install",

@@ -4818,7 +4818,7 @@
      * have been loaded before Visually Ready (and thus Time to Interactive) can happen.
      * @param {boolean} [config.Continuity.sendLog=true] Whether or not to
      * send the event log with each beacon.
-     * @param {boolean} [config.Continuity.logMaxEntries=100] How many log
+     * @param {number} [config.Continuity.logMaxEntries=100] How many log
      * entries to keep.
      * @param {boolean} [config.Continuity.sendTimeline=true] Whether or not to
      * send the timeline with each beacon.

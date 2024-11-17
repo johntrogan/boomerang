@@ -31,8 +31,8 @@
      * Initializes the plugin.
      *
      * @param {object} config Configuration
-     * @param {string} config.GUID.cookieName The name of the cookie to be set in the browser session
-     * @param {number} [config.GUID.expires] An expiry time for the cookie in seconds. By default 7 days.
+     * @param {string} [config.GUID.cookieName="GUID"] The name of the cookie to be set in the browser session
+     * @param {number} [config.GUID.expires=604800] An expiry time for the cookie in seconds. By default 7 days.
      *
      * @returns {@link BOOMR.plugins.GUID} The GUID plugin for chaining
      * @memberof BOOMR.plugins.GUID

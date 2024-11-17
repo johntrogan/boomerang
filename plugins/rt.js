@@ -1342,14 +1342,12 @@
      * Initializes the plugin.
      *
      * @param {object} config Configuration
-     * @param {string} [config.RT.cookie] The name of the cookie in which to store
+     * @param {string} [config.RT.cookie="RT"] The name of the cookie in which to store
      * the start time for measuring page load time.
-     *
-     * The default name is `RT`.
      *
      * Set this to a falsy value to ignore cookies and depend completely on
      * the NavigationTiming API for the start time.
-     * @param {string} [config.RT.cookie_exp] The lifetime in seconds of the roundtrip cookie.
+     * @param {number} [config.RT.cookie_exp=604800] The lifetime in seconds of the roundtrip cookie.
      *
      * This only needs to live for as long as it takes for a single page to load.
      *
@@ -1357,8 +1355,11 @@
      * and to cover people with really slow connections, or users that are geographically
      * far away from you, keep it to a few minutes.
      *
-     * The default is set to 10 minutes.
-     * @param {string} [config.RT.strict_referrer] By default, boomerang will not measure a
+     * The default is set to 7 days.
+     * @param {number} [config.RT.session_exp=900] The lifetime in seconds of the session.
+     *
+     * The default is set to 30 minutes.
+     * @param {string} [config.RT.strict_referrer=true] By default, boomerang will not measure a
      * page's roundtrip time if the URL in the RT cookie doesn't match the
      * current page's `document.referrer`.
      *
@@ -1370,8 +1371,6 @@
      * you have an SSL page in between and the referrer isn't passed through.
      *
      * In this case, you'll want to set `strict_referrer` to `false`.
-     *
-     * The default is `true.`
      *
      * @returns {@link BOOMR.plugins.RT} The RT plugin for chaining
      * @memberof BOOMR.plugins.RT

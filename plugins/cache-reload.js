@@ -55,12 +55,13 @@
      * Initializes the plugin.
      *
      * @param {object} config Configuration
-     * @param {string} [config.CACHE_RELOAD.url] By default, this is set to the empty string,
+     * @param {string} [config.CACHE_RELOAD.url=""] By default, this is set to the empty string,
      * which has the effect of disabling the Cache Reload plugin.
      *
      * Set the `url` parameter to the URL that will do handle forcing the reload.
      *
      * See the example for what this URL's output should look like.
+     *
      * @returns {@link BOOMR.plugins.CACHE_RELOAD} The CACHE_RELOAD plugin for chaining
      * @memberof BOOMR.plugins.CACHE_RELOAD
      */

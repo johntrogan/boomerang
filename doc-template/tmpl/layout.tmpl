@@ -57,11 +57,11 @@
 </div>
 
 
-<div class="container" id="toc-content">
+<div class="container-fluid" id="toc-content">
 <div class="row">
 
 	<?js if(docs && docs[0].kind !== "source"){ ?>
-	<div class="col-md-8">
+	<div class="col-md-8 col-md-offset-1">
 	<?js } else { ?>
 	<div class="col-md-12">
 	<?js } ?>
@@ -73,8 +73,8 @@
 	<div class="clearfix"></div>
 
 	<?js if(docs && docs[0].kind !== "source"){ ?>
-		<div class="col-md-3">
-			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		<div class="col-md-2 col-md-offset-1">
+			<div id="toc" class="col-md-4 col-lg-2 hidden-xs hidden-sm hidden-md"></div>
 		</div>
 	<?js } ?>
 

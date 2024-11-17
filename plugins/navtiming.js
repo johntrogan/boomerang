@@ -512,6 +512,7 @@
      * Initializes the plugin.
      *
      * This plugin does not have any configuration.
+     *
      * @returns {@link BOOMR.plugins.NavigationTiming} The NavigationTiming plugin for chaining
      * @memberof BOOMR.plugins.NavigationTiming
      */
