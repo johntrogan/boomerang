@@ -174,7 +174,8 @@
    */
   function debugLog(msg) {
     BOOMR.debug(msg, "History");
-  };
+  }
+
   /* END_DEBUG */
 
   /**
@@ -353,7 +354,7 @@
     impl.browserOnloadBeforeSetup = BOOMR.hasBrowserOnloadFired();
 
     return true;
-  };
+  }
 
   //
   // Exports

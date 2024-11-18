@@ -64,6 +64,7 @@
 
     if (window.navigator && typeof window.navigator.sendBeacon === "function") {
       savedSendBeacon = window.navigator.sendBeacon;
+
       window.navigator.sendBeacon = function(url, data) {
         "[native code]";
         // ^ fool ourselves
@@ -442,7 +443,7 @@
 
   t.isQuerySelectorSupported = function() {
     return typeof window.document.querySelector === "function" ||
-        typeof window.document.querySelector === "object";  // old IE
+        typeof window.document.querySelector === "object"; // old IE
   };
 
   t.isNavigationTimingSupported = function() {
@@ -553,7 +554,7 @@
   t.isErrorObjInOnErrorSupported = function() {
     var ua = navigator.userAgent.toLowerCase();
 
-    return (ua.indexOf("phantomjs") === -1);  // this should be extended to include older IE and Safari
+    return (ua.indexOf("phantomjs") === -1); // this should be extended to include older IE and Safari
   };
 
   t.isLocalStorageSupported = function() {
@@ -1154,6 +1155,7 @@
         }
 
         copy[objName] = {};
+
         for (var subObjAttr in subObj) {
           copy[objName][subObjAttr] = subObj[subObjAttr];
         }
@@ -1789,6 +1791,7 @@
 
         xhr.open("GET", getURI("xhr-track", 1500));
         xhr.send(null);
+
         xhr.onreadystatechange = function() {
           if (xhr.readyState === 4 && xhr.status === 200) {
             var img1 = document.getElementById(imgs[1]);
@@ -1803,6 +1806,7 @@
 
         xhr2.open("GET", getURI("xhr-ignore", 3000));
         xhr2.send(null);
+
         xhr2.onreadystatechange = function() {
           if (xhr2.readyState === 4 && xhr2.status === 200) {
             var img2 = document.getElementById(imgs[2]);
@@ -1878,6 +1882,7 @@
     var img = document.createElement("IMG");
 
     img.src = "/delay?id=" + id + "&delay=" + delay + "&file=/assets/img.jpg?rnd=" + t.rnd36();
+
     img.onload = function() {
       // update timings
       img.timing.end = BOOMR.now();

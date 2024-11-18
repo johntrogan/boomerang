@@ -135,7 +135,7 @@
         viewPortHeight = document.getElementsByTagName("body")[0].clientHeight;
       }
 
-      return {width: viewPortWidth, height: viewPortHeight};
+      return { width: viewPortWidth, height: viewPortHeight };
     }
   };
 

@@ -96,7 +96,7 @@
     return;
   }
 
-  w.BOOMR = (w.BOOMR !== undefined) ? w.BOOMR :  {};
+  w.BOOMR = (w.BOOMR !== undefined) ? w.BOOMR : {};
 
   var b = w.BOOMR;
 

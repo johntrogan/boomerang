@@ -9,7 +9,7 @@ window.willReportDeprecation = BOOMR_test.isChrome() &&
 
 function errorFunction() {
   if (window.willReportDeprecation) {
-    return window.chrome.loadTimes().firstPaintTime;  // cause a deprecation warning
+    return window.chrome.loadTimes().firstPaintTime; // cause a deprecation warning
   }
 }
 

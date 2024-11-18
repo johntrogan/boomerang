@@ -104,7 +104,7 @@ describe("e2e/00-basic/12-addvar", function() {
       for (var i = 0; i < tf.beacons.length; i++) {
         var b = tf.beacons[i];
 
-        assert.deepEqual(b.var8, { a: 1});
+        assert.deepEqual(b.var8, { a: 1 });
       }
     });
 

@@ -9,28 +9,28 @@ describe("BOOMR.utils.objectToString()", function() {
   });
 
   it("Should return a string representation of {\"key\": \"value\" } as key=value ", function() {
-    var object = {"key": "value"},
+    var object = { "key": "value" },
         expected = "key=value";
 
     assert.equal(BOOMR.utils.objectToString(object), expected);
   });
 
   it("Should return a string representation of {\"key\": \"value\", \"key2\": \"value2\" } as seperated by the default seperator (\"\\n\\t\") as key=value,key2=value2", function() {
-    var object = {"key": "value", "key2": "value2"},
+    var object = { "key": "value", "key2": "value2" },
         expected = "key=value\n\tkey2=value2";
 
     assert.equal(BOOMR.utils.objectToString(object), expected);
   });
 
   it("Should return a string representation of {\"key\": \"value\", \"key2\": \"value2\" } as seperated by the custom seperator \"|\" as key=value|key2=value2", function() {
-    var object = {"key": "value", "key2": "value2"},
+    var object = { "key": "value", "key2": "value2" },
         expected = "key=value|key2=value2";
 
     assert.equal(BOOMR.utils.objectToString(object, "|"), expected);
   });
 
   it("Should return a string representation of a nested object as a flat key value string with default seperator(\",\") as key=value\n\tarray=value2%2Cvalue3 ", function() {
-    var object = {"key": "value", "array": ["value2", "value3"]},
+    var object = { "key": "value", "array": ["value2", "value3"] },
         expected = "key=value\n\tarray=value2,value3";
 
     assert.equal(BOOMR.utils.objectToString(object), expected);
@@ -38,7 +38,7 @@ describe("BOOMR.utils.objectToString()", function() {
 
   it("Should return a string representation of a nested array as a flat key value string with default seperator (\",\") as \"1,2,3%2C4,5,6\" ", function() {
     var object =
-        ["1", "2", ["3,4"], [ ["5", "6"] ] ],
+        ["1", "2", ["3,4"], [["5", "6"]]],
         expected = "1,2,3,4,5,6";
 
     assert.equal(BOOMR.utils.objectToString(object, null, 3), expected);

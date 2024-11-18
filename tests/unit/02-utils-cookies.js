@@ -74,14 +74,14 @@ describe("BOOMR.utils cookies", function() {
       assert.isFunction(BOOMR.utils.setCookie);
     });
 
-    it("Should return false if no domain is set", function()  {
+    it("Should return false if no domain is set", function() {
       BOOMR.session.domain = null;
 
       assert.isFalse(BOOMR.utils.setCookie());
       assert.isFalse(BOOMR.utils.setCookie(cookieName));
     });
 
-    it("Should return false if no name was passed as first argument to setCookie()", function()  {
+    it("Should return false if no name was passed as first argument to setCookie()", function() {
       BOOMR.session.domain = cookieDomain;
 
       assert.isFalse(BOOMR.utils.setCookie());
@@ -187,7 +187,7 @@ describe("BOOMR.utils cookies", function() {
     });
 
     it("Should return null when calling with a non-string object", function() {
-      assert.isNull(BOOMR.utils.getSubCookies({key: "value"}));
+      assert.isNull(BOOMR.utils.getSubCookies({ key: "value" }));
     });
 
     if (canSetCookies) {

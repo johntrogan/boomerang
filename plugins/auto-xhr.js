@@ -418,7 +418,7 @@
    * @type {number}
    * @default
    */
-  var XHR_STATUS_TIMEOUT        = -1001;
+  var XHR_STATUS_TIMEOUT = -1001;
 
   /**
    * XMLHttpRequest was aborted
@@ -426,7 +426,7 @@
    * @type {number}
    * @default
    */
-  var XHR_STATUS_ABORT          = -999;
+  var XHR_STATUS_ABORT = -999;
 
   /**
    * An error occured fetching XMLHttpRequest/Fetch resource
@@ -434,10 +434,10 @@
    * @type {number}
    * @default
    */
-  var XHR_STATUS_ERROR          = -998;
+  var XHR_STATUS_ERROR = -998;
 
   /**
-   * An exception occured as we tried to request resource
+   * An exception occurred as we tried to request resource
    * @constant
    * @type {number}
    * @default
@@ -667,12 +667,12 @@
     var ev = {
       type: resource.initiator,
       resource: resource,
-      nodes_to_wait: 0,  // MO resources + xhrs currently outstanding + wait filter (max: 1)
-      total_nodes: 0,  // total MO resources + xhrs + wait filter (max: 1)
-      resources: [],  // resources reported by MO handler (no xhrs)
-      xhr_resources: [],  // resources reported by xhr monitoring (for debugging only)
+      nodes_to_wait: 0, // MO resources + xhrs currently outstanding + wait filter (max: 1)
+      total_nodes: 0, // total MO resources + xhrs + wait filter (max: 1)
+      resources: [], // resources reported by MO handler (no xhrs)
+      xhr_resources: [], // resources reported by xhr monitoring (for debugging only)
       complete: false,
-      aborted: false,  // this event was aborted
+      aborted: false, // this event was aborted
       firedEarlyBeacon: false
     },
         i,
@@ -1408,7 +1408,7 @@
 
       if (exisitingNodeSrcUrlChanged) {
         if (typeof node._bmr.listener === "function") {
-          self.load_cb({target: node, type: "changed"});
+          self.load_cb({ target: node, type: "changed" });
           // remove listeners
           node.removeEventListener("load", node._bmr.listener);
           node.removeEventListener("error", node._bmr.listener);
@@ -1595,6 +1595,7 @@
 
         if (els && els.length) {
           debugLog("Mutation on element node, " + tagName + " cnt: " + els.length);
+
           for (i = 0, l = els.length; i < l; i++) {
             interesting |= this.wait_for_node(els[i], index);
           }
@@ -1638,7 +1639,7 @@
       return -1;
     }
 
-    debugLog("Monitoring " + resource.type +  " URL: " + resource.url + " for event id: " + index);
+    debugLog("Monitoring " + resource.type + " URL: " + resource.url + " for event id: " + index);
 
     // for debugging
     current_event.xhr_resources.push(resource.url);
@@ -1711,6 +1712,7 @@
           if (l > 0) {
             debugLog("Mutation detected (childList), addedNodes cnt: " + l);
           }
+
           /* END_DEBUG */
           for (i = 0; i < l; i++) {
             evt.interesting |= self.wait_for_node(mutation.addedNodes[i], index);
@@ -1725,12 +1727,13 @@
           if (l > 0) {
             debugLog("Mutation detected (childList), removedNodes cnt: " + l);
           }
+
           /* END_DEBUG */
           for (i = 0; i < l; i++) {
             node = mutation.removedNodes[i];
 
             if (node.nodeName === "IFRAME" && node._bmr) {
-              self.load_cb({target: node, type: "removed"});
+              self.load_cb({ target: node, type: "removed" });
             }
           }
         }
@@ -2007,7 +2010,7 @@
         resource.requestPayload = payload;
       }
 
-      BOOMR.fireEvent("xhr_send", {resource: resource});
+      BOOMR.fireEvent("xhr_send", { resource: resource });
 
       handler.addEvent(resource);
 
@@ -2100,7 +2103,7 @@
               throw e;
             }
           };
-        };
+        }
 
         /**
          * wraps `.then` so that we can in turn wrap onFulfilled or onRejection that
@@ -2150,7 +2153,7 @@
 
             return p;
           };
-        };
+        }
 
         // we can't just wrap functions that read the response (e.g.`.text`, `json`, etc.) or
         // instrument `.body.getReader`'s stream because they might never be called.
@@ -2193,6 +2196,7 @@
               }
 
               resource.response = {};
+
               try {
                 res = response.clone();
                 res.text().then(function(text) {
@@ -2479,8 +2483,8 @@
 
           addListener("load");
           addListener("timeout", XHR_STATUS_TIMEOUT);
-          addListener("error",   XHR_STATUS_ERROR);
-          addListener("abort",   XHR_STATUS_ABORT);
+          addListener("error", XHR_STATUS_ERROR);
+          addListener("abort", XHR_STATUS_ABORT);
         }
 
         resource.url = a.href;
@@ -3032,7 +3036,7 @@
             // single resource
             sendResource(resources);
           }
-        };
+        }
 
         var resources = BOOMR.xhr.stop(sendXhrs);
 
@@ -3125,7 +3129,7 @@
      * @memberof BOOMR.plugins.AutoXHR
      */
     addExcludeFilter: function(cb, ctx, name) {
-      impl.xhrExcludeFilters.push({cb: cb, ctx: ctx, name: name});
+      impl.xhrExcludeFilters.push({ cb: cb, ctx: ctx, name: name });
     },
 
     /**
@@ -3144,7 +3148,7 @@
      * @memberof BOOMR.plugins.AutoXHR
      */
     addDomExcludeFilter: function(cb, ctx, name) {
-      impl.domExcludeFilters.push({cb: cb, ctx: ctx, name: name});
+      impl.domExcludeFilters.push({ cb: cb, ctx: ctx, name: name });
     },
 
     /**

@@ -403,6 +403,7 @@
 
       for (vendor in vendors) {
         data = vendors[vendor]();
+
         for (var key in data) {
           var beaconParam = "tp." + vendor + "." + key;
 

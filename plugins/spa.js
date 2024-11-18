@@ -574,6 +574,7 @@
       // for this SPA soft route
       if ((initiator === "spa" || routeChangeWaitFilterHardNavs) && routeChangeWaitFilter) {
         debugLog("Running route change wait filter");
+
         try {
           if (routeChangeWaitFilter.apply(null, arguments)) {
             debugLog("Route filter returned true; waiting for complete call");

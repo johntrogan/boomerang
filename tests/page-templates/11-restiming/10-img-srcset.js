@@ -80,7 +80,7 @@ describe("e2e/11-restiming/10-img-srcset", function() {
       var resources = ResourceTimingDecompression.decompressResources(JSON.parse(b.restiming));
       var img = findSrcSetImage(resources);
 
-      assert.closeTo(img.naturalWidth, getExpectedImage()[2], 1);  // without getSrcsetDimensions, we'll have the clientWidth
+      assert.closeTo(img.naturalWidth, getExpectedImage()[2], 1); // without getSrcsetDimensions, we'll have the clientWidth
     }
     else {
       this.skip();

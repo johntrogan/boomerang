@@ -98,12 +98,12 @@ describe("BOOMR.utils localStorage", function() {
       });
 
       it("Should return true when setting storage with value", function() {
-        assert.isTrue(BOOMR.utils.setLocalStorage(storageName, {key: "value"}));
+        assert.isTrue(BOOMR.utils.setLocalStorage(storageName, { key: "value" }));
         BOOMR.utils.removeLocalStorage(storageName);
       });
 
       it("Should return the value that we've set previously", function() {
-        var value = { key: "value", key2: true, key3: 123, key4: {subkey: "value"} };
+        var value = { key: "value", key2: true, key3: 123, key4: { subkey: "value" } };
 
         BOOMR.utils.setLocalStorage(storageName, value);
         assert.deepEqual(BOOMR.utils.getLocalStorage(storageName), value);
@@ -121,7 +121,7 @@ describe("BOOMR.utils localStorage", function() {
       });
 
       it("Should return the value that we've set previously with a large expiry", function() {
-        var value = { key: "value", key2: true, key3: 123, key4: {subkey: "value"} };
+        var value = { key: "value", key2: true, key3: 123, key4: { subkey: "value" } };
 
         BOOMR.utils.setLocalStorage(storageName, value, 5 * 60);
         assert.deepEqual(BOOMR.utils.getLocalStorage(storageName), value);
@@ -129,14 +129,14 @@ describe("BOOMR.utils localStorage", function() {
       });
 
       it("Should return undefined for a storage that we've set previously with a zero expiry", function() {
-        var value = { key: "value", key2: true, key3: 123, key4: {subkey: "value"} };
+        var value = { key: "value", key2: true, key3: 123, key4: { subkey: "value" } };
 
         BOOMR.utils.setLocalStorage(storageName, value, 0);
         assert.isUndefined(BOOMR.utils.getLocalStorage(storageName));
       });
 
       it("Should return undefined for a storage that we've set previously with a negative expiry", function() {
-        var value = { key: "value", key2: true, key3: 123, key4: {subkey: "value"} };
+        var value = { key: "value", key2: true, key3: 123, key4: { subkey: "value" } };
 
         BOOMR.utils.setLocalStorage(storageName, value, -1);
         assert.isUndefined(BOOMR.utils.getLocalStorage(storageName));
@@ -149,12 +149,12 @@ describe("BOOMR.utils localStorage", function() {
           value += "1";
         }
 
-        assert.isFalse(BOOMR.utils.setLocalStorage("failStorage", {key: value}));
+        assert.isFalse(BOOMR.utils.setLocalStorage("failStorage", { key: value }));
       });
     }
     else {
       it("Should return false when localStorage is not supported", function() {
-        assert.isFalse(BOOMR.utils.setLocalStorage(storageName, {key: "value"}));
+        assert.isFalse(BOOMR.utils.setLocalStorage(storageName, { key: "value" }));
       });
     }
   });

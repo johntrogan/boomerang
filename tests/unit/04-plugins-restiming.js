@@ -94,7 +94,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
   describe("convertToTrie()", function() {
     describe("splitAt = every letter", function() {
       it("Should convert a single node", function() {
-        var data = {"abc": "abc"};
+        var data = { "abc": "abc" };
         var expected = {
           "a": {
             "b": {
@@ -107,7 +107,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
       });
 
       it("Should convert a two-node tree whose nodes don't intersect", function() {
-        var data = {"abc": "abc", "xyz": "xyz"};
+        var data = { "abc": "abc", "xyz": "xyz" };
         var expected = {
           "a": {
             "b": {
@@ -125,7 +125,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
       });
 
       it("Should convert a complex tree", function() {
-        var data = {"abc": "abc", "abcd": "abcd", "ab": "ab"};
+        var data = { "abc": "abc", "abcd": "abcd", "ab": "ab" };
         var expected = {
           "a": {
             "b": {
@@ -142,7 +142,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
       });
 
       it("Should break 'href' for NoScript", function() {
-        var data = {"href": "abc"};
+        var data = { "href": "abc" };
         var expected = {
           "h": {
             "\n": {
@@ -159,7 +159,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
       });
 
       it("Should break 'src' for NoScript", function() {
-        var data = {"src": "abc"};
+        var data = { "src": "abc" };
         var expected = {
           "s": {
             "\n": {
@@ -174,7 +174,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
       });
 
       it("Should break 'action' for NoScript", function() {
-        var data = {"action": "abc"};
+        var data = { "action": "abc" };
         var expected = {
           "a": {
             "\n": {
@@ -207,7 +207,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
           }
         });
 
-        var data = {"moo": "abc"};
+        var data = { "moo": "abc" };
         var expected = {
           "m": {
             "\n": {
@@ -224,7 +224,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
 
     describe("splitAt = path", function() {
       it("Should convert a single node", function() {
-        var data = {"http://abc.com/def/g": "abc"};
+        var data = { "http://abc.com/def/g": "abc" };
         var expected = {
           "http://": {
             "abc.com/": {
@@ -239,7 +239,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
       });
 
       it("Should convert a single node with no path", function() {
-        var data = {"http://abc.com": "abc"};
+        var data = { "http://abc.com": "abc" };
         var expected = {
           "http://": {
             "abc.com": "abc"
@@ -250,7 +250,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
       });
 
       it("Should convert a two-node tree whose nodes don't intersect", function() {
-        var data = {"http://abc.com/abc": "abc", "http://abc.com/xyz": "xyz"};
+        var data = { "http://abc.com/abc": "abc", "http://abc.com/xyz": "xyz" };
         var expected = {
           "http://": {
             "abc.com/": {
@@ -264,7 +264,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
       });
 
       it("Should convert a complex tree", function() {
-        var data = {"http://abc.com/abc": "abc", "http://abc.com/abcd": "abcd", "http://abc.com/ab": "ab"};
+        var data = { "http://abc.com/abc": "abc", "http://abc.com/abcd": "abcd", "http://abc.com/ab": "ab" };
         var expected = {
           "http://": {
             "abc.com/": {
@@ -311,7 +311,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
       });
 
       it("Should break 'href' for NoScript", function() {
-        var data = {"http://abc.com/hrefhref/href": "abc"};
+        var data = { "http://abc.com/hrefhref/href": "abc" };
         var expected = {
           "http://": {
             "abc.com/": {
@@ -338,7 +338,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
       });
 
       it("Should break 'src' for NoScript", function() {
-        var data = {"http://abc.com/src": "abc"};
+        var data = { "http://abc.com/src": "abc" };
         var expected = {
           "http://": {
             "abc.com/": {
@@ -355,7 +355,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
       });
 
       it("Should break 'action' for NoScript", function() {
-        var data = {"http://abc.com/action": "abc"};
+        var data = { "http://abc.com/action": "abc" };
         var expected = {
           "http://": {
             "abc.com/": {
@@ -384,7 +384,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
           }
         });
 
-        var data = {"http://abc.com/moo": "abc"};
+        var data = { "http://abc.com/moo": "abc" };
         var expected = {
           "http://": {
             "abc.com/": {
@@ -408,7 +408,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
   describe("optimizeTrie()", function() {
     describe("splitAt = every letter", function() {
       it("Should optimize a single-node tree", function() {
-        var data = {"abc": "abc"};
+        var data = { "abc": "abc" };
         var expected = {
           "abc": "abc"
         };
@@ -419,7 +419,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
       });
 
       it("Should optimize a simple tree", function() {
-        var data = {"abc": "abc", "xyz": "xyz"};
+        var data = { "abc": "abc", "xyz": "xyz" };
         var expected = {
           "abc": "abc",
           "xyz": "xyz"
@@ -431,7 +431,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
       });
 
       it("Should optimize a complex tree", function() {
-        var data = {"abc": "abc", "abcd": "abcd", "ab": "ab"};
+        var data = { "abc": "abc", "abcd": "abcd", "ab": "ab" };
         var expected = {
           "ab":
           {
@@ -449,7 +449,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
       });
 
       it("Should optimize a single-node tree with more characters", function() {
-        var data = {"abcde": "abcde"};
+        var data = { "abcde": "abcde" };
         var expected = {
           "abcde": "abcde"
         };
@@ -460,7 +460,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
       });
 
       it("Should break 'href' for NoScript", function() {
-        var data = {"href": "abc" };
+        var data = { "href": "abc" };
         var expected = {
           "h": {
             "ref": "abc"
@@ -478,7 +478,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
       });
 
       it("Should break 'href', 'action' and 'src' for NoScript", function() {
-        var data = {"href": "abc", "123action123": "abc", "_src_abc_action123": "abc" };
+        var data = { "href": "abc", "123action123": "abc", "_src_abc_action123": "abc" };
         var expected = {
           "_s": {
             "rc_abc_a": {
@@ -506,7 +506,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
 
     describe("splitAt = path", function() {
       it("Should optimize a single-node tree", function() {
-        var data = {"http://abc.com/def/g": "abc"};
+        var data = { "http://abc.com/def/g": "abc" };
         var expected = {
           "http://abc.com/def/g": "abc"
         };
@@ -517,7 +517,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
       });
 
       it("Should convert a two-node tree whose nodes don't intersect", function() {
-        var data = {"http://abc.com/abc": "abc", "http://abc.com/xyz": "xyz"};
+        var data = { "http://abc.com/abc": "abc", "http://abc.com/xyz": "xyz" };
         var expected = {
           "http://abc.com/": {
             "abc": "abc",
@@ -531,7 +531,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
       });
 
       it("Should convert a complex tree", function() {
-        var data = {"http://abc.com/abc": "abc", "http://abc.com/abcd": "abcd", "http://abc.com/ab": "ab"};
+        var data = { "http://abc.com/abc": "abc", "http://abc.com/abcd": "abcd", "http://abc.com/ab": "ab" };
         var expected = {
           "http://abc.com/": {
             "ab": "ab",
@@ -576,7 +576,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
       });
 
       it("Should break 'href' for NoScript", function() {
-        var data = {"http://abc.com/hrefhref/href": "abc"};
+        var data = { "http://abc.com/hrefhref/href": "abc" };
         var expected = {
           "http://abc.com/h": {
             "refh": {
@@ -598,7 +598,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
       });
 
       it("Should break 'src' for NoScript", function() {
-        var data = {"http://abc.com/src": "abc"};
+        var data = { "http://abc.com/src": "abc" };
         var expected = {
           "http://abc.com/s": {
             "rc": "abc"
@@ -616,7 +616,7 @@ describe("BOOMR.plugins.ResourceTiming", function() {
       });
 
       it("Should break 'action' for NoScript", function() {
-        var data = {"http://abc.com/action": "abc"};
+        var data = { "http://abc.com/action": "abc" };
         var expected = {
           "http://abc.com/a": {
             "ction": "abc"
@@ -1509,8 +1509,8 @@ describe("BOOMR.plugins.ResourceTiming", function() {
     it("Should increment our count collector", function() {
       var serverTimingCollection = {};
 
-      BOOMR.plugins.ResourceTiming.accumulateServerTimingEntries(serverTimingCollection, [{name: "n1", description: "d1"}, {name: "n2", description: "d1"}]);
-      BOOMR.plugins.ResourceTiming.accumulateServerTimingEntries(serverTimingCollection, [{name: "n2", description: "d1"}, {name: "n2", description: "d2"}]);
+      BOOMR.plugins.ResourceTiming.accumulateServerTimingEntries(serverTimingCollection, [{ name: "n1", description: "d1" }, { name: "n2", description: "d1" }]);
+      BOOMR.plugins.ResourceTiming.accumulateServerTimingEntries(serverTimingCollection, [{ name: "n2", description: "d1" }, { name: "n2", description: "d2" }]);
       assert.deepEqual(serverTimingCollection, {
         n1: {
           count: 1,

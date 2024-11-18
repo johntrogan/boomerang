@@ -1789,8 +1789,8 @@ describe("BOOMR.plugins.Continuity", function() {
         startTime: 2068,
         sources: [{
           selector: "img",
-          previousRect: {x: 1608, y: 202, width: 800, height: 297},
-          currentRect: {x: 1608, y: 499, width: 800, height: 297}
+          previousRect: { x: 1608, y: 202, width: 800, height: 297 },
+          currentRect: { x: 1608, y: 499, width: 800, height: 297 }
         }]
       },
       {
@@ -1799,18 +1799,18 @@ describe("BOOMR.plugins.Continuity", function() {
         sources: [
           {
             selector: "img",
-            previousRect: {x: 0, y: 120, width: 200, height: 74},
-            currentRect: {x: 0, y: 1010, width: 200, height: 75}
+            previousRect: { x: 0, y: 120, width: 200, height: 74 },
+            currentRect: { x: 0, y: 1010, width: 200, height: 75 }
           },
           {
             selector: "img",
-            previousRect: {x: 0, y: 202, width: 1600, height: 594},
-            currentRect: {x: 0, y: 1093, width: 1600, height: 549}
+            previousRect: { x: 0, y: 202, width: 1600, height: 594 },
+            currentRect: { x: 0, y: 1093, width: 1600, height: 549 }
           },
           {
             selector: "img",
-            previousRect: {x: 1608, y: 499, width: 800, height: 297},
-            currentRect: {x: 1608, y: 1389, width: 800, height: 253}
+            previousRect: { x: 1608, y: 499, width: 800, height: 297 },
+            currentRect: { x: 1608, y: 1389, width: 800, height: 253 }
           }
         ]
       }];

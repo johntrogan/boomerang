@@ -43,7 +43,7 @@ describe("e2e/11-restiming/13-addresources", function() {
     assert.equal(entry.startTime, 300);
     assert.equal(entry.initiatorType, "script");
     assert.isObject(entry._data);
-    assert.deepEqual(entry._data, {"ns5": "namespaced_payload_5"});
+    assert.deepEqual(entry._data, { "ns5": "namespaced_payload_5" });
 
     // script2.js
     assert.lengthOf(interesting["http://example.com/script2.js"], 1, "there should be 1 RT entry for script2.js");
@@ -52,7 +52,7 @@ describe("e2e/11-restiming/13-addresources", function() {
     assert.equal(entry.startTime, 400);
     assert.equal(entry.initiatorType, "script");
     assert.isObject(entry._data);
-    assert.deepEqual(entry._data, {"ns6": "namespaced_payload_6", "ns7": "namespaced_payload_7"});
+    assert.deepEqual(entry._data, { "ns6": "namespaced_payload_6", "ns7": "namespaced_payload_7" });
 
     // spacer.gif
     assert.lengthOf(interesting[spacer], 1, "there should be 1 RT entry for spacer.gif");

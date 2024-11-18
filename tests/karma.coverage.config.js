@@ -14,10 +14,10 @@ module.exports = function(config) {
     coverageReporter: {
       dir: "coverage/unit/",
       instrumenterOptions: {
-        istanbul: {esModules: false}  // Not an ES6 module.
+        istanbul: { esModules: false } // Not an ES6 module.
       },
       reporters: [
-        { type: "html", subdir: "html"},
+        { type: "html", subdir: "html" },
         { type: "text", subdir: ".", file: "text.txt" },
         { type: "text-summary", subdir: ".", file: "text-summary.txt" }
       ]

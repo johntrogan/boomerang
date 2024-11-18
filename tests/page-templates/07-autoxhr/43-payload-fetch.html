@@ -30,11 +30,11 @@ BOOMR_test.init({
         BOOMR.plugins.AutoXHR.setXhrRequestResponseCapturing(true);
 
         // fire another fetch
-        var p = fetch("/json?2", {method: "POST", body: "ABC"});
+        var p = fetch("/json?2", { method: "POST", body: "ABC" });
       }, null, null, true);
 
       // start a fetch
-      window.p = fetch("/json?1", {method: "POST", body: "ABC"});
+      window.p = fetch("/json?1", { method: "POST", body: "ABC" });
     }
 });
 </script>

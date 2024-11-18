@@ -68,11 +68,13 @@ app.HomeView = Backbone.View.extend({
         // Custom metrics and timers
         //
         window.custom_metric_1 = 11;
+
         window.custom_metric_2 = function() {
           return 22;
         };
 
         window.custom_timer_1 = 11;
+
         window.custom_timer_2 = function() {
           return 22;
         };
@@ -130,11 +132,13 @@ app.WidgetView = Backbone.View.extend({
       success: function() {
         // these overwrite what was in the HTML
         window.custom_metric_1 = that.model.id;
+
         window.custom_metric_2 = function() {
           return 10 * that.model.id;
         };
 
         window.custom_timer_1 = that.model.id;
+
         window.custom_timer_2 = function() {
           return 10 * that.model.id;
         };
@@ -257,7 +261,7 @@ if (typeof window.backbone_nav_routes !== "undefined" &&
       setTimeout(function() {
         app.Router.navigate(nextRoute, {
           trigger: true,
-          replace: false  // use pushState instead of replaceState
+          replace: false // use pushState instead of replaceState
         });
       }, 100);
     }

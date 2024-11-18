@@ -39,11 +39,11 @@
     var data = JSON.parse(event.data);
 
     if (data && data.msg === "lastBeacon") {
-      event.source.postMessage(JSON.stringify({msg: "beacon", data: tf.lastBeacon()}), event.origin);
+      event.source.postMessage(JSON.stringify({ msg: "beacon", data: tf.lastBeacon() }), event.origin);
     }
     else if (data && data.msg === "ensureBeaconCount") {
       BOOMR_test.ensureBeaconCount(function(err) {
-        event.source.postMessage(JSON.stringify({msg: "count", data: typeof err === "undefined"}), event.origin);
+        event.source.postMessage(JSON.stringify({ msg: "count", data: typeof err === "undefined" }), event.origin);
       }, data.count);
     }
   }

@@ -50,7 +50,7 @@ describe("BOOMR.utils.makeSelector", function() {
 
   it("single node with ID", function() {
     var nodes = [
-      {"type": "element", "tagname": "div", "id": "test"}
+      { "type": "element", "tagname": "div", "id": "test" }
     ];
 
     var selector = testSelector(nodes);
@@ -60,8 +60,8 @@ describe("BOOMR.utils.makeSelector", function() {
 
   it("node with class and parent with ID", function() {
     var nodes = [
-      {"type": "element", "tagname": "div", "className": "test"},
-      {"type": "element", "tagname": "div", "id": "yum"}
+      { "type": "element", "tagname": "div", "className": "test" },
+      { "type": "element", "tagname": "div", "id": "yum" }
     ];
 
     var selector = testSelector(nodes);
@@ -71,8 +71,8 @@ describe("BOOMR.utils.makeSelector", function() {
 
   it("node with class and parent with class and ID", function() {
     var nodes = [
-      {"type": "element", "tagname": "div", "className": "test"},
-      {"type": "element", "tagname": "div", "className": "test2", "id": "yum"}
+      { "type": "element", "tagname": "div", "className": "test" },
+      { "type": "element", "tagname": "div", "className": "test2", "id": "yum" }
     ];
 
     var selector = testSelector(nodes);
@@ -82,8 +82,8 @@ describe("BOOMR.utils.makeSelector", function() {
 
   it("node with class and parent with class", function() {
     var nodes = [
-      {"type": "element", "tagname": "div", "className": "test"},
-      {"type": "element", "tagname": "img", "className": "test2"}
+      { "type": "element", "tagname": "div", "className": "test" },
+      { "type": "element", "tagname": "img", "className": "test2" }
     ];
 
     var selector = testSelector(nodes);
@@ -93,10 +93,10 @@ describe("BOOMR.utils.makeSelector", function() {
 
   it("check three nodes, stops at first ID when more parents exist", function() {
     var nodes = [
-      {"type": "element", "tagname": "ul", "className": "test"},
-      {"type": "element", "tagname": "img", "className": "test2"},
-      {"type": "element", "tagname": "div", "id": "test3"},
-      {"type": "element", "tagname": "ul", "className": "test"}
+      { "type": "element", "tagname": "ul", "className": "test" },
+      { "type": "element", "tagname": "img", "className": "test2" },
+      { "type": "element", "tagname": "div", "id": "test3" },
+      { "type": "element", "tagname": "ul", "className": "test" }
     ];
 
     var selector = testSelector(nodes);
@@ -106,11 +106,11 @@ describe("BOOMR.utils.makeSelector", function() {
 
   it("check four nodes", function() {
     var nodes = [
-      {"type": "element", "tagname": "ul", "className": "test"},
-      {"type": "element", "tagname": "img", "className": "test2"},
-      {"type": "element", "tagname": "div", "className": "test3"},
-      {"type": "element", "tagname": "ul", "id": "id4"},
-      {"type": "element", "tagname": "div", "className": "test5", "id": "nextID"}
+      { "type": "element", "tagname": "ul", "className": "test" },
+      { "type": "element", "tagname": "img", "className": "test2" },
+      { "type": "element", "tagname": "div", "className": "test3" },
+      { "type": "element", "tagname": "ul", "id": "id4" },
+      { "type": "element", "tagname": "div", "className": "test5", "id": "nextID" }
     ];
 
     var selector = testSelector(nodes);
@@ -120,13 +120,13 @@ describe("BOOMR.utils.makeSelector", function() {
 
   it("check five nodes, check asterick, check textNode", function() {
     var nodes = [
-      {"type": "text"},
-      {"type": "element", "tagname": "ul", "className": "test"},
-      {"type": "element", "tagname": "img", "className": "test2"},
-      {"type": "element", "tagname": "div", "className": "test3"},
-      {"type": "element", "tagname": "ul", "className": "test4"},
-      {"type": "element", "tagname": "span", "id": "id5"},
-      {"type": "element", "tagname": "div", "className": "test5", "id": "nextID"}
+      { "type": "text" },
+      { "type": "element", "tagname": "ul", "className": "test" },
+      { "type": "element", "tagname": "img", "className": "test2" },
+      { "type": "element", "tagname": "div", "className": "test3" },
+      { "type": "element", "tagname": "ul", "className": "test4" },
+      { "type": "element", "tagname": "span", "id": "id5" },
+      { "type": "element", "tagname": "div", "className": "test5", "id": "nextID" }
     ];
 
     var selector = testSelector(nodes);
@@ -136,13 +136,13 @@ describe("BOOMR.utils.makeSelector", function() {
 
   it("check asterick with > 5 nodes, check no ID or class", function() {
     var nodes = [
-      {"type": "element", "tagname": "span"},
-      {"type": "element", "tagname": "ul", "className": "test"},
-      {"type": "element", "tagname": "img", "className": "test2"},
-      {"type": "element", "tagname": "div"},
-      {"type": "element", "tagname": "ul", "className": "test4"},
-      {"type": "element", "tagname": "span"},
-      {"type": "element", "tagname": "div", "className": "test5", "id": "nextID"}
+      { "type": "element", "tagname": "span" },
+      { "type": "element", "tagname": "ul", "className": "test" },
+      { "type": "element", "tagname": "img", "className": "test2" },
+      { "type": "element", "tagname": "div" },
+      { "type": "element", "tagname": "ul", "className": "test4" },
+      { "type": "element", "tagname": "span" },
+      { "type": "element", "tagname": "div", "className": "test5", "id": "nextID" }
     ];
 
     var selector = testSelector(nodes);
@@ -152,13 +152,13 @@ describe("BOOMR.utils.makeSelector", function() {
 
   it("same as above but final node no ID", function() {
     var nodes = [
-      {"type": "element", "tagname": "span"},
-      {"type": "element", "tagname": "ul", "className": "test"},
-      {"type": "element", "tagname": "img", "className": "test2"},
-      {"type": "element", "tagname": "div"},
-      {"type": "element", "tagname": "ul", "className": "test4"},
-      {"type": "element", "tagname": "span"},
-      {"type": "element", "tagname": "div", "className": "test5"}
+      { "type": "element", "tagname": "span" },
+      { "type": "element", "tagname": "ul", "className": "test" },
+      { "type": "element", "tagname": "img", "className": "test2" },
+      { "type": "element", "tagname": "div" },
+      { "type": "element", "tagname": "ul", "className": "test4" },
+      { "type": "element", "tagname": "span" },
+      { "type": "element", "tagname": "div", "className": "test5" }
     ];
 
     var selector = testSelector(nodes);
@@ -168,13 +168,13 @@ describe("BOOMR.utils.makeSelector", function() {
 
   it("same as above but ends at BODY", function() {
     var nodes = [
-      {"type": "element", "tagname": "span"},
-      {"type": "element", "tagname": "ul", "className": "test"},
-      {"type": "element", "tagname": "img", "className": "test2"},
-      {"type": "element", "tagname": "div"},
-      {"type": "element", "tagname": "ul", "className": "test4"},
-      {"type": "element", "tagname": "span"},
-      {"type": "element", "tagname": "body"}
+      { "type": "element", "tagname": "span" },
+      { "type": "element", "tagname": "ul", "className": "test" },
+      { "type": "element", "tagname": "img", "className": "test2" },
+      { "type": "element", "tagname": "div" },
+      { "type": "element", "tagname": "ul", "className": "test4" },
+      { "type": "element", "tagname": "span" },
+      { "type": "element", "tagname": "body" }
     ];
 
     var selector = testSelector(nodes);
@@ -184,12 +184,12 @@ describe("BOOMR.utils.makeSelector", function() {
 
   it("same as above but ends at BODY as 5th parent", function() {
     var nodes = [
-      {"type": "element", "tagname": "span"},
-      {"type": "element", "tagname": "ul", "className": "test"},
-      {"type": "element", "tagname": "img", "className": "test2"},
-      {"type": "element", "tagname": "div"},
-      {"type": "element", "tagname": "ul", "className": "test4"},
-      {"type": "element", "tagname": "body"}
+      { "type": "element", "tagname": "span" },
+      { "type": "element", "tagname": "ul", "className": "test" },
+      { "type": "element", "tagname": "img", "className": "test2" },
+      { "type": "element", "tagname": "div" },
+      { "type": "element", "tagname": "ul", "className": "test4" },
+      { "type": "element", "tagname": "body" }
     ];
 
     var selector = testSelector(nodes);
@@ -199,11 +199,11 @@ describe("BOOMR.utils.makeSelector", function() {
 
   it("same as above but ends at BODY as 4th parent", function() {
     var nodes = [
-      {"type": "element", "tagname": "span"},
-      {"type": "element", "tagname": "ul", "className": "test"},
-      {"type": "element", "tagname": "img", "className": "test2"},
-      {"type": "element", "tagname": "div"},
-      {"type": "element", "tagname": "body"}
+      { "type": "element", "tagname": "span" },
+      { "type": "element", "tagname": "ul", "className": "test" },
+      { "type": "element", "tagname": "img", "className": "test2" },
+      { "type": "element", "tagname": "div" },
+      { "type": "element", "tagname": "body" }
     ];
 
     var selector = testSelector(nodes);
@@ -213,10 +213,10 @@ describe("BOOMR.utils.makeSelector", function() {
 
   it("same as above but ends at BODY as 3rd parent", function() {
     var nodes = [
-      {"type": "element", "tagname": "span"},
-      {"type": "element", "tagname": "ul", "className": "test"},
-      {"type": "element", "tagname": "img", "className": "test2"},
-      {"type": "element", "tagname": "body"}
+      { "type": "element", "tagname": "span" },
+      { "type": "element", "tagname": "ul", "className": "test" },
+      { "type": "element", "tagname": "img", "className": "test2" },
+      { "type": "element", "tagname": "body" }
     ];
 
     var selector = testSelector(nodes);
@@ -226,14 +226,14 @@ describe("BOOMR.utils.makeSelector", function() {
 
   it("check null in middle", function() {
     var nodes = [
-      {"type": "element", "tagname": "span"},
-      {"type": "element", "tagname": "ul", "className": "test"},
-      {"type": "element", "tagname": "img", "className": "test2"},
-      {"type": "element", "tagname": "div"},
+      { "type": "element", "tagname": "span" },
+      { "type": "element", "tagname": "ul", "className": "test" },
+      { "type": "element", "tagname": "img", "className": "test2" },
+      { "type": "element", "tagname": "div" },
       {},
-      {"type": "element", "tagname": "ul", "className": "test4"},
-      {"type": "element", "tagname": "span"},
-      {"type": "element", "tagname": "div", "className": "test5"}
+      { "type": "element", "tagname": "ul", "className": "test4" },
+      { "type": "element", "tagname": "span" },
+      { "type": "element", "tagname": "div", "className": "test5" }
     ];
 
     var selector = testSelector(nodes);
@@ -243,13 +243,13 @@ describe("BOOMR.utils.makeSelector", function() {
 
   it("check body", function() {
     var nodes = [
-      {"type": "element", "tagname": "span"},
-      {"type": "element", "tagname": "ul", "className": "test"},
-      {"type": "element", "tagname": "img", "className": "test2"},
-      {"type": "element", "tagname": "div"},
-      {"type": "element", "tagname": "ul", "className": "test4"},
-      {"type": "element", "tagname": "span"},
-      {"type": "element", "tagname": "body"}
+      { "type": "element", "tagname": "span" },
+      { "type": "element", "tagname": "ul", "className": "test" },
+      { "type": "element", "tagname": "img", "className": "test2" },
+      { "type": "element", "tagname": "div" },
+      { "type": "element", "tagname": "ul", "className": "test4" },
+      { "type": "element", "tagname": "span" },
+      { "type": "element", "tagname": "body" }
     ];
 
     var selector = testSelector(nodes);
@@ -259,8 +259,8 @@ describe("BOOMR.utils.makeSelector", function() {
 
   it("check single textNode", function() {
     var nodes = [
-      {"type": "text", "tagname": "span"},
-      {"type": "element", "tagname": "body"}
+      { "type": "text", "tagname": "span" },
+      { "type": "element", "tagname": "body" }
     ];
 
     var selector = testSelector(nodes);

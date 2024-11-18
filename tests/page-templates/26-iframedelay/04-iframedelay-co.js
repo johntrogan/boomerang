@@ -29,7 +29,7 @@ describe("e2e/26-iframedelay/04-iframedelay-co", function() {
     }
 
     // ask the iframe for lastBeacon data
-    document.getElementById(id).contentWindow.postMessage(JSON.stringify({msg: "lastBeacon"}), "*");
+    document.getElementById(id).contentWindow.postMessage(JSON.stringify({ msg: "lastBeacon" }), "*");
   }
 
   function ensureBeaconCountIFrame(id, count, callback) {
@@ -60,7 +60,7 @@ describe("e2e/26-iframedelay/04-iframedelay-co", function() {
     }
 
     // ask the iframe for lastBeacon data
-    document.getElementById(id).contentWindow.postMessage(JSON.stringify({msg: "ensureBeaconCount", count: count}), "*");
+    document.getElementById(id).contentWindow.postMessage(JSON.stringify({ msg: "ensureBeaconCount", count: count }), "*");
   }
 
   it("The base page should have only sent one page load beacon", function(done) {

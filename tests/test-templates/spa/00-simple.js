@@ -1,6 +1,7 @@
 /* eslint-env mocha */
 /* global BOOMR_test,assert */
 BOOMR_test.templates.SPA = BOOMR_test.templates.SPA || {};
+
 BOOMR_test.templates.SPA["00-simple"] = function() {
   var tf = BOOMR.plugins.TestFramework;
   var t = BOOMR_test;
@@ -90,11 +91,11 @@ BOOMR_test.templates.SPA["00-simple"] = function() {
     if (t.isMutationObserverSupported() && typeof BOOMR.plugins.RT.navigationStart() !== "undefined") {
       var b = tf.lastBeacon();
 
-      assert.equal(b.nt_red_cnt, 0, "nt_red_cnt is 0");  // no redirects
+      assert.equal(b.nt_red_cnt, 0, "nt_red_cnt is 0"); // no redirects
       assert.isDefined(b.nt_nav_type, "nt_nav_type is defined");
       assert.isDefined(b.nt_nav_st, "nt_nav_st is defined");
-      assert.isUndefined(b.nt_red_st, "nt_red_st is undefined");  // no redirects
-      assert.isUndefined(b.nt_red_end, "nt_red_end is undefined");  // no redirects
+      assert.isUndefined(b.nt_red_st, "nt_red_st is undefined"); // no redirects
+      assert.isUndefined(b.nt_red_end, "nt_red_end is undefined"); // no redirects
       assert.isDefined(b.nt_fet_st, "nt_fet_st is defined");
       assert.isDefined(b.nt_dns_st, "nt_dns_st is defined");
       assert.isDefined(b.nt_dns_end, "nt_dns_end is defined");

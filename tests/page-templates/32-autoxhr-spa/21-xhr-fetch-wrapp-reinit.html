@@ -18,6 +18,7 @@ BOOMR_test.init({
 
     // pretend another library has loaded and wrapped XHR
     window.orig_XHR = window.XMLHttpRequest;
+
     window.XMLHttpRequest = function() {
       // increment call count
       window.XMLHttpRequest_called = window.XMLHttpRequest_called || 0;

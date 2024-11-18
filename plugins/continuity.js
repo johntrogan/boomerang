@@ -856,7 +856,7 @@
   /**
    * Listener Options args with Passive and Capture set to true
    */
-  var listenerOpts = {passive: true, capture: true};
+  var listenerOpts = { passive: true, capture: true };
 
   // Performance object
   var p = BOOMR.getPerformance();
@@ -1140,6 +1140,7 @@
       }
 
       out[idx] = num;
+
       for (j = 1; j < repeat; j++) {
         idx++;
         out[idx] = num;
@@ -2180,7 +2181,7 @@
     var perfObserver = new w.PerformanceObserver(onLayoutShiftObserver);
 
     try {
-      perfObserver.observe({type: "layout-shift", buffered: true});
+      perfObserver.observe({ type: "layout-shift", buffered: true });
     }
     catch (e) {
       // layout-shift not supported
@@ -2698,7 +2699,7 @@
 
         // reset the period by one
         total -= POLLS_PER_REPORT;
-        late   = Math.max(late - POLLS_PER_REPORT, 0);
+        late = Math.max(late - POLLS_PER_REPORT, 0);
 
         // this was a busy period
         overallTotal += POLLS_PER_REPORT;

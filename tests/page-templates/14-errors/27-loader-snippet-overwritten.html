@@ -1,6 +1,7 @@
 <%= header %>
 <script>
 window.errorsLogged1 = 0;
+
 window.onerror = function() {
   window.errorsLogged1++;
 };
@@ -10,6 +11,7 @@ window.onerror = function() {
 // now have another snippet override ours
 window.oldOnError = window.onerror;
 window.errorsLogged2 = 0;
+
 window.onerror = function() {
   window.errorsLogged2++;
   window.oldOnError.apply(window, arguments);

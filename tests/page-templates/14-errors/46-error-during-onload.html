@@ -19,7 +19,7 @@
             impl.complete = true;
             BOOMR.sendBeacon();
           }, 3000);
-        };
+        }
 
         BOOMR.subscribe("page_ready", delayBeacon, null, impl);
         impl.initialized = true;

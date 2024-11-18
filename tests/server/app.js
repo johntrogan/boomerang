@@ -165,8 +165,8 @@ app.get("/pages/36-bw/support/images/*", function(req, res, next) {
     res.type("gif");
   }
   else {
-    imgheader = new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10 ]);
-    imgbody0  = new Uint8Array([0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 0, 5, 0, 0, 0, 5, 8, 6, 0, 0, 0, 141,
+    imgheader = new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10]);
+    imgbody0 = new Uint8Array([0, 0, 0, 13, 73, 72, 68, 82, 0, 0, 0, 5, 0, 0, 0, 5, 8, 6, 0, 0, 0, 141,
       111, 38, 229, 0, 0, 0, 28, 73, 68, 65, 84, 8, 215]);
     imgbody1 = new Uint8Array(sz).fill(5);
     imgbody = new Uint8Array(imgbody0.length + imgbody1.length);

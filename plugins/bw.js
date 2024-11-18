@@ -307,6 +307,7 @@
         // 3 images that succeeded that way we don't consider small images that
         // downloaded fast without really saturating the network
         nimgs = 0;
+
         for (j = r.length - 1; j >= 0 && nimgs < 3; j--) {
           // if we hit an undefined image time, we skipped everything before this
           if (!r[j]) {
@@ -356,6 +357,7 @@
       // Now get the mean & median.
       // Also get corrected values that eliminate latency
       n = Math.max(bandwidths.length, bandwidths_corrected.length);
+
       for (i = 0; i < n; i++) {
         if (i < bandwidths.length) {
           sum += bandwidths[i];
@@ -482,14 +484,14 @@
         return;
       }
 
-      if (this.results[this.nruns - run].r[i])  {
+      if (this.results[this.nruns - run].r[i]) {
         // already called on this image
         return;
       }
 
       // if timeout, then we set the next image to the end of loop marker
       if (success === null) {
-        this.results[this.nruns - run].r[i + 1] = {t: null, state: null, run: run};
+        this.results[this.nruns - run].r[i + 1] = { t: null, state: null, run: run };
 
         return;
       }
@@ -581,7 +583,7 @@
           this.load_img("l", this.latency_runs--, this.lat_loaded);
         }
         else {
-          this.results.push({r: []});
+          this.results.push({ r: [] });
           this.load_img(images.start, this.runs_left--, this.img_loaded);
         }
       }

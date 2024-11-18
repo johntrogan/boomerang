@@ -29,7 +29,7 @@ describe("e2e/05-angular/108-iframe-wait-for-spa", function() {
         bf1 = getIFrameBeacon("frame1");
 
     assert.isDefined(b["ifdl.done"]);
-    assert.operator(b["ifdl.done"], ">", bf1["rt.end"]);  // will be at least 1s more due to spa timeout delay
+    assert.operator(b["ifdl.done"], ">", bf1["rt.end"]); // will be at least 1s more due to spa timeout delay
   });
 
   it("Should have ifdl.ct param", function() {

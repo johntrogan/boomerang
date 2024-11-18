@@ -9,6 +9,7 @@ window.navigator.sendBeacon = undefined;
 // Use window.orig_XMLHttpRequest if available
 //
 window.XMLHttpRequestCopy = window.XMLHttpRequest;
+
 window.orig_XMLHttpRequest = function() {
   var xhr = new XMLHttpRequestCopy();
   var orig_open = xhr.open;

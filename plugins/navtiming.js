@@ -444,7 +444,7 @@
         if (p.navigation) {
           pn = p.navigation;
 
-          data.nt_red_cnt  = pn.redirectCount;
+          data.nt_red_cnt = pn.redirectCount;
           data.nt_nav_type = pn.type;
         }
 

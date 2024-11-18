@@ -1,6 +1,7 @@
 /* eslint-env mocha */
 /* global BOOMR_test,assert */
 BOOMR_test.templates.SPA = BOOMR_test.templates.SPA || {};
+
 BOOMR_test.templates.SPA["04-route-change"] = function() {
   var tf = BOOMR.plugins.TestFramework;
   var t = BOOMR_test;
@@ -77,7 +78,7 @@ BOOMR_test.templates.SPA["04-route-change"] = function() {
         var b = tf.beacons[0];
 
         assert.isDefined(b.t_done);
-        assert.closeTo(b.t_done, 3000, 200);  // MO will wait for the img download
+        assert.closeTo(b.t_done, 3000, 200); // MO will wait for the img download
         assert.isUndefined(b.t_resp);
         assert.isUndefined(b.t_page);
         assert.equal(b["rt.start"], "manual");
@@ -235,7 +236,7 @@ BOOMR_test.templates.SPA["04-route-change"] = function() {
           assert.equal(b.t_resp, 0);
         }
         else {
-          assert.operator(b.t_resp, ">=", 250);  // widgets.json has a 250ms delay
+          assert.operator(b.t_resp, ">=", 250); // widgets.json has a 250ms delay
         }
       }
       else {

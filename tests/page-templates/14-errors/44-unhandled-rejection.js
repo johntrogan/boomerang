@@ -35,7 +35,7 @@ describe("e2e/14-errors/44-unhandled-rejection", function() {
     assert.isUndefined(b.err);
   });
 
-  if (window.Promise  && window.PromiseRejectionEvent) {
+  if (window.Promise && window.PromiseRejectionEvent) {
     var ERRORS = [
       { messageTest: function(msg) {
         assert.equal(msg, "error string");
@@ -56,7 +56,7 @@ describe("e2e/14-errors/44-unhandled-rejection", function() {
           msg.indexOf("Can't find variable: a") !== -1 ||
           msg.indexOf("'a' is undefined") !== -1 ||
           msg.indexOf("'a' is not defined") !== -1);
-      }},
+      } },
 
       { messageTest: function(msg) {
         assert.equal(msg, "[object Object]");

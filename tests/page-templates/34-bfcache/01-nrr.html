@@ -2,6 +2,7 @@
 <script>
 // Polyfill
 window.performance = window.performance || {};
+
 window.performance.getEntriesByType = function(type) {
   if (type === "navigation") {
     return [{

@@ -11,7 +11,8 @@ describe("e2e/14-errors/42-unbound-removeeventlistener", function() {
     (function(){
       function callback(){
         assert.fail(0, 1, "Event should not fire");
-      };
+      }
+
       this.addEventListener("foo", callback);
 
       // this is the unbound removeEventListener call

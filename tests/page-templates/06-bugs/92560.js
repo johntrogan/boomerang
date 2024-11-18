@@ -20,7 +20,7 @@ describe("e2e/06-bugs/92560", function() {
     t.ifAutoXHR(
       done,
       function() {
-        t.ensureBeaconCount(done,  2);
+        t.ensureBeaconCount(done, 2);
       });
   });
 

@@ -201,6 +201,7 @@
             r += String.fromCharCode(parseInt(s.substring(i + 1, i + 3), 16));
             beg = (i += 3);
           }
+
           break;
 
         case "!":
@@ -265,6 +266,7 @@
 
       default:
         beg = i++;
+
         while (i < len && /[^)~]/.test(s.charAt(i))) {
           i++;
         }

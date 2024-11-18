@@ -21,6 +21,7 @@ describe("e2e/18-usertiming/01-usertiming-basic", function() {
       var usertiming = {};
 
       assert.equal(data.length, 3);
+
       for (var i = 0; i < data.length; i++) {
         usertiming[data[i].name] = data[i];
       }

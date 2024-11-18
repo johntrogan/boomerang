@@ -2,7 +2,7 @@
 /* global BOOMR_test */
 
 // globals from this test
-Array.prototype.push.apply(BOOMR_test.addedGlobals, [ "BOOMR_spa" ]);
+Array.prototype.push.apply(BOOMR_test.addedGlobals, ["BOOMR_spa"]);
 
 describe("e2e/35-spa/00-delayed-boomerang", function() {
   var tf = BOOMR.plugins.TestFramework;

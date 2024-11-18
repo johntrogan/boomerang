@@ -59,17 +59,19 @@ App.WidgetsWidgetRoute = Ember.Route.extend({
       Ember.TEMPLATES.widget = Ember.Handlebars.compile(data);
     });
   },
-  model: function(params)  {
+  model: function(params) {
     return Ember.$.getJSON("support/widgets.json?rnd=" + Math.random()).then(function(data) {
       var model;
 
       // these overwrite what was in the HTML
       window.custom_metric_1 = params.id;
+
       window.custom_metric_2 = function() {
         return 10 * params.id;
       };
 
       window.custom_timer_1 = params.id;
+
       window.custom_timer_2 = function() {
         return 10 * params.id;
       };
@@ -106,11 +108,13 @@ App.HomeRoute = Ember.Route.extend({
 
       // these overwrite what was in the HTML
       window.custom_metric_1 = 11;
+
       window.custom_metric_2 = function() {
         return 22;
       };
 
       window.custom_timer_1 = 11;
+
       window.custom_timer_2 = function() {
         return 22;
       };
@@ -135,13 +139,14 @@ App.EmptyRoute = Ember.Route.extend({
 
 App.Router.map(function() {
   this.resource("widgets");
-  this.resource("widget", {path: "widgets/:id"});
+  this.resource("widget", { path: "widgets/:id" });
 
   this.resource("empty", { path: "empty" });
 
   this.route("home", { path: "" });
 
   var hadRouteChange = false;
+
   var hadRouteChangeToggle = function() {
     hadRouteChange = true;
   };

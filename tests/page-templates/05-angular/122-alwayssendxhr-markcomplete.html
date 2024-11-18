@@ -70,6 +70,7 @@ BOOMR_test.init({
           var xhr = new XMLHttpRequest();
 
           xhr.open("GET", "/delay?delay=1000&file=/pages/05-angular/support/widgets.json&rnd=" + Math.random(), true);
+
           xhr.onreadystatechange = function() {
             // fire another XHR
             if (xhr.readyState === 4) {

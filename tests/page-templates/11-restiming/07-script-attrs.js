@@ -48,9 +48,9 @@ describe("e2e/11-restiming/07-script-attrs", function() {
       function assertBodyAsync(data) {
         assert.match(data, SCRIPT_ATTR_EXPR);
         data = parseInt(data.replace(SCRIPT_ATTR_EXPR, ""), 10);
-        assert.strictEqual(data  & RT.ASYNC_ATTR, RT.ASYNC_ATTR);
-        assert.strictEqual(data  & RT.DEFER_ATTR, 0);
-        assert.strictEqual(data  & RT.LOCAT_ATTR, RT.LOCAT_ATTR);
+        assert.strictEqual(data & RT.ASYNC_ATTR, RT.ASYNC_ATTR);
+        assert.strictEqual(data & RT.DEFER_ATTR, 0);
+        assert.strictEqual(data & RT.LOCAT_ATTR, RT.LOCAT_ATTR);
       }
 
       var b = tf.beacons[0];
@@ -74,15 +74,15 @@ describe("e2e/11-restiming/07-script-attrs", function() {
 
       assert.match(js_head_async, SCRIPT_ATTR_EXPR);
       js_head_async = parseInt(js_head_async.replace(SCRIPT_ATTR_EXPR, ""), 10);
-      assert.strictEqual(js_head_async  & RT.ASYNC_ATTR, RT.ASYNC_ATTR);
-      assert.strictEqual(js_head_async  & RT.DEFER_ATTR, 0);
-      assert.strictEqual(js_head_async  & RT.LOCAT_ATTR, 0);
+      assert.strictEqual(js_head_async & RT.ASYNC_ATTR, RT.ASYNC_ATTR);
+      assert.strictEqual(js_head_async & RT.DEFER_ATTR, 0);
+      assert.strictEqual(js_head_async & RT.LOCAT_ATTR, 0);
 
       assert.match(js_head_asfer, SCRIPT_ATTR_EXPR);
       js_head_asfer = parseInt(js_head_asfer.replace(SCRIPT_ATTR_EXPR, ""), 10);
-      assert.strictEqual(js_head_asfer  & RT.ASYNC_ATTR, RT.ASYNC_ATTR);
-      assert.strictEqual(js_head_asfer  & RT.DEFER_ATTR, RT.DEFER_ATTR);
-      assert.strictEqual(js_head_asfer  & RT.LOCAT_ATTR, 0);
+      assert.strictEqual(js_head_asfer & RT.ASYNC_ATTR, RT.ASYNC_ATTR);
+      assert.strictEqual(js_head_asfer & RT.DEFER_ATTR, RT.DEFER_ATTR);
+      assert.strictEqual(js_head_asfer & RT.LOCAT_ATTR, 0);
 
       assert.match(js_body_static, SCRIPT_ATTR_EXPR);
       js_body_static = parseInt(js_body_static.replace(SCRIPT_ATTR_EXPR, ""), 10);
@@ -94,9 +94,9 @@ describe("e2e/11-restiming/07-script-attrs", function() {
 
       assert.match(js_body_defer, SCRIPT_ATTR_EXPR);
       js_body_defer = parseInt(js_body_defer.replace(SCRIPT_ATTR_EXPR, ""), 10);
-      assert.strictEqual(js_body_defer  & RT.ASYNC_ATTR, 0);
-      assert.strictEqual(js_body_defer  & RT.DEFER_ATTR, RT.DEFER_ATTR);
-      assert.strictEqual(js_body_defer  & RT.LOCAT_ATTR, RT.LOCAT_ATTR);
+      assert.strictEqual(js_body_defer & RT.ASYNC_ATTR, 0);
+      assert.strictEqual(js_body_defer & RT.DEFER_ATTR, RT.DEFER_ATTR);
+      assert.strictEqual(js_body_defer & RT.LOCAT_ATTR, RT.LOCAT_ATTR);
 
       assertBodyAsync(js_link_async);
     }

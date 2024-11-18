@@ -8,7 +8,7 @@
 // Force navigation to TYPE_NAVIGATE
 if (window.performance) {
   window.performance.__defineGetter__("navigation", function() {
-    return {type: 0, redirectCount: 0};
+    return { type: 0, redirectCount: 0 };
   });
 }
 
@@ -30,6 +30,7 @@ window.angular_nav_routes = ["/widgets/1", "29-route-change-early-beacon.html"];
 
 // these will be overwritten by the app
 custom_metric_1 = 111;
+
 custom_metric_2 = function() {
   return 222;
 };

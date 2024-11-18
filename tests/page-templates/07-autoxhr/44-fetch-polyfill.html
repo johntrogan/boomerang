@@ -15,6 +15,7 @@ function removeFetch(w) {
 }
 
 removeFetch(window);
+
 for (var i = 0; i < window.frames.length; i++) {
   removeFetch(window.frames[i]);
 }

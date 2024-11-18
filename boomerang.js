@@ -348,7 +348,7 @@ BOOMR_check_doc_domain();
    * JavaScript execution.
    */
   dispatchEvent = function(e_name, e_data, async) {
-    var ev = createCustomEvent(e_name, {"detail": e_data});
+    var ev = createCustomEvent(e_name, { "detail": e_data });
 
     if (!ev) {
       return;
@@ -1023,6 +1023,7 @@ BOOMR_check_doc_domain();
       // only call handlers at the time of fireEvent (and not handlers that are
       // added during this callback to avoid an infinite loop)
       handlersLen = handlers.length;
+
       for (i = 0; i < handlersLen; i++) {
         try {
           handler = handlers[i];
@@ -1803,7 +1804,7 @@ BOOMR_check_doc_domain();
         BOOMR.utils.mark("set_local_storage");
         /* END_DEBUG */
 
-        data = {"items": items};
+        data = { "items": items };
 
         if (typeof max_age === "number") {
           data.expires = BOOMR.now() + (max_age * 1000);
@@ -1847,6 +1848,7 @@ BOOMR_check_doc_domain();
         if (!name || !impl.localStorageSupported) {
           return false;
         }
+
         try {
           w.localStorage.removeItem(impl.LOCAL_STORAGE_PREFIX + name);
 
@@ -2113,7 +2115,7 @@ BOOMR_check_doc_domain();
        */
       addObserver: function(el, config, timeout, callback, callback_data, callback_ctx) {
         var MO, zs,
-            o = {observer: null, timer: null};
+            o = { observer: null, timer: null };
 
         /* BEGIN_DEBUG */
         BOOMR.utils.mark("add_observer");
@@ -2214,7 +2216,7 @@ BOOMR_check_doc_domain();
         impl.listenerCallbacks[type] = impl.listenerCallbacks[type] || [];
 
         // save a reference to the target object and function
-        impl.listenerCallbacks[type].push({ el: el, fn: fn});
+        impl.listenerCallbacks[type].push({ el: el, fn: fn });
       },
 
       /**
@@ -3313,6 +3315,7 @@ BOOMR_check_doc_domain();
 
         // Listen for FORM submissions
         forms = d.getElementsByTagName("form");
+
         for (iterator = 0; iterator < forms.length; iterator++) {
           BOOMR.utils.addListener(forms[iterator], "submit", impl.createCallbackHandler("form_submit"));
         }
@@ -3558,7 +3561,7 @@ BOOMR_check_doc_domain();
 
       if (w.requestIdleCallback) {
         // set a timeout since rIC doesn't get called reliably in chrome headless
-        w.requestIdleCallback(cb, {timeout: 1000});
+        w.requestIdleCallback(cb, { timeout: 1000 });
       }
       else if (w.setImmediate) {
         w.setImmediate(cb);
@@ -4674,7 +4677,7 @@ BOOMR_check_doc_domain();
       // get high- and low-priority variables first, which remove any of
       // those vars from data
       urlFirst = this.getVarsOfPriority(data, -1);
-      urlLast  = this.getVarsOfPriority(data, 1);
+      urlLast = this.getVarsOfPriority(data, 1);
 
       // merge the 3 lists
       params = urlFirst.concat(this.getVarsOfPriority(data, 0), urlLast);
@@ -4764,6 +4767,7 @@ BOOMR_check_doc_domain();
 
         // Send a form-encoded XHR POST beacon
         xhr = new (BOOMR.window.orig_XMLHttpRequest || BOOMR.orig_XMLHttpRequest || BOOMR.window.XMLHttpRequest)();
+
         try {
           this.sendXhrPostBeacon(xhr, paramsJoined);
         }
@@ -5289,6 +5293,7 @@ BOOMR_check_doc_domain();
       }
 
       setup();
+
       for (var objectIndex = 0; objectIndex < objects.length; objectIndex++) {
         var objectKey = objects[objectIndex];
 
@@ -5310,7 +5315,7 @@ BOOMR_check_doc_domain();
             propertyNames = Object.getOwnPropertyNames(freshWindow[objectKey]);
           }
           catch (e) {
-            ;
+            // NOP
           }
 
           for (var i = 0; i < propertyNames.length; i++) {
@@ -5319,6 +5324,7 @@ BOOMR_check_doc_domain();
 
           if (freshWindow[objectKey].prototype) {
             propertyNames = Object.getOwnPropertyNames(freshWindow[objectKey].prototype);
+
             for (var i = 0; i < propertyNames.length; i++) {
               checkWindowObject([objectKey, "prototype", propertyNames[i]].join("."));
             }

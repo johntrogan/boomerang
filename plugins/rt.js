@@ -1247,6 +1247,7 @@
       }
 
       BOOMR.debug(name + " called with " + etarget.nodeName, "rt");
+
       while (etarget && etarget.nodeName && etarget.nodeName.toUpperCase() !== element) {
         etarget = etarget.parentNode;
       }
@@ -1492,7 +1493,7 @@
           this.endTimer("t_resp", time_value);
         }
 
-        impl.timers[timer_name] = {start: (typeof time_value === "number" ? time_value : BOOMR.now())};
+        impl.timers[timer_name] = { start: (typeof time_value === "number" ? time_value : BOOMR.now()) };
       }
 
       return this;

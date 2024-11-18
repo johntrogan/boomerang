@@ -48,7 +48,7 @@ observer = new window.PerformanceObserver(function(list) {
     var sourceList = [];
 
     for (var s = 0; s < sources.length; s++) {
-      var newSource = {selector: BOOMR.utils.makeSelector(sources[s].node)};
+      var newSource = { selector: BOOMR.utils.makeSelector(sources[s].node) };
 
       if (s === 0) {
         var firstSelector = newSource.selector;
@@ -56,10 +56,10 @@ observer = new window.PerformanceObserver(function(list) {
 
       var prevRect = sources[s].previousRect;
 
-      newSource.previousRect = {"x": prevRect.x, "y": prevRect.y, "width": prevRect.width, "height": prevRect.height};
+      newSource.previousRect = { "x": prevRect.x, "y": prevRect.y, "width": prevRect.width, "height": prevRect.height };
       var currRect = sources[s].currentRect;
 
-      newSource.currentRect = {"x": currRect.x, "y": currRect.y, "width": currRect.width, "height": currRect.height};
+      newSource.currentRect = { "x": currRect.x, "y": currRect.y, "width": currRect.width, "height": currRect.height };
 
       sourceList.push(newSource);
     }

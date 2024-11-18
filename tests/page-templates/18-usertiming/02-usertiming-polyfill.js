@@ -22,6 +22,7 @@ describe("e2e/18-usertiming/02-usertiming-polyfill", function() {
       var usertiming = {};
 
       assert.equal(data.length, 3);
+
       for (var i = 0; i < data.length; i++) {
         usertiming[data[i].name] = data[i];
       }

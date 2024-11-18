@@ -81,7 +81,7 @@ describe("e2e/11-restiming/17-service-worker-rs", function() {
         var workerStartOffsetStartTime = (workerStartRoundup === 0 ? 0 : (workerStartRoundup - startTime));
 
         var base36ConvertedWs = workerStartOffsetStartTime.toString(36);
-        var compressedWorkerStartVal = "*6" + (base36ConvertedWs ===  "0" ? "" : base36ConvertedWs);
+        var compressedWorkerStartVal = "*6" + (base36ConvertedWs === "0" ? "" : base36ConvertedWs);
 
         assert.include(b.restiming, compressedWorkerStartVal);
       }

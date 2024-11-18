@@ -24,7 +24,7 @@ orientationChange();
 screen = { orientation: { angle: 90 } };
 orientationChange();
 
-screen = { orientation: undefined };  // simulate no Screen Orientation API
+screen = { orientation: undefined }; // simulate no Screen Orientation API
 window.__defineGetter__("orientation", function() {
   return -90;
 });

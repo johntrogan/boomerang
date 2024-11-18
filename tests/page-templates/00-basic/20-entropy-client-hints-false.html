@@ -20,7 +20,7 @@ Object.defineProperty(window.navigator.userAgentData, "testOverride", {
 
 Object.defineProperty(window.navigator.userAgentData, "getHighEntropyValues", {
   get: function() {
-    return function(clientHintsList)  {
+    return function(clientHintsList) {
       return {
         then: function(callback) {
           callback({

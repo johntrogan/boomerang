@@ -14,7 +14,7 @@ var app = angular.module("app", modules)
         var rnd = Math.random();
 
         return $resource("/delay?delay=250&file=/pages/05-angular/support/widgets.json", {}, {
-          query: { method: "GET", params: {rnd: rnd}, isArray: true }
+          query: { method: "GET", params: { rnd: rnd }, isArray: true }
         }).query();
       }
     };
@@ -23,6 +23,7 @@ var app = angular.module("app", modules)
   .controller("mainCtrl", ["$scope", "Widgets", function($scope, Widgets) {
     // these overwrite what was in the HTML
     window.custom_metric_1 = 11;
+
     window.custom_metric_2 = function() {
       return 22;
     };
@@ -32,6 +33,7 @@ var app = angular.module("app", modules)
     $scope.carttotal = 444.44;
 
     window.custom_timer_1 = 11;
+
     window.custom_timer_2 = function() {
       return 22;
     };
@@ -61,11 +63,13 @@ var app = angular.module("app", modules)
 
       // these overwrite what was in the HTML
       window.custom_metric_1 = wid;
+
       window.custom_metric_2 = function() {
         return 10 * wid;
       };
 
       window.custom_timer_1 = wid;
+
       window.custom_timer_2 = function() {
         return 10 * wid;
       };

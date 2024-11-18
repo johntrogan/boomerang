@@ -1,6 +1,7 @@
 /* eslint-env mocha */
 /* global BOOMR_test,assert */
 BOOMR_test.templates.SPA = BOOMR_test.templates.SPA || {};
+
 BOOMR_test.templates.SPA["17-wait"] = function() {
   var tf = BOOMR.plugins.TestFramework;
   var t = BOOMR_test;
@@ -116,7 +117,7 @@ BOOMR_test.templates.SPA["17-wait"] = function() {
               assert.closeTo(b["rt.end"], Math.floor(navStart + r.responseEnd), 200);
             }
             else {
-              assert.operator(b.t_done, "<", 3000);  // depending on app, could be up to 250ms xhr and 2s img
+              assert.operator(b.t_done, "<", 3000); // depending on app, could be up to 250ms xhr and 2s img
             }
 
             done();

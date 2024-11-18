@@ -32,7 +32,7 @@ describe("e2e/05-angular/109-multiple-iframes", function() {
     assert.isDefined(b["ifdl.done"]);
     var loadEnd = Math.max(bf1["rt.end"], bf2["rt.end"]);
 
-    assert.operator(b["ifdl.done"], ">", loadEnd);  // will be at least 1s more due to spa timeout delay
+    assert.operator(b["ifdl.done"], ">", loadEnd); // will be at least 1s more due to spa timeout delay
   });
 
   it("Should have ifdl.ct param", function() {

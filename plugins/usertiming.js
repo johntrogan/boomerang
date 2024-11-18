@@ -90,7 +90,7 @@
     supported: false,
 
     // Options
-    options: {"from": 0, "window": BOOMR.window},
+    options: { "from": 0, "window": BOOMR.window },
 
     /*
      * Gets the user timings, filters out those that have already been sent.

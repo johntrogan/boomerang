@@ -12,8 +12,8 @@ BOOMR_test.init({
   instrument_xhr: true,
   testAfterOnBeacon: (BOOMR.plugins.AutoXHR) ? 3 : 1,
   AutoXHR: {
-    xhrIdleTimeout: 2000,  // modify the timeouts to guaranty concurrency
-    spaIdleTimeout: 50  // since the spa timeout is much shorter, the spa beacon willl be sent first
+    xhrIdleTimeout: 2000, // modify the timeouts to guaranty concurrency
+    spaIdleTimeout: 50 // since the spa timeout is much shorter, the spa beacon willl be sent first
   },
   autorun: false,
   afterFirstBeacon:
@@ -52,6 +52,6 @@ BOOMR_test.init({
     }
 });
 
-BOOMR.plugins.SPA.route_change();  // start the spa_hard
+BOOMR.plugins.SPA.route_change(); // start the spa_hard
 </script>
 <%= footer %>

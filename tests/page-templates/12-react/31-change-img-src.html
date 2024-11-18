@@ -24,7 +24,7 @@ window.disableBoomerangHook = true;
 <script type="text/javascript">
 BOOMR_test.init({
   testAfterOnBeacon: 3,
-  afterFirstBeacon: function()  {
+  afterFirstBeacon: function() {
     // call during the first spa soft nav
     BOOMR.subscribe("spa_init", function() {
       setTimeout(function() {

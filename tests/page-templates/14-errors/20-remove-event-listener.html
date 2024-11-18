@@ -90,39 +90,39 @@ if (window.addEventListener) {
     // ignore
   }
 
-  img8.addEventListener("load", errorFunction5);  // useCapture defaults to false
-  img8.removeEventListener("load", errorFunction5);  // useCapture defaults to false
+  img8.addEventListener("load", errorFunction5); // useCapture defaults to false
+  img8.removeEventListener("load", errorFunction5); // useCapture defaults to false
 
   if (aELPassiveSupported) {
-    img8.addEventListener("load", errorFunction5, {passive: true});  // useCapture defaults to false
-    img8.removeEventListener("load", errorFunction5);  // useCapture defaults to false
+    img8.addEventListener("load", errorFunction5, { passive: true }); // useCapture defaults to false
+    img8.removeEventListener("load", errorFunction5); // useCapture defaults to false
 
-    img8.addEventListener("load", errorFunction5, {passive: true});  // useCapture defaults to false
-    img8.removeEventListener("load", errorFunction5, {passive: true});  // useCapture defaults to false
+    img8.addEventListener("load", errorFunction5, { passive: true }); // useCapture defaults to false
+    img8.removeEventListener("load", errorFunction5, { passive: true }); // useCapture defaults to false
 
-    img8.addEventListener("load", errorFunction5, {passive: true});  // useCapture defaults to false
+    img8.addEventListener("load", errorFunction5, { passive: true }); // useCapture defaults to false
     // passive flag should not be considered by rEL
-    img8.removeEventListener("load", errorFunction5, {passive: false});  // useCapture defaults to false
+    img8.removeEventListener("load", errorFunction5, { passive: false }); // useCapture defaults to false
   }
 
   if (aELCaptureSupported) {
-    img8.addEventListener("load", errorFunction5, {capture: false});
-    img8.removeEventListener("load", errorFunction5, {capture: false});
+    img8.addEventListener("load", errorFunction5, { capture: false });
+    img8.removeEventListener("load", errorFunction5, { capture: false });
 
-    img8.addEventListener("load", errorFunction5, {capture: true});
-    img8.removeEventListener("load", errorFunction5, {capture: true});
+    img8.addEventListener("load", errorFunction5, { capture: true });
+    img8.removeEventListener("load", errorFunction5, { capture: true });
 
-    img8.addEventListener("load", errorFunction5, {capture: true});
+    img8.addEventListener("load", errorFunction5, { capture: true });
     img8.removeEventListener("load", errorFunction5, true);
 
     if (!navigator.userAgentData && navigator.userAgent.indexOf("Phantom") === -1 && !BOOMR_test.isIE() && !BOOMR_test.isEdge()) {
       // these doesn't work in phantom, Edge or IE. The event isn't removed
 
-      img8.addEventListener("load", errorFunction5, {capture: false});
-      img8.removeEventListener("load", errorFunction5, false);  // useCapture defaults to false
+      img8.addEventListener("load", errorFunction5, { capture: false });
+      img8.removeEventListener("load", errorFunction5, false); // useCapture defaults to false
 
-      img8.addEventListener("load", errorFunction5, {capture: false});
-      img8.removeEventListener("load", errorFunction5);  // useCapture defaults to false
+      img8.addEventListener("load", errorFunction5, { capture: false });
+      img8.removeEventListener("load", errorFunction5); // useCapture defaults to false
     }
   }
 }

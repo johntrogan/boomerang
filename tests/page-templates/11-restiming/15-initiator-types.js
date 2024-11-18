@@ -43,8 +43,8 @@ describe("e2e/11-restiming/15-initiator-types", function() {
       ["15-initiator-types.html", ["navigation", "html"]], // navigation in Chrome, sometimes html in FF
       ["15-initiator-types.js", ["script"]],
       ["id=img", ["img"]],
-      ["id=input", ["input", "img"]],  // input in Chrome, img in FF
-      ["id=video-poster", ["video", "img"]],  // video in Chrome, img in FF
+      ["id=input", ["input", "img"]], // input in Chrome, img in FF
+      ["id=video-poster", ["video", "img"]], // video in Chrome, img in FF
       ["id=object", ["object"]],
       ["mocha.css", ["link"]],
       ["mocha.js", ["script"]],

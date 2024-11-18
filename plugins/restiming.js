@@ -985,7 +985,7 @@
           }
 
           nH = realImg.naturalHeight || el.naturalHeight;
-          nW = realImg.naturalWidth  || el.naturalWidth;
+          nW = realImg.naturalWidth || el.naturalWidth;
 
           if ((nH || nW) && (entries[src][0] !== nH || entries[src][1] !== nW)) {
             entries[src].push(nH, nW);

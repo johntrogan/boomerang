@@ -10,7 +10,7 @@ describe("BOOMR.utils.getQueryParamValue()", function() {
     a.href = url;
 
     return a;
-  };
+  }
 
   it("Should return null when undefined is passed as param argument", function() {
     assert.isNull(BOOMR.utils.getQueryParamValue(undefined));

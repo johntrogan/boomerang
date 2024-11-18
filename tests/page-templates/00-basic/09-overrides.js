@@ -8,9 +8,9 @@ describe("e2e/00-basic/09-overrides", function() {
   // overrides which are commonly seen in browsers or extensions
   var KNOWN_OVERRIDES = [
     "webkitRTCPeerConnection.prototype.setConfiguration", // Chrome
-    "RTCPeerConnection.prototype.setConfiguration",       // Chrome
-    "WebAssembly.Module",                                 // Edge
-    "WebAssembly.Instance"                                // Edge
+    "RTCPeerConnection.prototype.setConfiguration", // Chrome
+    "WebAssembly.Module", // Edge
+    "WebAssembly.Instance" // Edge
   ];
 
   function cleanOverridesList(overrides) {

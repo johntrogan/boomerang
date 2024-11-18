@@ -40,6 +40,7 @@ describe("e2e/07-autoxhr/42-fetch-api", function() {
     if (!t.isFetchApiSupported()) {
       return this.skip();
     }
+
     for (var i = 1; i < tf.beacons.length; i++) {
       assert.equal(tf.beacons[i]["http.type"], "f");
     }

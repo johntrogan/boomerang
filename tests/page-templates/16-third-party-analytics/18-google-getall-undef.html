@@ -9,7 +9,8 @@ BOOMR_test.clearCookies();
 document.cookie = ["_ga=GA1.2.XXXXXXXXXX.YYYYYYYYYY", "path=/", "domain=" + location.hostname].join("; ");
 
 // polyfill for google analytics
-function FakeTracker() {};
+function FakeTracker() {}
+
 FakeTracker.prototype.get = function(key) {
   if (key === "clientId") {
     return "XXXXXXXXXX.YYYYYYYYYY";

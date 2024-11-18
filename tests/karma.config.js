@@ -77,7 +77,7 @@ module.exports = function(config) {
           config: webdriverConfig,
           browserName: "firefox",
           "moz:firefoxOptions": {
-            args: [ "--headless" ]
+            args: ["--headless"]
           },
           platform: "ANY",
           version: "ANY"

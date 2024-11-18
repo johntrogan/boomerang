@@ -10,7 +10,7 @@ describe("e2e/06-bugs/99702", function() {
 
   it("Should have sent two beacons", function(done) {
     this.timeout(10000);
-    t.ensureBeaconCount(done,  2);
+    t.ensureBeaconCount(done, 2);
   });
 
   it("The second beacon shouldn't have a t_page", function() {

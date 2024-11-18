@@ -4,7 +4,8 @@
 <script>
 
 // polyfill for google analytics
-function FakeTracker() {};
+function FakeTracker() {}
+
 FakeTracker.prototype.get = function(key) {
   if (key === "clientId") {
     return "XXXXXXXXXX.YYYYYYYYYY";

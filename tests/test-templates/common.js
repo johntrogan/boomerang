@@ -225,7 +225,7 @@ describe("common", function() {
         assert.isUndefined(early[field], field + " must not be on early beacon if not on the load beacon");
       }
       else {
-        assert.equal(normal[field], early[field], field + " " + normal[field] + " === " +  early[field]);
+        assert.equal(normal[field], early[field], field + " " + normal[field] + " === " + early[field]);
       }
     }
 
@@ -238,7 +238,7 @@ describe("common", function() {
       field = fieldsEqualIfExists[i];
 
       if (typeof early[field] !== "undefined") {
-        assert.equal(normal[field], early[field], field + " " + normal[field] + " === " +  early[field]);
+        assert.equal(normal[field], early[field], field + " " + normal[field] + " === " + early[field]);
       }
     }
 
@@ -249,7 +249,7 @@ describe("common", function() {
 
     // rt.sl should be 1 less on the early beacon
     assert.equal(parseInt(normal["rt.sl"], 10), parseInt(early["rt.sl"], 10) + 1,
-      "session length " + normal["rt.sl"] + " === " +  early["rt.sl"] + " + 1");
+      "session length " + normal["rt.sl"] + " === " + early["rt.sl"] + " + 1");
 
     // rt.obo should be equal or 1 more on the normal beacon (if navtiming not supported)
     if (early["rt.obo"] !== normal["rt.obo"] && (parseInt(early["rt.obo"], 10) + 1) !== parseInt(normal["rt.obo"], 10)) {
@@ -267,11 +267,11 @@ describe("common", function() {
             if (timer.indexOf("custom") === 0) {
               // custom timers may get longer (eg. ResourceGroups matching several resources)
               assert.operator(normal_timers[timer], ">=", early_timers[timer],
-                "t_other  " + timer + " " + normal_timers[timer] + " >= " +  early_timers[timer]);
+                "t_other  " + timer + " " + normal_timers[timer] + " >= " + early_timers[timer]);
             }
             else {
               assert.equal(normal_timers[timer], early_timers[timer],
-                "t_other  " + timer + " " + normal_timers[timer] + " === " +  early_timers[timer]);
+                "t_other  " + timer + " " + normal_timers[timer] + " === " + early_timers[timer]);
             }
           }
         }
@@ -283,7 +283,7 @@ describe("common", function() {
 
     // http.initiator must be the same in both beacons (even if it is undefined)
     assert.equal(early["http.initiator"], normal["http.initiator"], "both beacons should have the same initiator (http.initiator)");
-  };
+  }
 
   it("Should have sent beacons that pass basic validation", function() {
     var i, b, tm,
@@ -449,6 +449,7 @@ describe("common", function() {
     }
 
     pid = tf.beacons[0].pid;
+
     for (i = 0; i < tf.beacons.length; i++) {
       b = tf.beacons[i];
       prefix = "ensure beacon " + (i + 1) + " ";
@@ -523,6 +524,7 @@ describe("common", function() {
 
       if (b.t_other) {
         timers = t.parseTimers(b.t_other);
+
         for (timer in timers) {
           if (timers.hasOwnProperty(timer)) {
             // TODO: this test reveals a bug, see Issue #626

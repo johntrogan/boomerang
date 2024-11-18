@@ -10,7 +10,7 @@ describe("e2e/05-angular/106-backendtime-script", function() {
 
   it("Should have sent two beacons", function(done) {
     this.timeout(10000);
-    t.ensureBeaconCount(done,  2);
+    t.ensureBeaconCount(done, 2);
   });
 
   it("Should have a t_resp <= t_done on second beacon (if NavigationTiming is supported)", function() {

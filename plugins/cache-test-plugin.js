@@ -71,7 +71,7 @@
     // this is a timeout so we don't wait forever to send the beacon
     // if the server fails
     setTimeout(BOOMR.plugins.CT.loaded, 500);
-  };
+  }
 
   //
   // Exports

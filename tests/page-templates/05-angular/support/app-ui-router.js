@@ -8,7 +8,7 @@ angular.module("app", ["ngResource", "ui.router"])
         var rnd = Math.random();
 
         return $resource("/pages/05-angular/support/widgets.json", {}, {
-          query: { method: "GET", params: {rnd: rnd}, isArray: true }
+          query: { method: "GET", params: { rnd: rnd }, isArray: true }
         }).query();
       }
     };
@@ -17,6 +17,7 @@ angular.module("app", ["ngResource", "ui.router"])
   .controller("mainCtrl", ["$scope", "Widgets", function($scope, Widgets) {
     // these overwrite what was in the HTML
     window.custom_metric_1 = 11;
+
     window.custom_metric_2 = function() {
       return 22;
     };
@@ -24,6 +25,7 @@ angular.module("app", ["ngResource", "ui.router"])
     $scope.rnd = Math.random();
 
     window.custom_timer_1 = 11;
+
     window.custom_timer_2 = function() {
       return 22;
     };

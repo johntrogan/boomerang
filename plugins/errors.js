@@ -1106,7 +1106,7 @@
 
       // defaults, if not specified
       via = via || BOOMR.plugins.Errors.VIA_APP;
-      source = source ||  BOOMR.plugins.Errors.SOURCE_APP;
+      source = source || BOOMR.plugins.Errors.SOURCE_APP;
 
       // if we weren't given a stack, try to create one
       if (!error.stack && !error.noStack) {
@@ -2260,7 +2260,7 @@
               }
             }
           }
-        }, {buffered: true});
+        }, { buffered: true });
 
         impl.reportingObserver.observe();
       }

@@ -54,7 +54,9 @@
         "no-spaced-func": "error",
         "no-undef-init": "error",
         "no-unused-expressions": "error",
-        "no-use-before-define": ["error", { "functions": false }],
+        "no-use-before-define": ["error",
+            { "functions": false }
+        ],
         "no-with": "error",
         "comma-spacing": "error",
         "curly": ["error", "all"],
@@ -77,38 +79,66 @@
         "keyword-spacing": "error",
         "no-mixed-spaces-and-tabs": "error",
         "quotes": ["error", "double", "avoid-escape"],
-        "dot-notation": ["error", {"allowKeywords": false}],
+        "dot-notation": ["error",
+            { "allowKeywords": false}
+        ],
         "space-unary-ops": "error",
-        "key-spacing": ["error", {"beforeColon": false, "afterColon": true, "mode": "minimum"}],
+        "key-spacing": ["error",
+            { "beforeColon": false, "afterColon": true, "mode": "minimum" }
+        ],
         "no-empty": "error",
-        "brace-style": ["error", "stroustrup", { "allowSingleLine": false }],
-        "semi-spacing": ["error", {"before": false, "after": true}],
-        "indent": ["error", 2, {"VariableDeclarator": "first", "MemberExpression": 1, "CallExpression": {"arguments": 1}}],
+        "brace-style": ["error", "stroustrup",
+            { "allowSingleLine": false }
+        ],
+        "semi-spacing": ["error",
+            { "before": false, "after": true }
+        ],
+        "indent": ["error", 2,
+            { "VariableDeclarator": "first", "MemberExpression": 1, "CallExpression": { "arguments": 1 } }
+        ],
         "space-before-function-paren": ["error", "never"],
-        "no-trailing-spaces": ["error", { "skipBlankLines": false }],
+        "no-trailing-spaces": ["error",
+            {"skipBlankLines": false }
+        ],
         "linebreak-style": ["error", "unix"],
         "comma-dangle": ["error", "never"],
         "operator-linebreak": ["error", "after"],
         "space-in-parens": ["error", "never"],
         "no-debugger": "error",
         "block-spacing": "error",
-        "lines-around-comment": ["error", { allowBlockStart: true, allowObjectStart: true, ignorePattern: "BEGIN_|END_|SOASTA PRIVATE" }],
-        "no-inline-comments": ["error", { "ignorePattern": "^ ?(BEGIN_|END_|fails|keep)" } ],
+        "lines-around-comment": ["error",
+            { "allowBlockStart": true, "allowObjectStart": true, "ignorePattern": "BEGIN_|END_|SOASTA PRIVATE" }
+        ],
+        "no-inline-comments": ["error",
+            { "ignorePattern": "^ ?(BEGIN_|END_|fails|keep)" }
+        ],
         "newline-after-var": ["error", "always"],
         "newline-before-return": "error",
         "max-len": ["error", 120],
         "no-irregular-whitespace": "error",
-        "no-multiple-empty-lines": ["error", { "max": 1} ],
+        "no-multiple-empty-lines": ["error", 
+            { "max": 1 }
+        ],
         "padded-blocks": ["error", "never"],
         "one-var-declaration-per-line": "error",
         "padding-line-between-statements": ["error",
-            { blankLine: "always", prev: "block-like", next: "if" },
-            { blankLine: "always", prev: "expression", next: "if" },
-            { blankLine: "always", prev: "var", next: "if" },
-            { blankLine: "always", prev: "block-like", next: "var" },
-            { blankLine: "always", prev: "try", next: "*" },
-            { blankLine: "always", prev: "block-like", next: "expression" },
-            { blankLine: "always", prev: "*", next: "function" }
+            { "blankLine": "always", "prev": "block-like", "next": "if" },
+            { "blankLine": "always", "prev": "expression", "next": "if" },
+            { "blankLine": "always", "prev": "var", "next": "if" },
+            { "blankLine": "always", "prev": "block-like", "next": "var" },
+            { "blankLine": "always", "prev": "try", "next": "*" },
+            { "blankLine": "always", "prev": "block-like", "next": "expression" },
+            { "blankLine": "always", "prev": "*", "next": "function" },
+            { "blankLine": "always", "prev": "*", "next": "block" },
+            { "blankLine": "always", "prev": "block", "next": "*" },
+            { "blankLine": "always", "prev": "*", "next": "block-like" },
+            { "blankLine": "always", "prev": "block-like", "next": "*" },
+            { "blankLine": "always", "prev": "*", "next": "return" }
+        ],
+        "object-curly-spacing": ["error", "always"],
+        "array-bracket-spacing": ["error", "never"],
+        "no-multi-spaces": ["error",
+            { "exceptions": { "VariableDeclarator": true, "Property": true } }
         ],
 
         //
@@ -116,7 +146,7 @@
         //
 
         //"require-jsdoc": "error",
-        //"valid-jsdoc": "error",
+        // "valid-jsdoc": "error",
 
         //
         // Disabled rules
@@ -139,8 +169,5 @@
 
         // We delete some global vars for compat with older IE versions
         "no-delete-var": 0,
-
-        // We use spaces for alignment in many places
-        "no-multi-spaces": 0
     }
 }

@@ -149,7 +149,7 @@
           }
 
           // respond to the frame
-          event.source.postMessage(JSON.stringify({"msg": impl.messages.startACK}), event.origin);
+          event.source.postMessage(JSON.stringify({ "msg": impl.messages.startACK }), event.origin);
 
           // track that we're monitoring this frame
           impl.runningCount += 1;
@@ -159,7 +159,7 @@
           debugLog("Received done message from child IFrame");
 
           // respond to the frame
-          event.source.postMessage(JSON.stringify({"msg": impl.messages.doneACK}), event.origin);
+          event.source.postMessage(JSON.stringify({ "msg": impl.messages.doneACK }), event.origin);
 
           // book-keeping
           impl.runningCount -= 1;
@@ -294,7 +294,7 @@
 
           function postStart() {
             debugLog("Trying to notify parent window of load start");
-            w.parent.postMessage(JSON.stringify({"msg": impl.messages.start, "pid": BOOMR.pageId}), "*");
+            w.parent.postMessage(JSON.stringify({ "msg": impl.messages.start, "pid": BOOMR.pageId }), "*");
           }
 
           postStart();
