@@ -70,7 +70,7 @@
 
     /**
      * Google Analytics
-     * For Universal Analytics there is a function named "ga" which is used to retreive the clientid
+     * For Universal Analytics there is a function named "ga" which is used to retrieve the clientid
      * ref: https://developers.google.com/analytics/devguides/collection/analyticsjs/command-queue-reference
      * By default the clientid is stored in a cookie named "_ga" for 2 years
      * ref: https://developers.google.com/analytics/devguides/collection/analyticsjs/cookies-user-id
@@ -144,7 +144,7 @@
         }
       }
 
-      // capture paramters from the url that are relevant to google analytics
+      // capture parameters from the url that are relevant to google analytics
       for (i = 0; i < QUERY_PARAMS.length; i++) {
         param = QUERY_PARAMS[i];
         value = BOOMR.utils.getQueryParamValue(param);
@@ -163,7 +163,7 @@
      * AID: Analytics ID
      * MID: Marketing ID
      * Adobe's Marketing Cloud ID service uses a cookie named AMVC_#####@AdobeOrg,
-     * where ##### is the site owner's "client id". It stores the valud of MID and optionally AID
+     * where ##### is the site owner's "client id". It stores the value of MID and optionally AID
      * If the site is not using Marketing Cloud, Analytics uses a legacy cookie named s_vi (AID)
      * If the s_vi cookie is unable to be set due to 3rd party cookie restrictions,
      * there is a fallback to a 1st party cookie named s_fid (AID).
@@ -222,7 +222,7 @@
           }
           else {
             // Try extracting the "organization id" from the AMCV_ cookie instead
-            // the result of Vistor.getInstance should be the same as if we did have "s.visitor"
+            // the result of Visitor.getInstance should be the same as if we did have "s.visitor"
             amcv = AMCV_REGEX.exec(w.document.cookie);
 
             if (amcv && typeof w.Visitor === "function" && typeof w.Visitor.getInstance === "function") {
@@ -309,7 +309,7 @@
      * stored in a query parameter named "cm_mmc"
      * ref: https://www.ibm.com/support/knowledgecenter/SSPG9M/Analytics/MarketingReports/cm_mmcparameter.html
      *
-     * on-site "Site Promotions Analysis", if available, is stored in a query paramter named "cm_sp"
+     * on-site "Site Promotions Analysis", if available, is stored in a query parameter named "cm_sp"
      * ref: https://www.ibm.com/support/knowledgecenter/SSPG9M/Implementation/impl_sitepromo.html
      *
      * on-site "Real Estate Analysis", if available, is stored in a query parameter named "cm_re"
@@ -340,7 +340,7 @@
 
       if (impl.clientids && typeof w.cmRetrieveUserID === "function") {
         try {
-          // in the current implementation of cmRetreiveUserID, the callback is called immediately (ie, not on a timer)
+          // in the current implementation of cmRetrieveUserID, the callback is called immediately (ie, not on a timer)
           w.cmRetrieveUserID(function(userid) {
             data["coreid"] = userid;
           });

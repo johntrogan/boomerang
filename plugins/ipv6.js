@@ -5,7 +5,7 @@
  * - Check if the client can connect to an IPv6 address
  * - Check if the client can resolve DNS that points to an IPv6 address
  * - Check latency of connecting to an IPv6 address
- * - Check avg latency of doing DNS lookup to an IPv6 address (not worstcase)
+ * - Check avg latency of doing DNS lookup to an IPv6 address (not worst-case)
  *
  * You'll need a server that has an IPv6 address, and a DNS name to point to it.
  * Additionally, this server needs to be configured to serve content requested
@@ -41,10 +41,10 @@
   /*
    * Algorithm:
    *
-   * 1. Try to load a sizeless image from an IPv6 host
+   * 1. Try to load a size-less image from an IPv6 host
    *   - onerror, flag no IPv6 connect support and end
    *   - onload, measure load time
-   * 2. Try to load a sizeless image from a hostname that resolves to an IPv6 address
+   * 2. Try to load a size-less image from a hostname that resolves to an IPv6 address
    *   - onerror, flag no IPv6 DNS resolver and end
    *   - onload, measure load time
    */

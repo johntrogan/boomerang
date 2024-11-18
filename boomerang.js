@@ -636,7 +636,7 @@ BOOMR_check_doc_domain();
        * Fired when a beacon is about to be sent.
        *
        * The subscriber can still add variables to the beacon at this point,
-       * either by modifying the `vars` paramter or calling {@link BOOMR.addVar}.
+       * either by modifying the `vars` parameter or calling {@link BOOMR.addVar}.
        *
        * @event BOOMR#before_beacon
        * @property {object} vars Beacon variables
@@ -1058,7 +1058,7 @@ BOOMR_check_doc_domain();
      * Notes when a SPA navigation has happened.
      */
     spaNavigation: function() {
-      // a SPA navigation occured, force onloadfired to true
+      // a SPA navigation occurred, force onloadfired to true
       impl.onloadfired = true;
     },
 
@@ -1499,7 +1499,7 @@ BOOMR_check_doc_domain();
        * @memberof BOOMR.utils
        */
       setCookie: function(name, subcookies, max_age) {
-        var value, nameval, savedval, c, exp;
+        var value, nameVal, savedVal, c, exp;
 
         if (!name || !BOOMR.session.domain || typeof subcookies === "undefined") {
           BOOMR.debug("Invalid parameters or site domain: " + name + "/" + subcookies + "/" + BOOMR.session.domain);
@@ -1520,10 +1520,10 @@ BOOMR_check_doc_domain();
           return true;
         }
 
-        nameval = name + "=\"" + value + "\"";
+        nameVal = name + "=\"" + value + "\"";
 
-        if (nameval.length < 500) {
-          c = [nameval, "path=/", "domain=" + BOOMR.session.domain];
+        if (nameVal.length < 500) {
+          c = [nameVal, "path=/", "domain=" + BOOMR.session.domain];
 
           if (typeof max_age === "number") {
             exp = new Date();
@@ -1573,11 +1573,11 @@ BOOMR_check_doc_domain();
           BOOMR.cookies[name] = undefined;
 
           // confirm cookie was set (could be blocked by user's settings, etc.)
-          savedval = this.getRawCookie(name);
+          savedVal = this.getRawCookie(name);
 
           // the saved cookie should be the same or undefined in the case of removeCookie
-          if (value === savedval ||
-              (typeof savedval === "undefined" && typeof max_age === "number" && max_age <= 0)) {
+          if (value === savedVal ||
+              (typeof savedVal === "undefined" && typeof max_age === "number" && max_age <= 0)) {
             // re-set the cached value
             BOOMR.cookies[name] = value;
 
@@ -1589,10 +1589,10 @@ BOOMR_check_doc_domain();
             return true;
           }
 
-          BOOMR.warn("Saved cookie value doesn't match what we tried to set:\n" + value + "\n" + savedval);
+          BOOMR.warn("Saved cookie value doesn't match what we tried to set:\n" + value + "\n" + savedVal);
         }
         else {
-          BOOMR.warn("Cookie too long: " + nameval.length + " " + nameval);
+          BOOMR.warn("Cookie too long: " + nameVal.length + " " + nameVal);
         }
 
         BOOMR.addVar("nocookie", 1);
@@ -1615,7 +1615,7 @@ BOOMR_check_doc_domain();
       getSubCookies: function(cookie) {
         var cookies_a,
             i, l, kv,
-            gotcookies = false,
+            gotCookies = false,
             cookies = {};
 
         if (!cookie) {
@@ -1637,11 +1637,11 @@ BOOMR_check_doc_domain();
             // just in case there's no value
             kv.push("");
             cookies[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1]);
-            gotcookies = true;
+            gotCookies = true;
           }
         }
 
-        return gotcookies ? cookies : null;
+        return gotCookies ? cookies : null;
       },
 
       /**
@@ -1730,7 +1730,7 @@ BOOMR_check_doc_domain();
        *
        * @returns {object|null} Returns object retrieved from localStorage.
        *                       Returns undefined if not found or expired.
-       *                       Returns null if parameters are invalid or an error occured
+       *                       Returns null if parameters are invalid or an error occurred
        *
        * @memberof BOOMR.utils
        */
@@ -1794,7 +1794,7 @@ BOOMR_check_doc_domain();
        * @memberof BOOMR.utils
        */
       setLocalStorage: function(name, items, max_age) {
-        var data, value, savedval;
+        var data, value, savedVal;
 
         if (!name || !impl.localStorageSupported || typeof items !== "object") {
           return false;
@@ -1816,9 +1816,9 @@ BOOMR_check_doc_domain();
           try {
             w.localStorage.setItem(impl.LOCAL_STORAGE_PREFIX + name, value);
             // confirm storage was set (could be blocked by user's settings, etc.)
-            savedval = w.localStorage.getItem(impl.LOCAL_STORAGE_PREFIX + name);
+            savedVal = w.localStorage.getItem(impl.LOCAL_STORAGE_PREFIX + name);
 
-            if (value === savedval) {
+            if (value === savedVal) {
               return true;
             }
           }
@@ -1826,7 +1826,7 @@ BOOMR_check_doc_domain();
             // Empty
           }
 
-          BOOMR.warn("Saved storage value doesn't match what we tried to set:\n" + value + "\n" + savedval);
+          BOOMR.warn("Saved storage value doesn't match what we tried to set:\n" + value + "\n" + savedVal);
         }
         else {
           BOOMR.warn("Storage items too large: " + value.length + " " + value);
@@ -2107,8 +2107,8 @@ BOOMR_check_doc_domain();
        * - An object containing the observer and the timer object:
        *   `{ observer: <MutationObserver>, timer: <Timeout Timer if any> }`
        * - The caller can use this to disconnect the observer at any point
-       *   by calling `retval.observer.disconnect()`
-       * - Note that the caller should first check to see if `retval.observer`
+       *   by calling `retVal.observer.disconnect()`
+       * - Note that the caller should first check to see if `retVal.observer`
        *   is set before calling `disconnect()` as it may have been cleared automatically.
        *
        * @memberof BOOMR.utils
@@ -2212,7 +2212,7 @@ BOOMR_check_doc_domain();
           el.attachEvent("on" + type, fn);
         }
 
-        // ensure the type arry exists
+        // ensure the type array exists
         impl.listenerCallbacks[type] = impl.listenerCallbacks[type] || [];
 
         // save a reference to the target object and function
@@ -2605,7 +2605,7 @@ BOOMR_check_doc_domain();
        * unloaded DOM properties.
        *
        * This tracking isn't needed if Boomerang is loaded in the root
-       * document, as everthing will be cleaned up along with Boomerang
+       * document, as everything will be cleaned up along with Boomerang
        * on unload.
        *
        * @param {object} obj Object whose property will be overwritten
@@ -2683,14 +2683,14 @@ BOOMR_check_doc_domain();
        */
       hashString: function(string) {
         string = encodeURIComponent(string);
-        var hval = 0x811c9dc5;
+        var hashVal = 0x811c9dc5;
 
         for (var i = 0; i < string.length; i++) {
-          hval = hval ^ string.charCodeAt(i);
-          hval += (hval << 1) + (hval << 4) + (hval << 7) + (hval << 8) + (hval << 24);
+          hashVal = hashVal ^ string.charCodeAt(i);
+          hashVal += (hashVal << 1) + (hashVal << 4) + (hashVal << 7) + (hashVal << 8) + (hashVal << 24);
         }
 
-        var hash = (hval >>> 0).toString() + string.length;
+        var hash = (hashVal >>> 0).toString() + string.length;
 
         return parseInt(hash).toString(36);
       },
@@ -2779,7 +2779,7 @@ BOOMR_check_doc_domain();
             }
           }
 
-          // 3.3 Mac OS embeded browser
+          // 3.3 Mac OS embedded browser
           // eslint-disable-next-line max-len
           result = uaString.match(/^Mozilla\/\d+(?:\.\d+)* \(Macintosh;.*Mac OS X \d+(?:_\d+)*\) AppleWebKit\/\d+(?:\.\d+)* \(KHTML, like Gecko\)$/);
 
@@ -2832,7 +2832,7 @@ BOOMR_check_doc_domain();
         var node = elementNode;
 
         // checks to see if a node is valid (element type, not null)
-        // NOTE: Also sets the funtion-local `node` as the next node to iterate over
+        // NOTE: Also sets the function-local `node` as the next node to iterate over
         function validateAndSetNode(nodeToCheck, isParent) {
           var isValid = true;
 
@@ -2890,7 +2890,7 @@ BOOMR_check_doc_domain();
           // check if parent of this node is valid
           var parentIsValid = validateAndSetNode(node.parentNode, true);
 
-          // if we don't have three tagnames in the selector yet,
+          // if we don't have three tag names in the selector yet,
           // or we do but this is the last valid one, add class if exists
           if (cssSelectors.length < 3 || (cssSelectors.length >= 3 && !parentIsValid)) {
             var nodeClass = node.tagName.toLowerCase();
@@ -2901,8 +2901,8 @@ BOOMR_check_doc_domain();
 
             cssSelectors.unshift(nodeClass);
           }
-          // if > 3 tagnames in selector and parent is valid,
-          // add an asterick if there is not one already
+          // if > 3 tag names in selector and parent is valid,
+          // add an asterisk if there is not one already
           else if (cssSelectors[0] !== "*") {
             cssSelectors.unshift("*");
           }
@@ -3544,18 +3544,18 @@ BOOMR_check_doc_domain();
      * @memberof BOOMR
      */
     setImmediate: function(fn, data, cb_data, cb_scope) {
-      var cb, cstack;
+      var cb, callStack;
 
       /* BEGIN_DEBUG */
       // DEBUG: This is to help debugging, we'll see where setImmediate calls were made from
       if (typeof Error !== "undefined") {
-        cstack = new Error();
-        cstack = cstack.stack ? cstack.stack.replace(/^Error/, "Called") : undefined;
+        callStack = new Error();
+        callStack = callStack.stack ? callStack.stack.replace(/^Error/, "Called") : undefined;
       }
       /* END_DEBUG */
 
       cb = function() {
-        fn.call(cb_scope || null, data, cb_data || {}, cstack);
+        fn.call(cb_scope || null, data, cb_data || {}, callStack);
         cb = null;
       };
 
@@ -3676,7 +3676,7 @@ BOOMR_check_doc_domain();
     }),
 
     /**
-     * An mapping of visibliity event states to the latest time they happened
+     * An mapping of visibility event states to the latest time they happened
      *
      * @type {object}
      *
@@ -4165,7 +4165,7 @@ BOOMR_check_doc_domain();
     /**
      * Determines if Boomerang can send a beacon.
      *
-     * Queryies all plugins to see if they implement `readyToSend()`,
+     * Queries all plugins to see if they implement `readyToSend()`,
      * and if so, that they return `true`.
      *
      * If not, the beacon cannot be sent.
@@ -4712,7 +4712,7 @@ BOOMR_check_doc_domain();
 
       //
       // Try the sendBeacon API first.
-      // But if beacon_type is set to "GET", dont attempt
+      // But if beacon_type is set to "GET", don't attempt
       // sendBeacon API call
       //
       if (w && w.navigator &&
@@ -5018,7 +5018,7 @@ BOOMR_check_doc_domain();
     boomr.url = boomr.utils.getMyURL();
   }
   else {
-    // canonicalize the URL
+    // canonical-ize the URL
     var a = BOOMR.window.document.createElement("a");
 
     a.href = BOOMR.url;

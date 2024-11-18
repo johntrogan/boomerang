@@ -77,14 +77,14 @@
     },
     sendData: function(data) {
       var keys = Object.keys(data);
-      var urlenc = "";
+      var urlEnc = "";
 
       for (var i in keys) {
-        urlenc += keys[i] + "=" + data[keys[i]] + "&";
+        urlEnc += keys[i] + "=" + data[keys[i]] + "&";
       }
 
-      BOOMR.info("Url-encoded string: " + urlenc);
-      var url = impl.click_url + "?" + urlenc;
+      BOOMR.info("Url-encoded string: " + urlEnc);
+      var url = impl.click_url + "?" + urlEnc;
       var img = new Image();
 
       img.src = url;
@@ -163,7 +163,7 @@
 
       BOOMR.utils.pluginConfig(impl, config, "Clicks", properties);
 
-      // Other initialisation code here
+      // Other initialization code here
       w.addEventListener("click", impl.handleEvent, true);
       w.addEventListener("beforeunload", impl.unload, true);
 

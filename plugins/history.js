@@ -329,7 +329,7 @@
       });
     }
 
-    // add listener for popstate after page load has occured so that we don't receive an unwanted popstate
+    // add listener for popstate after page load has occurred so that we don't receive an unwanted popstate
     // event at onload
     if (BOOMR.hasBrowserOnloadFired()) {
       aelPopstate();
@@ -413,7 +413,7 @@
       BOOMR.plugins.SPA.hook(hadRouteChange, options);
 
       if (!impl.hooked && !impl.browserOnloadBeforeSetup && (!impl.disableHardNav || BOOMR.onloadFired())) {
-        // fire our route change asap so that we can listen for mutatations, etc
+        // fire our route change asap so that we can listen for mutations, etc
         BOOMR.plugins.SPA.route_change();
 
         impl.setRouteChangeInProgress();

@@ -15,7 +15,7 @@
  * has fully loaded on the page.
  *
  * If Boomerang is already on the page when `BOOMR_mq.push()` is used, the
- * specified function will be called immediatley.
+ * specified function will be called immediately.
  *
  * Otherwise, the specified function will be called as soon as Boomerang has
  * loaded.

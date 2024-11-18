@@ -429,7 +429,7 @@
   var XHR_STATUS_ABORT = -999;
 
   /**
-   * An error occured fetching XMLHttpRequest/Fetch resource
+   * An error occurred fetching XMLHttpRequest/Fetch resource
    * @constant
    * @type {number}
    * @default
@@ -486,7 +486,7 @@
    *
    * @param {string} anchor The anchor object to resolve
    *
-   * @returns {string} The unrelativized URL href
+   * @returns {string} The un-relativized URL href
    * @memberof BOOMR.plugins.AutoXHR
    */
   function getPathName(anchor) {
@@ -522,7 +522,7 @@
    * @param {HTMLAnchorElement} anchor HTML anchor element with URL of the element
    * checked against `BOOMR.xhr_excludes`
    *
-   * @returns {boolean} `true` if intended to be excluded, `false` if it is not in the list of excludables
+   * @returns {boolean} `true` if intended to be excluded, `false` if it is not in the list of exclude-ables
    * @memberof BOOMR.plugins.AutoXHR
    */
   function shouldExcludeXhr(anchor) {
@@ -563,7 +563,7 @@
   }
 
   /**
-   * Disable internal MutationObserver instance. Use this when uninstrumenting the site we're on.
+   * Disable internal MutationObserver instance. Use this when un-instrumenting the site we're on.
    *
    * @method
    * @memberof MutationHandler
@@ -1036,7 +1036,7 @@
    * Calculates SPA Back-End and Front-End timings for Hard and Soft
    * SPA navigations.
    *
-   * @param {object} resource Resouce to calculate for
+   * @param {object} resource Resource to calculate for
    *
    * @method
    * @memberof MutationHandler
@@ -1135,7 +1135,7 @@
   /**
    * Will create a new timer waiting for `timeout` milliseconds to wait until a
    * resources load time has ended or should have ended. If the timeout expires
-   * the Resource at `index` will be marked as timedout and result in an error Resource marked with
+   * the Resource at `index` will be marked as timed-out and result in an error Resource marked with
    * [XHR_STATUS_TIMEOUT]{@link AutoXHR#XHR_STATUS_TIMEOUT} as status information.
    *
    * @param {number} timeout - time ot wait for the resource to be loaded
@@ -1374,7 +1374,7 @@
         i,
         l,
         url,
-        exisitingNodeSrcUrlChanged = false,
+        existingNodeSrcUrlChanged = false,
         resourceNum,
         domHeight,
         domWidth,
@@ -1403,10 +1403,10 @@
       // Check that if we've seen this node before, that the src/href in this case is
       // different which means we need to fetch a new Resource from the server
       if (node._bmr && node._bmr.url !== url) {
-        exisitingNodeSrcUrlChanged = true;
+        existingNodeSrcUrlChanged = true;
       }
 
-      if (exisitingNodeSrcUrlChanged) {
+      if (existingNodeSrcUrlChanged) {
         if (typeof node._bmr.listener === "function") {
           self.load_cb({ target: node, type: "changed" });
           // remove listeners
@@ -1435,7 +1435,7 @@
       }
 
       if (node.nodeName === "IMG") {
-        if (node.naturalWidth && !exisitingNodeSrcUrlChanged) {
+        if (node.naturalWidth && !existingNodeSrcUrlChanged) {
           // img already loaded
           return false;
         }
@@ -1450,7 +1450,7 @@
       }
 
       // IFRAMEs whose SRC has changed will not fire a load event again
-      if (node.nodeName === "IFRAME" && exisitingNodeSrcUrlChanged) {
+      if (node.nodeName === "IFRAME" && existingNodeSrcUrlChanged) {
         return false;
       }
 
@@ -2039,7 +2039,7 @@
             var now;
             // check if the response body was used, if not then we'll
             // wait a little bit longer. Hopefully it is a short response
-            // (posibly only containing headers and status) and the entry
+            // (possibly only containing headers and status) and the entry
             // will be available in RT if we wait.
             // We don't detect if the response was consumed from a cloned object
 
@@ -2809,7 +2809,7 @@
     /**
      * Mark this as the time load ended via resources loadEventEnd property, if this resource has been added
      * to the {@link MutationHandler} already notify that the resource has finished.
-     * Otherwise add this call to the lise of Events that occured.
+     * Otherwise add this call to the list of Events that occurred.
      *
      * @param {object} resource Resource
      *
@@ -2945,7 +2945,7 @@
      * @param {boolean} [config.AutoXHR.xhrRequireChanges=true] Whether or not a XHR beacon will only be triggered
      * if there were DOM changes.
      * @param {boolean} [config.AutoXHR.spaStartFromClick=false] In Single Page Apps, start tracking
-     * the SPA Soft Navigation from any preceeding clicks.  If false, will start from the most recent pushState.
+     * the SPA Soft Navigation from any preceding clicks.  If false, will start from the most recent pushState.
      *
      * @returns {@link BOOMR.plugins.AutoXHR} The AutoXHR plugin for chaining
      * @memberof BOOMR.plugins.AutoXHR
@@ -2982,7 +2982,7 @@
 
       //
       // Add XHR filters from config
-      // NOTE via config it's just called 'excudeFilters' (for compat), while in the code it's always
+      // NOTE via config it's just called 'excludeFilters' (for compat), while in the code it's always
       // 'xhrExcludeFilters' to differentiate itself from domExcludeFilters
       //
       if (config && config.AutoXHR && config.AutoXHR.excludeFilters && config.AutoXHR.excludeFilters.length > 0) {

@@ -440,7 +440,7 @@
  *   * `6`: `setTimeout` or `setInterval`
  * * `t`: Type (e.g. `SyntaxError` or `ReferenceError`)
  * * `c`: Code (for network errors)
- * * `m`: Error messag
+ * * `m`: Error message
  * * `x`: Extra data
  * * `d`: Timestamp (base 36)
  *
@@ -1217,7 +1217,7 @@
           impl.sendIntervalId = -1;
 
           // Don't send a beacon if we've already flushed the queue.  This
-          // might happen for pre-onload becaons if the onload beacon was
+          // might happen for pre-onload beacons if the onload beacon was
           // sent after queueing
           if (impl.q.length === 0) {
             return;
@@ -1398,7 +1398,7 @@
             // unique tuple of target object, event name (arg0), original function
             // and capture (arg2)
             // Since we wrap the origFn with a new anonymous function we can't rely on
-            // the browser's addEventListener to dedup multiple additions of the same
+            // the browser's addEventListener to dedupe multiple additions of the same
             // callback.
             if (!impl.trackFn(targetObj, args[0], callbackFn, args[2], wrappedFn)) {
               // if the callback is already tracked, we won't call addEventListener
@@ -1408,7 +1408,7 @@
             if (rEL) {
               // Remove the listener before adding it back in.
               // This takes care of the (pathological) case where code is relying on the native
-              // de-dupping that the browser provides and BOOMR instruments `addEventListener` between
+              // de-duping that the browser provides and BOOMR instruments `addEventListener` between
               // their redundant calls to `addEventListener`.
               // We detach with the native because there's no point in calling our wrapped version.
               rEL.apply(targetObj, arguments);
@@ -1949,7 +1949,7 @@
             }
           }
 
-          // copy propeties from top frame
+          // copy properties from top frame
           err.lineNumber = err.frames[0].lineNumber;
           err.columnNumber = err.frames[0].columnNumber;
           err.functionName = err.frames[0].functionName;
@@ -2006,7 +2006,7 @@
      * @param {boolean} [config.Errors.monitorEvents] Monitor event callbacks
      * (from `addEventListener`). NOTE: Enabling this may cause compatibility issues with certain sites.
      * Verifications should be run before enabling in production.
-     * @param {boolean} [config.Errors.monitorTimeout] Monitor `setTimout`
+     * @param {boolean} [config.Errors.monitorTimeout] Monitor `setTimeout`
      * and `setInterval`. NOTE: Enabling this may cause compatibility issues with certain sites.
      * Verifications should be run before enabling in production.
      * @param {boolean} [config.Errors.monitorRejections] Monitor unhandled

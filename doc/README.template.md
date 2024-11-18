@@ -258,7 +258,7 @@ Open-source Boomerang Documentation is currently published at
 
 The team at Akamai works on mPulse Boomerang, which contains a few mPulse-specific plugins and may have additional
 changes being tested before being backported to the open-source Boomerang.  mPulse Boomerang usage documentation is
-available at [docs.soasta.com/boomerang/](https://docs.soasta.com/boomerang/) and mPulse Boomerang API documentation
+available at [akamai.github.io/boomerang/akamai/](https://akamai.github.io/boomerang/akamai/) and mPulse Boomerang API documentation
 is at [developer.akamai.com/tools/boomerang/docs/](https://developer.akamai.com/tools/boomerang/docs/).
 
 Additional documentation:

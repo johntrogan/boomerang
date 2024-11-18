@@ -91,7 +91,7 @@
 (function(w) {
   "use strict";
 
-  // Basic check if configuration exists and if Opt-out/opt-in pligin is enabled.
+  // Basic check if configuration exists and if Opt-out/opt-in plugin is enabled.
   if (w.BOOMR_CONSENT_CONFIG === undefined || w.BOOMR_CONSENT_CONFIG.enabled !== true) {
     return;
   }

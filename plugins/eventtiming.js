@@ -29,7 +29,7 @@
  *
  * This time (measured in milliseconds) is added to the beacon as `et.fid`.
  *
- * ## Interation to Next Paint
+ * ## Interaction to Next Paint
  *
  * After every interaction on the page, the total interaction duration is measured.
  *
@@ -44,7 +44,7 @@
  * This time (measured in milliseconds) is added to the beacon as `et.inp`, on the
  * Unload beacon.
  *
- * ## Incremental Interation to Next Paint
+ * ## Incremental Interaction to Next Paint
  *
  * Boomerang will also add the "Incremental INP" (incremental being since the last beacon)
  * as `et.inp.inc`.

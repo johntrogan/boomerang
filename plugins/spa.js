@@ -251,7 +251,7 @@
     /**
      * beforebeacon: Soft Navigation data
      *
-     * @param {object} data Baecon data
+     * @param {object} data Beacon data
      */
     onSoftNavObserverBeforeBeacon: function(data) {
       // only apply to soft navs

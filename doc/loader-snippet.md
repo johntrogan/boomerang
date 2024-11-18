@@ -21,7 +21,7 @@ The snippet does the following:
     Boomerang will add a `<link>` node to tell the browser to fetch Boomerang.js.
     * Once the Preload has finished, Boomerang adds a regular `<script>` node to the page with the same Boomerang URL,
       which tells the browser to execute Boomerang.
-4. For browsers that do not support Preload, or if Preload fails or doesn't trigger within the defined timeframe (default 3 seconds),
+4. For browsers that do not support Preload, or if Preload fails or doesn't trigger within the defined time frame (default 3 seconds),
     the non-blocking IFRAME loader method is used.
     * A hidden `<iframe>` is injected into the page.
     * The snippet attempts to read the IFRAME's `contentWindow.document`.  If it can't,

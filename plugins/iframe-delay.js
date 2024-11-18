@@ -266,7 +266,7 @@
      * `true` for child IFRAMEs.  If `true`, the parent frame will wait on
      * this child IFRAME.
      * @param {number} [config.IFrameDelay.monitoredCount] Should be set by
-     * the parent frame to indiciate the number of child IFRAMEs it expects
+     * the parent frame to indicate the number of child IFRAMEs it expects
      * to wait on.
      * @returns {@link BOOMR.plugins.IFrameDelay} The IFrameDelay plugin for chaining
      * @memberof BOOMR.plugins.IFrameDelay

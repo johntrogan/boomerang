@@ -30,7 +30,7 @@
 ### Bug Fixes
 
 * Issue 1190: SPA: Only append OriginTrials if document.head.append is available
-* Issue 1189: BW: Change default HTTPS behaviour of bandwidth test to "run"
+* Issue 1189: BW: Change default HTTPS behavior of bandwidth test to "run"
 * Issue 1187: BFCache: Set Page Dimensions: Page Group, AB, Custom Dimensions
 * Issue 1185: Continuity: Ignore errors from Battery API
 * Issue 1183: History: Clarify documentation about routeChangeWaitFilter
@@ -114,13 +114,13 @@
 * Issue 1125: PaintTiming: Only include `pt.lcp.src` and `pt.lcp.el` on the `pt.lcp` beacon
 * Issue 1142: EventTiming: Ensure timestamps and durations are rounded to nearest ms
 * Issue 1143: EventTiming: Add additional serialized event mappings
-* Issue 1145: EventTiming: interactionToNextPaint() API should return the latest
-* Issue 1144: Continuity: Don't add c.cls.d or c.cls.topid if there were no CLS
-* Issue 1146: RT: Don't update cookie on beacon_url change
+* Issue 1145: EventTiming: `interactionToNextPaint()` API should return the latest
+* Issue 1144: Continuity: Don't add `c.cls.d` or `c.cls.topid` if there were no CLS
+* Issue 1146: RT: Don't update cookie on `beacon_url` change
 
 ### Misc
 
-* Issue 1119: Tests: Fix many Docker failures, Remove PhantomJS, fix Dockerfiles
+* Issue 1119: Tests: Fix many Docker failures, Remove PhantomJS, fix Dockerfile
 * Issue 1130: Build: Strip [BOOMR.info](http://BOOMR.info), .warn, .error on production builds
 * Issue 1141: Docs: Memory's dev.mem
 
@@ -735,7 +735,7 @@
 ### Bug Fixes
 
 * Issue 555: Ensure we don't clobber `cross_domain_url` if it has a query param already
-* Issue 557: AutoXHR: Only capture `reponseText` or `responseXML` if the type is set
+* Issue 557: AutoXHR: Only capture `responseText` or `responseXML` if the type is set
 
 ## 1.449.1490889765 (March 30, 2017)
 

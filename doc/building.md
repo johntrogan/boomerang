@@ -40,7 +40,7 @@ of each plugin:
 * {@link BOOMR.plugins.Mobile} captures mobile connection type
 * {@link BOOMR.plugins.NavigationTiming} captures NavigationTiming data
 * {@link BOOMR.plugins.PaintTiming} captures paint events such as First Contentful Paint (FCP) and Largest Contentful Paint (LCP)
-* {@link BOOMR.plugins.ResourceTiming} captures ResoureTiming (waterfall) data
+* {@link BOOMR.plugins.ResourceTiming} captures ResourceTiming (waterfall) data
 * {@link BOOMR.plugins.RT} captures round-trip (load) performance
 * {@link BOOMR.plugins.SPA} is required by any of the SPA plugins
 * {@link BOOMR.plugins.TPAnalytics} adds third-party analytics IDs to the beacon
@@ -169,7 +169,7 @@ The main build targets are:
 * `lint` runs lint on the project
 * `test` runs {@tutorial tests}
 
-A full list of build targets are avaialble in `Gruntfile.js`.
+A full list of build targets are available in `Gruntfile.js`.
 
 Grunt build options:
 

@@ -62,7 +62,7 @@
  *
  * `initiatorType` is a simple map from the PerformanceResourceTiming
  * `initiatorType` (which is a string) to an integer, according to the
- * {@link BOOMR.plugins.ResourceTiming.INITAITOR_TYPES} enum.
+ * {@link BOOMR.plugins.ResourceTiming.INITIATOR_TYPES} enum.
  *
  * `timings` is a string of [Base-36]{@link http://en.wikipedia.org/wiki/Base_36}
  * encoded timestamps from the PerformanceResourceTiming interface. The values in
@@ -408,7 +408,7 @@
 
       if (splitAtPath) {
         //
-        // Split the Trie based on the path (less CPU, less optimial result)
+        // Split the Trie based on the path (less CPU, less optimal result)
         //
         letters = urlFixed.split("/");
 
@@ -970,7 +970,7 @@
           // We get the actual physical dimensions by assigning the image to an uncorrected Image object.
           // In most cases, this should load from in-memory cache, so there should be no extra load.
           // When the original image's caching is disabled, this will cause the image to be
-          // re-downloaded which can cause issues with capchas.
+          // re-downloaded which can cause issues with captchas.
           if (impl.getSrcsetDimensions &&
               el.currentSrc &&
               (el.srcset ||
@@ -1798,8 +1798,8 @@
    * Given entryIndex and descriptionIndex, create the shorthand key into the lookup
    * response format is ":<entryIndex>.<descriptionIndex>"
    * either/both entryIndex or/and descriptionIndex can be omitted if equal to 0
-   * the "." can be ommited if descriptionIndex is 0
-   * the ":" can be ommited if entryIndex and descriptionIndex are 0
+   * the "." can be omitted if descriptionIndex is 0
+   * the ":" can be omitted if entryIndex and descriptionIndex are 0
    *
    * @param {Integer} entryIndex index of the entry
    * @param {Integer} descriptionIndex index of the description
@@ -2157,7 +2157,7 @@
      * @param {boolean} [config.ResourceTiming.splitAtPath] Whether or not to split the ResourceTiming
      * compressed Trie at the path separator (faster processing, but larger result).
      * @param {boolean} [config.ResourceTiming.getSrcsetDimensions] Whether or not to collect physical
-     * dimensions of srcset images. Setting this will cause uncacheable images to be re-downloaded.
+     * dimensions of srcset images. Setting this will cause un-cacheable images to be re-downloaded.
      * @param {boolean} [config.ResourceTiming.jsUrl] Whether or not to encode as JSURL
      *
      * @returns {@link BOOMR.plugins.ResourceTiming} The ResourceTiming plugin for chaining

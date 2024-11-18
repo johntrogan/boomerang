@@ -433,7 +433,7 @@
  * we'd recommend a value between `1000` and `5000` (1 and 5 seconds).
  *
  * Time to Interaction will add `c.tti` to the beacon.  It will also add `c.tti.m`,
- * which is the higest-accuracy method available for TTI calculation: `lt` (Long Tasks),
+ * which is the highest-accuracy method available for TTI calculation: `lt` (Long Tasks),
  * `raf` (FPS), or `b` (Page Busy).
  *
  * Time to Interaction is only included on regular Page Load and Single Page App Hard navigation beacons.  It is not

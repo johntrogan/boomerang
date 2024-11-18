@@ -37,7 +37,7 @@
  * you will only receive bandwidth results if they were cached in a cookie by a
  * previous test run.
  *
- * ## IPv4 optimisations
+ * ## IPv4 optimizations
  *
  * While visitor's IP address information isn't available to JavaScript, if your server
  * can communicate the IP address to JavaScript (e.g. via HTML injection), Boomerang
@@ -56,7 +56,7 @@
  * The bandwidth results are stored within a cookie.  This helps ensure the bandwidth
  * test isn't repeated for the same user repeatedly (slowing down their experience).
  *
- * You can customise the name of the cookie where the bandwidth will be stored via
+ * You can customize the name of the cookie where the bandwidth will be stored via
  * the {@link BOOMR.plugins.BW.init BW.cookie} option.
  *
  * By default this is set to `BA`.
@@ -84,12 +84,12 @@
  *
  * Finally, there may be cases when you want to completely disable the bandwidth test --
  * perhaps you know that your user is on a slow network, or pays by the byte (the
- * andwidth test uses a lot of bandwidth), or is on a mobile device that cannot
+ * bandwidth test uses a lot of bandwidth), or is on a mobile device that cannot
  * handle the load.
  *
  * In such cases you have two options:
  *
- * * Delete the bandwdith plugin (`delete BOOMR.plugins.BW`)
+ * * Delete the bandwidth plugin (`delete BOOMR.plugins.BW`)
  * * Set the {@link BOOMR.plugins.BW.init BW.enabled} parameter to `false`
  *
  * ## Methodology
@@ -104,7 +104,7 @@
  *     make a HTTP request from the browser to our server.
  *   * Once done, we calculate the arithmetic mean, standard deviation and standard
  *     error at 95% confidence for the 9 download times that we have.  This is
- *     the latency number (`lat`) and confidence intervl (`lat_err`) that we
+ *     the latency number (`lat`) and confidence interval (`lat_err`) that we
  *     beacon back to our server.
  * * Next, download images of increasing size until one of the times out
  *   * We choose image sizes so that we can narrow down on a bandwidth range as
@@ -155,8 +155,8 @@
   // The images were generated with ImageMagic, using random uncompressed data.
   // As input data (image-3.bin) I used the original images that were encrypted using AES256.
   // The IM command used was : convert -size 618x618 -depth 8 gray:image-3.bin image-3.png
-  // Vary the image dimensions to change the filesize. The image dimensions are more or less
-  // the square of the desired filesize.
+  // Vary the image dimensions to change the file size. The image dimensions are more or less
+  // the square of the desired file size.
   images = [
     { name: "image-0.png", size: 11773, timeout: 1400 },
     { name: "image-1.png", size: 40836, timeout: 1200 },

@@ -14,7 +14,7 @@
  *
  * In brief, the points he covers are:
  *
- * 1. Set up a wildcard hostname, perferably one that does not share cookies with
+ * 1. Set up a wildcard hostname, preferably one that does not share cookies with
  *   your main site. Give it a low TTL, say, 60 seconds, so you don't pollute downstream caches.
  * 2. Set up a webserver for the wildcard hostname that serves the images named `A.gif`
  *   and `B.gif` (from the `images/` subdirectory) as fast as possible.  Make sure

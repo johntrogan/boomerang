@@ -79,7 +79,7 @@
  *
  * The session information is stored within a cookie.
  *
- * You can customise the name of the cookie where the session information
+ * You can customize the name of the cookie where the session information
  * will be stored via the {@link BOOMR.plugins.RT.init RT.cookie} option.
  *
  * By default this is set to `RT`.
@@ -274,7 +274,7 @@
         }
       }
 
-      // compresion level
+      // compression level
       subcookies.z = COOKIE_COMPRESSED_TIMESTAMPS;
 
       // domain
@@ -357,8 +357,8 @@
      * come through, so we hold them in a cookie.
      *
      * @param subcookies  [optional] object containing cookie keys & values. If not set, will use current cookie value.
-     * Recognised keys:
-     * - ss: sesion start
+     * Recognized keys:
+     * - ss: session start
      * - si: session ID
      * - sl: session length
      * - tt: sum of load times across session
@@ -831,7 +831,7 @@
           // Front-End Time stays the same
 
           // Back-End Time was offset by Act St
-          // reponseStart - navigationStart - activationStart
+          // responseStart - navigationStart - activationStart
           impl.timers.t_resp = impl.timers.t_resp || {};
           impl.timers.t_resp.delta = (impl.timers.t_resp.end - impl.cached_t_start - actSt);
         }
@@ -991,9 +991,9 @@
           }
         }
         else if (data && data.timing) {
-          // Use details from XHR object to figure out responce latency and page time. Use
+          // Use details from XHR object to figure out response latency and page time. Use
           // responseEnd (instead of responseStart) since it's not until responseEnd
-          // that the browser can consume the data, and responseEnd is the only guarateed
+          // that the browser can consume the data, and responseEnd is the only guaranteed
           // timestamp with cross-origin XHRs if ResourceTiming is enabled.
 
           t_fetch_start = data.timing.fetchStart;
@@ -1332,7 +1332,7 @@
     },
 
     spaNavigation: function() {
-      // a SPA navigation occured, force onloadfired to true
+      // a SPA navigation occurred, force onloadfired to true
       impl.onloadfired = true;
     }
   };
@@ -1405,7 +1405,7 @@
       // we already had a beacon URL, in which case we'll hold on to it until our session
       // expires, and then use it.
       // It's possible that a beacon collector dies while a session is active, and in that
-      // case we might end up sending beacons to a blackhole until the next config.js
+      // case we might end up sending beacons to a black hole until the next config.js
       // request tells us to force the new beacon url
       if (config && config.beacon_url) {
         if (!impl.beacon_url || config.force_beacon_url) {
@@ -1702,7 +1702,7 @@
       // delta timestamps.  Until Issue #195 is fixed, if this XHR is firing
       // a beacon very quickly after a previous XHR, the previous XHR might
       // not yet have had time to fire a beacon and clear its own t_done,
-      // so the preceeding endTimer() wouldn't have set this XHR's timestamps.
+      // so the preceding endTimer() wouldn't have set this XHR's timestamps.
       if (edata && edata.initiator === "xhr") {
         this.setTimer("t_done", edata.timing.requestStart, edata.timing.loadEventEnd);
       }
