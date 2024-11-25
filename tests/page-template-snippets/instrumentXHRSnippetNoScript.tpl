@@ -134,8 +134,8 @@
 
       addListener("load");
       addListener("timeout", -1001);
-      addListener("error",   -998);
-      addListener("abort",   -999);
+      addListener("error", -998);
+      addListener("abort", -999);
 
       try {
         open.apply(xhr, arguments);

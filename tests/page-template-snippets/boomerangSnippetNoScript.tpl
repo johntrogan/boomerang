@@ -176,8 +176,8 @@
 
     // Set attributes to trigger a Preload
     link.href = window.BOOMR.url;
-    link.rel  = "preload";
-    link.as   = "script";
+    link.rel = "preload";
+    link.as = "script";
 
     // Add our script tag if successful, fallback to iframe if not
     link.addEventListener("load", promote);
