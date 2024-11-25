@@ -4467,7 +4467,12 @@ BOOMR_check_doc_domain();
       var isSPA = BOOMR.utils.inArray(impl.vars["http.initiator"], BOOMR.constants.BEACON_TYPE_SPAS);
       var isPageLoad = typeof impl.vars["http.initiator"] === "undefined" || isSPA;
 
-      if (!impl.vars.pgu) {
+      if (impl.vars.pgu) {
+        // ensure we're stripping the hash for non-SPAs
+        impl.vars.pgu = isSPA ? impl.vars.pgu : impl.vars.pgu.replace(/#.*/, "");
+      }
+      else {
+        // use the document.URL, stripping the hash for non-SPAs
         impl.vars.pgu = isSPA ? d.URL : d.URL.replace(/#.*/, "");
       }
 
