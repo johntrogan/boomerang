@@ -114,7 +114,11 @@
 
       // FCP and LCP
       BOOMR.addVar("pt.fcp", Math.floor(fcpLcp - pageShowStart), true);
-      BOOMR.addVar("pt.lcp", Math.floor(fcpLcp - pageShowStart), true);
+
+      if (typeof BOOMR.window.LargestContentfulPaint === "function") {
+        // verify LCP support first
+        BOOMR.addVar("pt.lcp", Math.floor(fcpLcp - pageShowStart), true);
+      }
 
       if (BOOMR.plugins.PageParams) {
         // re-attach any dimensions to this beacon
