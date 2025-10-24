@@ -2044,10 +2044,10 @@ BOOMR_check_doc_domain();
        *
        * @param {Array} array The array to iterate over
        * @param {Function} predicate The function invoked per iteration
-       * @param {Boolean} reverse true if this is a reverse search
+       * @param {boolean} reverse true if this is a reverse search
        *
-       * @returns {Array} Returns the value of first (or last if reverse is true)
-       * element that satisfies the predicate
+       * @returns {any} Returns the value of first (or last if reverse is true)
+       * element that satisfies the predicate.
        *
        * @memberof BOOMR.utils
        */
@@ -2057,15 +2057,14 @@ BOOMR_check_doc_domain();
           return undefined;
         }
 
-        if (typeof array.find === "function") {
-          if (reverse) {
-            return array.findLast(predicate);
-          }
-          else {
-            return array.find(predicate);
-          }
+        if (reverse && typeof array.findLast === "function") {
+          return array.findLast(predicate);
+        }
+        else if (!reverse && typeof array.find === "function") {
+          return array.find(predicate);
         }
         else {
+          // Fallback if either find or findLast is not available
           var index = reverse ? array.length - 1 : 0,
               end = reverse ? -1 : array.length,
               increment = reverse ? -1 : 1,
