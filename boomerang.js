@@ -2017,32 +2017,41 @@ BOOMR_check_doc_domain();
        *
        * @param {Array} array The array to iterate over
        * @param {Function} predicate The function invoked per iteration
+       * @param {Boolean} reverse true if this is a reverse search
        *
-       * @returns {Array} Returns the value of first element that satisfies
-       * the predicate
+       * @returns {Array} Returns the value of first (or last if reverse is true)
+       * element that satisfies the predicate
        *
        * @memberof BOOMR.utils
        */
-      arrayFind: function(array, predicate) {
+      arrayFind: function(array, predicate, reverse) {
         if (!(this.isArray(array) || (array && typeof array.length === "number")) ||
             typeof predicate !== "function") {
           return undefined;
         }
 
         if (typeof array.find === "function") {
-          return array.find(predicate);
+          if (reverse) {
+            return array.findLast(predicate);
+          }
+          else {
+            return array.find(predicate);
+          }
         }
         else {
-          var index = -1,
-              length = array.length,
+          var index = reverse ? array.length - 1 : 0,
+              end = reverse ? -1 : array.length,
+              increment = reverse ? -1 : 1,
               value;
 
-          while (++index < length) {
+          while (index !== end) {
             value = array[index];
 
             if (predicate(value, index, array)) {
               return value;
             }
+
+            index += increment;
           }
 
           return undefined;
