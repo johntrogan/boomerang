@@ -3835,7 +3835,7 @@
      * Analyzes Interactions
      */
     function analyze(startTime) {
-      var fid;
+      var fid, ttfi, ET;
 
       impl.addToBeacon("c.i.dc", externalMetrics.interactionDelayed());
       impl.addToBeacon("c.i.dt", externalMetrics.interactionDelayedTime());
@@ -3844,20 +3844,25 @@
       // Only send FID and TTFI Timers once
       if (!sentTimers) {
         // defer to EventTiming's FID if available
-        if (BOOMR.plugins.EventTiming &&
-            BOOMR.plugins.EventTiming.is_enabled()) {
-          fid = BOOMR.plugins.EventTiming.metrics.firstInputDelay();
+        ET = BOOMR.plugins.EventTiming;
+
+        if (ET && ET.is_enabled()) {
+          fid = ET.metrics.firstInputDelay();
+          ttfi = ET.metrics.timeToFirstInteraction();
         }
 
         if (!fid && firstInputDelay !== null) {
           fid = externalMetrics.firstInputDelay();
         }
 
+        if (!ttfi) {
+          ttfi = externalMetrics.timeToFirstInteraction();
+        }
+
         if (typeof fid === "number") {
           impl.addToBeacon("c.fid", Math.ceil(fid), true);
 
-          impl.addToBeacon("c.ttfi",
-            BOOMR.plugins.EventTiming.metrics.timeToFirstInteraction() || externalMetrics.timeToFirstInteraction());
+          impl.addToBeacon("c.ttfi", ttfi, true);
 
           sentTimers = true;
         }
