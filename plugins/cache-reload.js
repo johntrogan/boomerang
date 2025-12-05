@@ -19,7 +19,7 @@
  *   <script>
  *   // required version needs to be passed in as a query string parameter
  *   // like v=0.9.123456789
- *   var boom_ver = BOOMR.version.split('.'),
+ *   var boom_ver = BOOMR.getVersion().split('.'),
  *   var reqd_ver = location.search.replace(/.*v=([0-9\.]+)/, '$1').split('.');
  *   if ((boom_ver[0] < reqd_ver[0])
  *     || (boom_ver[0] == reqd_ver[0] && boom_ver[1] < reqd_ver[1])

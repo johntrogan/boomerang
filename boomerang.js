@@ -411,6 +411,9 @@ BOOMR_check_doc_domain();
     // Private Members
     //
 
+    // Internal, unchangeable version string. We use this internally as the true boomerang version since BOOMR.version can be changed by outside code.
+    version: "%boomerang_version%",
+
     // Beacon URL
     beacon_url: "",
 
@@ -1155,6 +1158,14 @@ BOOMR_check_doc_domain();
   // we don't overwrite anything additional that was added to BOOMR before this
   // was called... for example, a plugin.
   boomr = {
+    /**
+     * Returns the internal, unchangeable Boomerang version string.
+     * @returns {string} Boomerang version
+     */
+    getVersion: function() {
+        return impl.version;
+    },
+
     /**
      * The timestamp when boomerang.js showed up on the page.
      *
@@ -4525,7 +4536,12 @@ BOOMR_check_doc_domain();
         delete impl.vars.r;
       }
 
-      impl.vars.v = BOOMR.version;
+      impl.vars.v = impl.version;
+
+      // If someone overwrote BOOMR.version and it is no longer the same as impl.version, capture that
+      if (impl.version !== BOOMR.version) {
+        impl.vars["v.c"] = BOOMR.version;
+      }
 
       // Snippet version, if available
       if (BOOMR.snippetVersion) {
