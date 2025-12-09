@@ -1166,6 +1166,28 @@
   };
 
   /**
+   * Fake performance.interactionCount
+   */
+  t.fakePerformanceInteractionCount = function(count) {
+    try {
+      if (!"performance" in window) {
+        window.performance = window.performance || {};
+        window.performance.interactionCount = 500;
+      }
+      else {
+        Object.defineProperty(window.performance, "interactionCount", {
+          get: function() {
+            return count;
+          }
+        });
+      }
+    }
+    catch (e) {
+      console.log("Warning: window.performance.interactionCount could not be redefined");
+    }
+  };
+
+  /**
    * Fake ActivationStart
    */
   t.fakeActivationStart = function(time) {
@@ -1185,28 +1207,6 @@
     // fake the start time
     t.fakeNavigationEntryProperty("activationStart", time);
     t.fakeActivationStartOffset = time;
-  };
-
-  /**
-   * Fake interactionCount
-   */
-  t.fakeInteractionCount = function(count) {
-    try {
-      if (!"performance" in window) {
-        window.performance = window.performance || {};
-        window.performance.interactionCount = 500;
-      }
-      else {
-        Object.defineProperty(window.performance, "interactionCount", {
-          get: function() {
-            return count;
-          }
-        });
-      }
-    }
-    catch (e) {
-      console.log("Warning: window.performance.interactionCount could not be redefined");
-    }
   };
 
   /**

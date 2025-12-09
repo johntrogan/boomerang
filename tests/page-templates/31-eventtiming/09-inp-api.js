@@ -4,7 +4,7 @@
 // globals from this test
 Array.prototype.push.apply(BOOMR_test.addedGlobals, ["PerformanceEventTiming", "POs", "curStartTime", "generateEvent"]);
 
-describe("e2e/31-eventtiming/07-inp-after-page-load", function() {
+describe("e2e/31-eventtiming/09-inp-api", function() {
   var tf = BOOMR.plugins.TestFramework;
   var t = BOOMR_test;
 
@@ -39,6 +39,10 @@ describe("e2e/31-eventtiming/07-inp-after-page-load", function() {
 
     it("Should have included the EventTiming timeline (et.e) on the Page Load beacon", function() {
       assert.operator(tf.beacons[0]["et.e"].length, ">", 0);
+    });
+
+    it("Should have included Incremental Interaction to Next Paint Name (et.inp.inc.n) on the Page Load beacon", function() {
+      assert.equal(tf.beacons[0]["et.inp.inc.n"], "click");
     });
   });
 

@@ -72,11 +72,13 @@
  * * `et.inp.t`: INP timestamp that the interaction occurred
  * * `et.inp.id`: INP Input Delay
  * * `et.inp.pt`: INP Processing Time
+ * * `et.inp.n`: INP event type name
  * * `et.inp.inc`: Incremental Interaction to Next Paint (for the Page Load and each SPA Soft nav)
  * * `et.inp.inc.e`: Incremental INP target element
  * * `et.inp.inc.t`: Incremental INP timestamp that the interaction occurred
  * * `et.inp.inc.id`: Incremental INP Input Delay
  * * `et.inp.inc.pt`: Incremental INP Processing Time
+ * * `et.inp.inc.n`: Incremental INP event type name
  * * `c.ttfi`: Time to First Interaction (included for when Continuity plugin is not used)
  *
  * @see {@link https://github.com/w3c/event-timing/}
@@ -273,6 +275,7 @@
         BOOMR.addVar("et.inp.inc.pt", Math.ceil(iinp.processingEnd - iinp.processingStart), true);
         BOOMR.addVar("et.inp.inc.e", iinp.target, true);
         BOOMR.addVar("et.inp.inc.t", iinp.startTime, true);
+        BOOMR.addVar("et.inp.inc.n", iinp.name, true);
       }
 
       // put all interactionsSinceLastBeacon into interactions
@@ -302,6 +305,7 @@
         BOOMR.addVar("et.inp.pt", Math.ceil(inp.processingEnd - inp.processingStart), true);
         BOOMR.addVar("et.inp.e", inp.target, true);
         BOOMR.addVar("et.inp.t", inp.startTime, true);
+        BOOMR.addVar("et.inp.n", inp.name, true);
       }
     },
 
@@ -339,6 +343,7 @@
           entry.duration > impl.interactionsSinceLastBeacon[interactionId].duration) {
           // this duration is higher than what we saw for this ID before
           impl.interactionsSinceLastBeacon[interactionId] = {
+            name: entry.name,
             duration: Math.ceil(entry.duration),
             target: BOOMR.utils.makeSelector(entry.target),
             startTime: Math.floor(entry.startTime),
@@ -384,6 +389,7 @@
 
       // consider FID for INP
       impl.interactionsSinceLastBeacon.fid = {
+        name: fid.name,
         duration: Math.ceil(fid.duration),
         target: BOOMR.utils.makeSelector(fid.target),
         startTime: Math.floor(fid.startTime)

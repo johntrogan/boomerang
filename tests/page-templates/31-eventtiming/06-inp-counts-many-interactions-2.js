@@ -36,6 +36,10 @@ describe("e2e/31-eventtiming/06-inp-counts-many-interactions-2", function() {
     it("Should have included Incremental Interaction to Next Paint timestamp (et.inp.inc.t) on the Page Load beacon", function() {
       assert.operator(parseInt(tf.beacons[0]["et.inp.inc.t"], 10), ">=", 0);
     });
+
+    it("Should have included Incremental Interaction to Next Paint Name (et.inp.inc.n) on the Page Load beacon", function() {
+      assert.equal(tf.beacons[0]["et.inp.inc.n"], "click");
+    });
   });
 
   describe("Unload beacon", function() {
@@ -61,6 +65,10 @@ describe("e2e/31-eventtiming/06-inp-counts-many-interactions-2", function() {
 
     it("Should not have included Incremental Interaction to Next Paint timestamp (et.inp.inc.t) on the Unload beacon", function() {
       assert.isUndefined(tf.beacons[1]["et.inp.inc.t"]);
+    });
+
+    it("Should not have included Incremental Interaction to Next Paint Name (et.inp.inc.n) on the Unload beacon", function() {
+      assert.isUndefined(tf.beacons[1]["et.inp.inc.n"]);
     });
   });
 });
