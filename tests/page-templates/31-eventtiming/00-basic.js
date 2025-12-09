@@ -41,4 +41,20 @@ describe("e2e/31-eventtiming/00-basic", function() {
   it("Should have included First Input Delay (et.fid) on the beacon", function() {
     assert.equal(tf.lastBeacon()["et.fid"], 50);
   });
+
+  it("Should have included Continuity's Time to First Interaction (TTFI) (c.ttfi) on the beacon if Continuity is included", function() {
+    if (!BOOMR.plugins.Continuity) {
+      return this.skip();
+    }
+
+    assert.equal(tf.lastBeacon()["c.ttfi"], 100);
+  });
+
+  it("Should have included Continuity's Time to First Interaction (TTFI) (c.ttfi) on the beacon if Continuity is NOT included", function() {
+    if (BOOMR.plugins.Continuity) {
+      return this.skip();
+    }
+
+    assert.equal(tf.lastBeacon()["c.ttfi"], 100);
+  });
 });

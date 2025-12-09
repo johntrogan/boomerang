@@ -77,6 +77,7 @@
  * * `et.inp.inc.t`: Incremental INP timestamp that the interaction occurred
  * * `et.inp.inc.id`: Incremental INP Input Delay
  * * `et.inp.inc.pt`: Incremental INP Processing Time
+ * * `c.ttfi`: Time to First Interaction (included for when Continuity plugin is not used)
  *
  * @see {@link https://github.com/w3c/event-timing/}
  * @class BOOMR.plugins.EventTiming
@@ -254,6 +255,9 @@
       // First Input Delay
       if (impl.firstInputDelay !== null) {
         BOOMR.addVar("et.fid", Math.ceil(impl.firstInputDelay), true);
+
+        // We'll also set c.ttfi here just in case the Continuity plugin is not included in this flavor of boomerang
+        BOOMR.addVar("c.ttfi", impl.timeToFirstInteraction, true);
 
         // should only go out on one beacon
         impl.firstInputDelay = null;
