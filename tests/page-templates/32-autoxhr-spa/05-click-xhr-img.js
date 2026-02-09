@@ -27,6 +27,10 @@ describe("e2e/32-autoxhr-spa/05-click-xhr-img.js", function() {
     it("Should have http.initiator = spa_hard", function() {
       assert.equal(tf.beacons[0]["http.initiator"], "spa_hard");
     });
+
+    it("Should not have a SPA Resource Count (spa.n)", function() {
+      assert.isUndefined(tf.beacons[0]["spa.n"]);
+    });
   });
 
   describe("Beacon 2", function() {
@@ -56,6 +60,10 @@ describe("e2e/32-autoxhr-spa/05-click-xhr-img.js", function() {
 
     it("Should have Front End Time ~2000ms", function() {
       assert.closeTo(tf.beacons[1].t_page, t.imgTimes.img1.duration, 100);
+    });
+
+    it("Should not have a SPA Resource Count (spa.n)", function() {
+      assert.isUndefined(tf.beacons[1]["spa.n"]);
     });
   });
 });

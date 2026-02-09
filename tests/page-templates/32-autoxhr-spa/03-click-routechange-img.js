@@ -57,5 +57,9 @@ describe("e2e/32-autoxhr-spa/03-click-routechange-img.js", function() {
     it("Should have Front End Time ~2050ms", function() {
       assert.closeTo(tf.beacons[1].t_page, t.imgTimes.img1.duration + 50, 100);
     });
+
+    it("Should have set SPA Resource Count (spa.n) to 1", function() {
+      assert.equal(tf.beacons[1]["spa.n"], 1);
+    });
   });
 });

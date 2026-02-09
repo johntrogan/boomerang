@@ -345,6 +345,10 @@
  *       SPA beacon. If not, drop the pending event.
  *     - Proceed with 0 above.
  *
+ * # Beacon Parameters
+ *
+ * * `spa.n`: Total number of resources (e.g. XHR, images, scripts, etc.) that were fetched during this SPA nav
+ *
  * @class BOOMR.plugins.AutoXHR
  */
 (function() {
@@ -996,12 +1000,19 @@
       if (BOOMR.utils.inArray(resource.initiator, BOOMR.constants.BEACON_TYPE_SPAS)) {
         self.calculateSpaTimings(resource);
 
-        // If the SPA load was aborted, set the rt.quit and rt.abld flags
-        if (typeof eventIndex === "number" && self.pending_events[eventIndex].aborted) {
-          // Save the URL otherwise it might change before we have a chance to put it on the beacon
-          BOOMR.addVar("pgu", d.URL, true);
-          BOOMR.addVar("rt.quit", "", true);
-          BOOMR.addVar("rt.abld", "", true);
+        if (typeof eventIndex === "number" && self.pending_events[eventIndex]) {
+          // total nodes tracked (e.g. XHR, images, scripts, etc.)
+          if (self.pending_events[eventIndex].total_nodes) {
+            BOOMR.addVar("spa.n", self.pending_events[eventIndex].total_nodes, true);
+          }
+
+          // If the SPA load was aborted, set the rt.quit and rt.abld flags
+          if (self.pending_events[eventIndex].aborted) {
+            // Save the URL otherwise it might change before we have a chance to put it on the beacon
+            BOOMR.addVar("pgu", d.URL, true);
+            BOOMR.addVar("rt.quit", "", true);
+            BOOMR.addVar("rt.abld", "", true);
+          }
         }
       }
 
@@ -2974,6 +2985,8 @@
         BOOMR.instrumentFetch = instrumentFetch;
         BOOMR.uninstrumentFetch = uninstrumentFetch;
 
+        BOOMR.registerEvent("xhr_error");
+
         // Ensure we're only once adding the shouldExcludeXhr
         this.addExcludeFilter(shouldExcludeXhr, null, "shouldExcludeXhr");
 
@@ -3070,8 +3083,6 @@
           }
         }
       }
-
-      BOOMR.registerEvent("xhr_error");
     },
 
     /**

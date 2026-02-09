@@ -53,5 +53,9 @@ describe("e2e/32-autoxhr-spa/15-click-xhr-routechange-no-dom.js", function() {
     it("Should have Front End Time = 1ms", function() {
       assert.equal(tf.beacons[1].t_page, 1);
     });
+
+    it("Should not have a SPA Resource Count (spa.n)", function() {
+      assert.isUndefined(tf.beacons[1]["spa.n"]);
+    });
   });
 });
