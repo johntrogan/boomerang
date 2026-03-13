@@ -37,7 +37,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm ci --no-audit --prefer-offline
-      - run: npm run bower-install
+      - run: npm run postinstall-dev
       - run: echo "127.0.0.1 boomerang-test.local" | sudo tee -a /etc/hosts
       - run: echo "127.0.0.1 boomerang-test2.local" | sudo tee -a /etc/hosts
       - run: npm run unit-test
@@ -50,14 +50,55 @@ jobs:
     env:
       CI_NODE_INDEX: 0
       CI_NODE_TOTAL: 5
+      DEBUG: 1
     steps:
+      #
+      # Checkout code
+      #
       - uses: actions/checkout@v2
+
+      #
+      # Setup Node.js 24 and Chrome for installing dependencies and setting up chromedriver
+      #
+      - name: Use Node.js 24 for installs and Chrome setup
+        uses: actions/setup-node@v1
+        with:
+          node-version: 24
+      - uses: browser-actions/setup-chrome@v2
+        id: setup-chrome
+        with:
+          chrome-version: 145
+          install-chromedriver: true
+          install-dependencies: true
+      - name: Get Chrome Version
+        run: |
+          ${{ steps.setup-chrome.outputs.chrome-path }} --version
+      - name: Update PATH
+        run: |
+          sudo ln -sf ${{ steps.setup-chrome.outputs.chrome-path }} /usr/bin/google-chrome
+
+      #
+      # Setup java
+      #
+      - uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      #
+      # Setup Node.js 12 for running tests
+      #
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+
+      #
+      # Install dependencies, setup hosts and run tests
+      #
       - run: npm ci --no-audit --prefer-offline
-      - run: npm run bower-install
+      - run: npm run postinstall-dev
+      - run: echo "" | sudo tee -a /etc/hosts
       - run: echo "127.0.0.1 boomerang-test.local" | sudo tee -a /etc/hosts
       - run: echo "127.0.0.1 boomerang-test2.local" | sudo tee -a /etc/hosts
       - run: npm run e2e-test
@@ -71,13 +112,53 @@ jobs:
       CI_NODE_INDEX: 1
       CI_NODE_TOTAL: 5
     steps:
+      #
+      # Checkout code
+      #
       - uses: actions/checkout@v2
+
+      #
+      # Setup Node.js 24 and Chrome for installing dependencies and setting up chromedriver
+      #
+      - name: Use Node.js 24 for installs and Chrome setup
+        uses: actions/setup-node@v1
+        with:
+          node-version: 24
+      - uses: browser-actions/setup-chrome@v2
+        id: setup-chrome
+        with:
+          chrome-version: 145
+          install-chromedriver: true
+          install-dependencies: true
+      - name: Get Chrome Version
+        run: |
+          ${{ steps.setup-chrome.outputs.chrome-path }} --version
+      - name: Update PATH
+        run: |
+          sudo ln -sf ${{ steps.setup-chrome.outputs.chrome-path }} /usr/bin/google-chrome
+
+      #
+      # Setup java
+      #
+      - uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      #
+      # Setup Node.js 12 for running tests
+      #
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+
+      #
+      # Install dependencies, setup hosts and run tests
+      #
       - run: npm ci --no-audit --prefer-offline
-      - run: npm run bower-install
+      - run: npm run postinstall-dev
+      - run: echo "" | sudo tee -a /etc/hosts
       - run: echo "127.0.0.1 boomerang-test.local" | sudo tee -a /etc/hosts
       - run: echo "127.0.0.1 boomerang-test2.local" | sudo tee -a /etc/hosts
       - run: npm run e2e-test
@@ -91,13 +172,53 @@ jobs:
       CI_NODE_INDEX: 2
       CI_NODE_TOTAL: 5
     steps:
+      #
+      # Checkout code
+      #
       - uses: actions/checkout@v2
+
+      #
+      # Setup Node.js 24 and Chrome for installing dependencies and setting up chromedriver
+      #
+      - name: Use Node.js 24 for installs and Chrome setup
+        uses: actions/setup-node@v1
+        with:
+          node-version: 24
+      - uses: browser-actions/setup-chrome@v2
+        id: setup-chrome
+        with:
+          chrome-version: 145
+          install-chromedriver: true
+          install-dependencies: true
+      - name: Get Chrome Version
+        run: |
+          ${{ steps.setup-chrome.outputs.chrome-path }} --version
+      - name: Update PATH
+        run: |
+          sudo ln -sf ${{ steps.setup-chrome.outputs.chrome-path }} /usr/bin/google-chrome
+
+      #
+      # Setup java
+      #
+      - uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      #
+      # Setup Node.js 12 for running tests
+      #
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+
+      #
+      # Install dependencies, setup hosts and run tests
+      #
       - run: npm ci --no-audit --prefer-offline
-      - run: npm run bower-install
+      - run: npm run postinstall-dev
+      - run: echo "" | sudo tee -a /etc/hosts
       - run: echo "127.0.0.1 boomerang-test.local" | sudo tee -a /etc/hosts
       - run: echo "127.0.0.1 boomerang-test2.local" | sudo tee -a /etc/hosts
       - run: npm run e2e-test
@@ -111,13 +232,53 @@ jobs:
       CI_NODE_INDEX: 3
       CI_NODE_TOTAL: 5
     steps:
+      #
+      # Checkout code
+      #
       - uses: actions/checkout@v2
+
+      #
+      # Setup Node.js 24 and Chrome for installing dependencies and setting up chromedriver
+      #
+      - name: Use Node.js 24 for installs and Chrome setup
+        uses: actions/setup-node@v1
+        with:
+          node-version: 24
+      - uses: browser-actions/setup-chrome@v2
+        id: setup-chrome
+        with:
+          chrome-version: 145
+          install-chromedriver: true
+          install-dependencies: true
+      - name: Get Chrome Version
+        run: |
+          ${{ steps.setup-chrome.outputs.chrome-path }} --version
+      - name: Update PATH
+        run: |
+          sudo ln -sf ${{ steps.setup-chrome.outputs.chrome-path }} /usr/bin/google-chrome
+
+      #
+      # Setup java
+      #
+      - uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      #
+      # Setup Node.js 12 for running tests
+      #
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+
+      #
+      # Install dependencies, setup hosts and run tests
+      #
       - run: npm ci --no-audit --prefer-offline
-      - run: npm run bower-install
+      - run: npm run postinstall-dev
+      - run: echo "" | sudo tee -a /etc/hosts
       - run: echo "127.0.0.1 boomerang-test.local" | sudo tee -a /etc/hosts
       - run: echo "127.0.0.1 boomerang-test2.local" | sudo tee -a /etc/hosts
       - run: npm run e2e-test
@@ -131,13 +292,53 @@ jobs:
       CI_NODE_INDEX: 4
       CI_NODE_TOTAL: 5
     steps:
+      #
+      # Checkout code
+      #
       - uses: actions/checkout@v2
+
+      #
+      # Setup Node.js 24 and Chrome for installing dependencies and setting up chromedriver
+      #
+      - name: Use Node.js 24 for installs and Chrome setup
+        uses: actions/setup-node@v1
+        with:
+          node-version: 24
+      - uses: browser-actions/setup-chrome@v2
+        id: setup-chrome
+        with:
+          chrome-version: 145
+          install-chromedriver: true
+          install-dependencies: true
+      - name: Get Chrome Version
+        run: |
+          ${{ steps.setup-chrome.outputs.chrome-path }} --version
+      - name: Update PATH
+        run: |
+          sudo ln -sf ${{ steps.setup-chrome.outputs.chrome-path }} /usr/bin/google-chrome
+
+      #
+      # Setup java
+      #
+      - uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      #
+      # Setup Node.js 12 for running tests
+      #
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+
+      #
+      # Install dependencies, setup hosts and run tests
+      #
       - run: npm ci --no-audit --prefer-offline
-      - run: npm run bower-install
+      - run: npm run postinstall-dev
+      - run: echo "" | sudo tee -a /etc/hosts
       - run: echo "127.0.0.1 boomerang-test.local" | sudo tee -a /etc/hosts
       - run: echo "127.0.0.1 boomerang-test2.local" | sudo tee -a /etc/hosts
       - run: npm run e2e-test
