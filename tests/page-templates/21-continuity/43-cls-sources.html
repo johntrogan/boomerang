@@ -56,10 +56,23 @@ observer = new window.PerformanceObserver(function(list) {
 
       var prevRect = sources[s].previousRect;
 
-      newSource.previousRect = { "x": prevRect.x, "y": prevRect.y, "width": prevRect.width, "height": prevRect.height };
+      newSource.previousRect = {
+        "x": Math.floor(prevRect.x),
+        "y": Math.floor(prevRect.y),
+        "width": Math.floor(prevRect.width),
+        "height": Math.floor(prevRect.height)
+      };
+
       var currRect = sources[s].currentRect;
 
-      newSource.currentRect = { "x": currRect.x, "y": currRect.y, "width": currRect.width, "height": currRect.height };
+      // NOTE: Not rounded here, as the CLS sources should report the exact values for the currentRect,
+      // and not the rounded values that are used for the score calculation
+      newSource.currentRect = {
+        "x": Math.floor(currRect.x),
+        "y": Math.floor(currRect.y),
+        "width": Math.floor(currRect.width),
+        "height": Math.floor(currRect.height)
+      };
 
       sourceList.push(newSource);
     }

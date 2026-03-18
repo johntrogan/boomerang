@@ -1363,6 +1363,7 @@ module.exports = function() {
       "concat:debug",
       "concat:debug-tests",
       "!build:apply-templates",
+      "string-replace:debug-tests",
       "uglify:debug-test-min",
       "uglify:inline-consent-plugin"
     ],

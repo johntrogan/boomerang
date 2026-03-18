@@ -2041,29 +2041,29 @@
         var currRect = sources[i].currentRect;
 
         newSource.p = {
-          x: prevRect.x.toString(36),
-          y: prevRect.y.toString(36),
-          w: prevRect.width.toString(36),
-          h: prevRect.height.toString(36)
+          x: Math.floor(prevRect.x).toString(36),
+          y: Math.floor(prevRect.y).toString(36),
+          w: Math.floor(prevRect.width).toString(36),
+          h: Math.floor(prevRect.height).toString(36)
         };
 
         // only store changes from previous to currect rect as key 'd'
         newSource.d = {};
 
         if (currRect.x - prevRect.x !== 0) {
-          newSource.d.x = (currRect.x - prevRect.x).toString(36);
+          newSource.d.x = (Math.floor(currRect.x) - Math.floor(prevRect.x)).toString(36);
         }
 
         if (currRect.y - prevRect.y !== 0) {
-          newSource.d.y = (currRect.y - prevRect.y).toString(36);
+          newSource.d.y = (Math.floor(currRect.y) - Math.floor(prevRect.y)).toString(36);
         }
 
         if (currRect.width - prevRect.width !== 0) {
-          newSource.d.w = (currRect.width - prevRect.width).toString(36);
+          newSource.d.w = (Math.floor(currRect.width) - Math.floor(prevRect.width)).toString(36);
         }
 
         if (currRect.height - prevRect.height !== 0) {
-          newSource.d.h = (currRect.height - prevRect.height).toString(36);
+          newSource.d.h = (Math.floor(currRect.height) - Math.floor(prevRect.height)).toString(36);
         }
 
         // add newSource object to serSources list for this entry of compressedSources

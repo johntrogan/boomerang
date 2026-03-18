@@ -12,7 +12,12 @@
 <body>
   <p>application/xhtml+xml page</p>
   <script>
-  window.BOOMR_config = { autorun: true };
+  BOOMR.init({
+    autorun: true,
+    History: {
+      enabled: false
+    }
+  });
   </script>
 </body>
 </html>

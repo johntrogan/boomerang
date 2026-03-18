@@ -63,7 +63,6 @@ BOOMR_test.fireMockPerformanceObserverEvent("event", [
   generateEvent(2500, 2500, 4)
 ]);
 
-window.performance = window.performance || {};
-window.performance.interactionCount = 50;
+BOOMR_test.fakeInteractionCount(50);
 </script>
 <%= footer %>

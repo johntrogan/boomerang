@@ -40,6 +40,14 @@ function generateLCP(id) {
   };
 }
 
+// queue up some LCP entries before config is set to simulate early LCP entries being buffered
+BOOMR_test.fireMockPerformanceObserverEvent("largest-contentful-paint",
+  [
+    generateLCP("img_id1"),
+    generateLCP("img_id2")
+  ]
+);
+
 // simulate delayed config
 setTimeout(function() {
   BOOMR_test.init({
@@ -52,13 +60,6 @@ setTimeout(function() {
       enabled: true
     }
   });
-
-  BOOMR_test.fireMockPerformanceObserverEvent("largest-contentful-paint",
-    [
-      generateLCP("img_id1"),
-      generateLCP("img_id2")
-    ]
-  );
 }, 200);
 
 </script>

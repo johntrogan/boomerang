@@ -1188,6 +1188,28 @@
   };
 
   /**
+   * Fake interactionCount
+   */
+  t.fakeInteractionCount = function(count) {
+    try {
+      if (!"performance" in window) {
+        window.performance = window.performance || {};
+        window.performance.interactionCount = 500;
+      }
+      else {
+        Object.defineProperty(window.performance, "interactionCount", {
+          get: function() {
+            return count;
+          }
+        });
+      }
+    }
+    catch (e) {
+      console.log("Warning: window.performance.interactionCount could not be redefined");
+    }
+  };
+
+  /**
    * Fake ActivationStart offset
    */
   t.fakeNavigationEntryPropertyOffsets = {};
@@ -2060,6 +2082,7 @@
   // List of mocked PerformanceObserver listeners, keyed by their type
   //
   t.mockPO = {};
+  t.mockPOData = {};
 
   /**
    * Mock the PeformanceObserver object.
@@ -2079,6 +2102,16 @@
           this.entryTypes.forEach(function(type) {
             t.mockPO[type] = t.mockPO[type] || [];
             t.mockPO[type].push(callback);
+
+            if (t.mockPOData[type]) {
+              // if we have any queued up data for this type, fire it now
+              t.mockPOData[type].forEach(function(data) {
+                t.fireMockPerformanceObserverEvent(type, data);
+              });
+
+              // clear the queue
+              t.mockPOData[type] = [];
+            }
           });
         },
         disconnect: function() {
@@ -2105,6 +2138,10 @@
    */
   t.fireMockPerformanceObserverEvent = function(type, data) {
     if (!t.mockPO[type]) {
+      // no listener yet, queue up this data for the first observer that listens for this type
+      t.mockPOData[type] = t.mockPOData[type] || [];
+      t.mockPOData[type].push(data);
+
       return;
     }
 
