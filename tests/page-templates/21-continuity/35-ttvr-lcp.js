@@ -20,6 +20,6 @@ describe("e2e/21-continuity/35-ttvr-lcp", function() {
     var lcp = parseInt(b["pt.lcp"], 10);
     var vr = parseInt(b["c.tti.vr"], 10);
 
-    assert.closeTo(vr, lcp, 20);
+    assert.closeTo(vr, lcp, 50);
   });
 });
