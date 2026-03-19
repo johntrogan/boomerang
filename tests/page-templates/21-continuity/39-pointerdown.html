@@ -16,7 +16,7 @@ var pd = document.createEvent("Event");
 pd.initEvent("pointerdown", true, true);
 window.dispatchEvent(pd);
 
-// followed by pointerup event in 30ms
+// followed by pointerup event in 5ms
 var pu = document.createEvent("Event");
 
 pu.initEvent("pointerup", true, true);
@@ -24,4 +24,6 @@ setTimeout(function(){
   window.dispatchEvent(pu);
 }, 5);
 </script>
+<!-- add a delayed image to ensure the event is on the beacon -->
+<img src="/delay?delay=2000&amp;file=/assets/img.jpg&amp;id=2000" style="width:100px;"/>
 <%= footer %>
