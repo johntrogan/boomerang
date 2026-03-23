@@ -1,5 +1,40 @@
 # Boomerang Release Notes
 
+## 1.850.0 (Mar 23, 2026)
+
+### New Features
+
+* Issue 0867: AutoXHR: Add total number of resources tracked as `spa.n`
+* Issue 1213: Boomerang: Prerendered Support Part 3
+* Issue 1210: Boomerang: Smarter defaults for 2024+
+* Issue 1222: EventTiming: Name
+* Issue 1209: EventTiming: Input and Processing times
+* Issue 1201: ResTiming: Added contentType, deliveryType, renderBlockingStatus, responseStatus, firstInterimResponseStart, criticalCHRestart
+
+### Bug Fixes
+
+* Issue 1192: BFCache: NotRestoredReasons API change to final shape
+* Issue 1217: BFCache: Don't include LCP metric if not supported by browser
+* Issue 1155: Boomerang: Strip HTTP Basic Auth from URLs
+* Issue 1220: Continuity: Fix TTFI when EventTiming plugin is missing
+* Issue 1212: Continuity: Read buffered Long Tasks
+* Issue 1196: EventTiming: Add `c.ttfi` whenever we calculate FID
+* Issue 1197: Loader Snippet: Append to BODY if available
+* Issue 1207: Loader Snippet: v16 final
+* Issue 1203: PaintTiming: Reset LCP data on new events
+
+### Misc
+
+* Issue 1221: Boomerang: Add an immutable copy of the boomerang version number so that other code on the page cannot change it
+* Issue 1219: Boomerang: `arrayFind()` optimizations
+* Issue 1211: Build: Switch npm run commands to use local `node_modules/.bin/`
+* Issue 1202: Build: `package.json`: Fix dependencies (and remove unused ones)
+* Issue 1218: BW: Add SPA bandwidth plugin test
+* Issue 1178: BW: Added testing for bandwidth plugin
+* Issue 1208: Lint: New ESLint rules
+* Issue 1205: Tests: Test fixes
+* Issue 1214: Tests: Tweak numbers for intermittently failing tests
+
 ## 1.815.1 (Aug 15, 2025)
 
 ### Bug Fixes
