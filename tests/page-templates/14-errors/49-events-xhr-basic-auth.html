@@ -16,6 +16,7 @@ BOOMR_test.init({
 // create an element on demand with some auth in the URL
 (function() {
   var scriptElem = document.createElement("script");
+
   scriptElem.src = "//test:test@" + window.location.hostname + ":" + window.location.port + "/pages/14-errors/support/trigger-xhr-error.js";
   scriptElem.crossOrigin = "anonymous";
   document.body.appendChild(scriptElem);

@@ -6,12 +6,12 @@
 BOOMR_test.init({
   testAfterOnBeacon: true,
   BW: {
-    base_url: window.location.protocol +  "//" + window.location.hostname + ":" + window.location.port + "/pages/36-bw/support/images/",
+    base_url: window.location.protocol + "//" + window.location.hostname + ":" + window.location.port + "/pages/36-bw/support/images/",
     block_beacon: true
   },
   user_ip: "abc123",
   History: {
-    enabled: true,  // wait for soft navs
+    enabled: true, // wait for soft navs
     auto: true
   },
   afterFirstBeacon: function() {
@@ -20,7 +20,7 @@ BOOMR_test.init({
       BOOMR_test.routeChangeRnd("newstate");
     });
   },
-  autorun: false  // wait for soft navs
+  autorun: false // wait for soft navs
 });
 </script>
 <%= footer %>

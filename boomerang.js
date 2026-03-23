@@ -411,7 +411,8 @@ BOOMR_check_doc_domain();
     // Private Members
     //
 
-    // Internal, unchangeable version string. We use this internally as the true boomerang version since BOOMR.version can be changed by outside code.
+    // Internal, unchangeable version string.
+    // We use this internally as the true boomerang version since BOOMR.version can be changed by outside code.
     version: "%boomerang_version%",
 
     // Beacon URL
@@ -1163,7 +1164,7 @@ BOOMR_check_doc_domain();
      * @returns {string} Boomerang version
      */
     getVersion: function() {
-        return impl.version;
+      return impl.version;
     },
 
     /**
