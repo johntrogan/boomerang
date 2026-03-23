@@ -37,12 +37,12 @@ describe("e2e/31-eventtiming/07-inp-after-page-load", function() {
       assert.operator(parseInt(tf.beacons[0]["et.inp.inc.t"], 10), ">=", 0);
     });
 
-    it("Should have included the EventTiming timeline (et.e) on the Page Load beacon", function() {
-      assert.operator(tf.beacons[0]["et.e"].length, ">", 0);
-    });
-
     it("Should have included Incremental Interaction to Next Paint Name (et.inp.inc.n) on the Page Load beacon", function() {
       assert.equal(tf.beacons[0]["et.inp.inc.n"], "click");
+    });
+
+    it("Should have included the EventTiming timeline (et.e) on the Page Load beacon", function() {
+      assert.operator(tf.beacons[0]["et.e"].length, ">", 0);
     });
   });
 
@@ -59,6 +59,10 @@ describe("e2e/31-eventtiming/07-inp-after-page-load", function() {
       assert.operator(parseInt(tf.beacons[1]["et.inp.t"], 10), ">=", 0);
     });
 
+    it("Should have included Interaction to Next Paint Name (et.inp.n) on the Unload beacon", function() {
+      assert.equal(tf.beacons[1]["et.inp.n"], "click");
+    });
+
     it("Should have included Incremental Interaction to Next Paint (et.inp.inc) on the Unload beacon", function() {
       assert.equal(parseInt(tf.beacons[1]["et.inp.inc"], 10), 1000);
     });
@@ -71,8 +75,12 @@ describe("e2e/31-eventtiming/07-inp-after-page-load", function() {
       assert.operator(parseInt(tf.beacons[1]["et.inp.inc.t"], 10), ">=", 0);
     });
 
-    it("Should not have included Incremental Interaction to Next Paint Name (et.inp.inc.n) on the Unload beacon", function() {
-      assert.isUndefined(tf.beacons[1]["et.inp.inc.n"]);
+    it("Should have included Incremental Interaction to Next Paint Name (et.inp.inc.n) on the Unload beacon", function() {
+      assert.equal(tf.beacons[1]["et.inp.inc.n"], "click");
+    });
+
+    it("Should have included the EventTiming timeline (et.e) on the Unload beacon", function() {
+      assert.operator(tf.beacons[1]["et.e"].length, ">", 0);
     });
   });
 });

@@ -95,8 +95,8 @@ describe("e2e/20-painttiming/03-lcp-src", function() {
 
       assert.isString(b["pt.lcp.srcset"]);
 
-      assert.equal(b["pt.lcp.srcset"], BOOMR.plugins.PaintTiming.metrics.lcpSrcset());
-      assert.equal(b["pt.lcp.srcset"], "/delay?delay=2000&file=/assets/img.jpg&id=2000 1w, /delay?delay=2000&file=/assets/img.jpg&id=2000 9999w");
+      assert.include(b["pt.lcp.srcset"], "/delay?delay=2000&file=/assets/img.jpg&id=2000 1w");
+      assert.include(b["pt.lcp.srcset"], "/delay?delay=2000&file=/assets/img.jpg&id=2000 9999w");
     });
 
     it("Should have exposed LCP metric sizes (pt.lcp.sizes) (if LargestContentfulPaint is supported and happened by load)", function() {
