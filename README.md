@@ -485,6 +485,18 @@ Get in touch at [github.com/akamai/boomerang/issues](https://github.com/akamai/b
 boomerang is supported by the developers at [Akamai](http://akamai.com/), and the
 awesome community of open-source developers that use and hack it.  That's you.  Thank you!
 
+# Angular wrapper
+
+An Angular 21+ wrapper for boomerangjs exists since 2026, that provides automatic script loading and Real User Monitoring (RUM) support via Angular's dependency injection system.
+
+**Features**
+* Automatic boomerang script loading with ordered sequence support
+* APP_INITIALIZER integration for zero-boilerplate setup
+* Full TypeScript types for boomerang configuration
+* SPA-friendly with History and SPA plugin support
+
+You can find this package available in npm as [ngx-boomerangjs](https://www.npmjs.com/package/ngx-boomerangjs).
+
 # Contributions
 
 Boomerang is brought to you by:
